@@ -75,15 +75,6 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService(){
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("1234")
-                .authorities("ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(admin);
-    }
-    @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }

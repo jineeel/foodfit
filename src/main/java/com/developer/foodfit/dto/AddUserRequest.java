@@ -9,7 +9,7 @@ public class AddUserRequest {
     private String userId;
     private String password;
     private String username;
-    private String tel;
+    private String phone;
     private String email;
     private Role role;
 
