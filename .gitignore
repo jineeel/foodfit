@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### OAuth ###
-#**/application-oauth.yml
+**/application-oauth.yml
