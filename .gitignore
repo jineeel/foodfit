@@ -38,3 +38,9 @@ out/
 
 ### OAuth ###
 src/main/resources/application-oauth.yml
+
+### Sms ###
+src/main/resources/application-sms.yml
+
+### Mail ###
+src/main/resources/application-mail.yml

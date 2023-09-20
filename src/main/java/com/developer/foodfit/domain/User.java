@@ -42,7 +42,6 @@ public class User {
     private String detailAdr;
 
     @Builder
-
     public User(Long id, String userId, String email, String phone, String password, String username, Role role,
                 String provider, String providerId, LocalDateTime createDate, String zipcode, String streetAdr, String detailAdr) {
 
@@ -60,44 +59,19 @@ public class User {
         this.streetAdr = streetAdr;
         this.detailAdr = detailAdr;
     }
-}
-//
-//    public User(String userId, String email, String tel, String password, String username, String zipcode, String streetAdr, String detailAdr) {
-//        this.userId = userId;
-//        this.email = email;
-//        this.tel = tel;
-//        this.password = password;
-//        this.username = username;
-//        this.zipcode = zipcode;
-//        this.streetAdr = streetAdr;
-//        this.detailAdr = detailAdr;
-//    }
-//
-//    public User(String userId, String password) {
-//        this.userId=userId;
-//        this.password=password;
-//    }
-//
-//    public void updatePw(String password){
-//        this.password = password;
-//    }
-//    public void update(String username, String zipcode, String streetAdr, String detailAdr, String tel){
-//        this.username = username;
-//        this.zipcode = zipcode;
-//        this.streetAdr = streetAdr;
-//        this.detailAdr = detailAdr;
-//        this.tel = tel;
-//    }
-//    public void update(String password, String username, String zipcode, String streetAdr, String detailAdr, String tel, String email){
-//        this.password = password;
-//        this.username = username;
-//        this.zipcode = zipcode;
-//        this.streetAdr = streetAdr;
-//        this.detailAdr = detailAdr;
-//        this.tel = tel;
-//        this.email = email;
-//    }
-//
-//
-//}
 
+    public void update(String email, String phone, String password, String username, String zipcode, String streetAdr, String detailAdr) {
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.username = username;
+        this.zipcode = zipcode;
+        this.streetAdr = streetAdr;
+        this.detailAdr = detailAdr;
+    }
+
+    public void updatePassword(String password){
+        this.password = password;
+    }
+
+}

@@ -29,7 +29,7 @@ public class OAuth2LoginFailureHandler extends SimpleUrlAuthenticationFailureHan
         }
 
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");//한글 인코딩 깨지는 문제 방지
-        setDefaultFailureUrl("/loginForm?error=true&exception=" + errorMessage);
+        setDefaultFailureUrl("/user/error?error=true&exception=" + errorMessage);
         super.onAuthenticationFailure(request, response, exception);
     }
 

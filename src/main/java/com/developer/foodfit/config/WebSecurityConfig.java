@@ -1,6 +1,9 @@
 package com.developer.foodfit.config;
 
 import com.developer.foodfit.config.oauth.OAuth2LoginFailureHandler;
+import com.developer.foodfit.constant.Role;
+import com.developer.foodfit.domain.User;
+import com.developer.foodfit.dto.PrincipalDetails;
 import com.developer.foodfit.service.PrincipalOauthUserService;
 import com.developer.foodfit.service.PrincipalService;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +14,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,6 +27,7 @@ public class WebSecurityConfig {
 
     private final PrincipalOauthUserService principalOauthUserService;
     private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
+//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -40,7 +44,9 @@ public class WebSecurityConfig {
                         authorize
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers(
-//                                        AntPathRequestMatcher.antMatcher("/mypage"),
+                                        AntPathRequestMatcher.antMatcher("/mypage"), //TODO:추후 삭제
+                                        AntPathRequestMatcher.antMatcher("/login"),
+                                        AntPathRequestMatcher.antMatcher("/api/**"),
                                         AntPathRequestMatcher.antMatcher("/"),
                                         AntPathRequestMatcher.antMatcher("/user/**"),
                                         AntPathRequestMatcher.antMatcher("/images/**"),
@@ -84,5 +90,17 @@ public class WebSecurityConfig {
         return new LoginFailHandler();
     }
 
+//    @Bean
+//    public UserDetailsService users(){
+//        String rawPassword = "1234";
+//        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+//        UserDetails admin = PrincipalDetails
+//                .userId("admin")
+//                .password(encPassword)
+//                .role(Role.ADMIN)
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(admin);
+//    }
 }
 

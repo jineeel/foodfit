@@ -1,8 +1,11 @@
 package com.developer.foodfit.dto;
 
 import com.developer.foodfit.constant.Role;
-import lombok.Getter;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
 @Getter
 public class AddUserRequest {
 

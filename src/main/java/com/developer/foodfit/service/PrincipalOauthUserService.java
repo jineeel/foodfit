@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,7 +29,6 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
-
 
         /** OAuth 로그인 / 회원가입 **/
         OAuth2User oAuth2User = super.loadUser(userRequest);
@@ -52,11 +52,11 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
         String email = oAuth2UserInfo.getEmail();
         Role role = Role.GUEST;
 
-        User emailEntity = userRepository.findByEmail(email);
+        // TODO : 코드 리팩토링
+        Optional<User> emailEntity = userRepository.findByEmail(email);
         User userEntity = userRepository.findByProviderId(providerId);
-
         if(userEntity==null){
-            if(emailEntity==null){
+            if(!emailEntity.isPresent()){
                 LocalDateTime createTime = LocalDateTime.now();
 
                 userEntity = User.builder()

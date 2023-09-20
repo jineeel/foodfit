@@ -18,7 +18,7 @@
             <div class="top_nav_right">
                 <ul class="navbar_user">
                     <li sec:authorize="isAuthenticated()"><a href="/logout"> 로그아웃 </a></li>
-                    <li sec:authorize="isAnonymous()"><a href="user/login"> 로그인 </a></li>
+                    <li sec:authorize="isAnonymous()"><a href="/login"> 로그인 </a></li>
                     <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
                     <li><a href="/mypage"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                     <li class="checkout">
@@ -62,7 +62,8 @@
                     <li><a href="#">무료배송</a></li>
                     <li><a href="#">이벤트</a></li>
                     <li><a href="/test">공지사항</a></li>
-                    <li sec:authorize="hasAnyAuthority('ADMIN')"><a href="/test">상품등록</a></li>
+<!--                    <li sec:authorize="hasAnyAuthority('ADMIN')"><a href="/test">상품등록</a></li>-->
+                    <li><a href="/item">상품등록</a></li>
                 </ul>
 
 <!--                        <ul class="navbar_menu">-->

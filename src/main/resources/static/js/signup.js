@@ -49,12 +49,12 @@ function checkDataId(userId) {
             url: '/user/checkId',
             type: 'POST', //POST 방식으로 전달
             data: {
-                "id": userId
+                "userId": userId
             },
             async: false,
             success: function (result) {
                 console.log(result)
-                if (result) {
+                if (!result) {
                     idErrorMsgEl.textContent = errMsg.id.success;
                     idErrorMsgEl.style.color='green';
                     account.id = idInputEl.value;
@@ -129,7 +129,7 @@ const phoneErrorMsgEl = document.querySelector('#info_phone .error-msg');
 function setValidTel(phone) {
     const phoneRegExp = /^\d{3}\d{3,4}\d{4}$/;
     if (phoneRegExp.test(phoneInputEl.value)) {
-        checkDataTel(phone);
+        checkDataPhone(phone);
     } else {
         phoneErrorMsgEl.textContent = errMsg.phone.invalid;
         phoneErrorMsgEl.style.color = 'red';
@@ -137,7 +137,7 @@ function setValidTel(phone) {
         status = false;
     }
 
-    function checkDataTel(phone) { //전화번호 중복 체크
+    function checkDataPhone(phone) { //전화번호 중복 체크
         $.ajax({
                 url: '/user/checkPhone',
                 type: 'POST', //POST 방식으로 전달
@@ -146,7 +146,7 @@ function setValidTel(phone) {
                 },
                 async:false,
                 success: function (result) {
-                    if (result) {
+                    if (!result) {
                         phoneErrorMsgEl.textContent = errMsg.phone.success;
                         phoneErrorMsgEl.style.color='green';
                         account.phone = phoneInputEl.value;
@@ -170,7 +170,7 @@ function setValidTel(phone) {
 }
 
 const phoneSendBtn = document.getElementById('sendBtn');
-const phoneNumInputEl = document.querySelector('#info_tel_ck input');
+const phoneNumInputEl = document.querySelector('#info_phone_number input');
 const confirmBtn = document.getElementById('confirmBtn');
 const confirm = document.getElementById('confirm');
 
@@ -186,18 +186,18 @@ function sendTelNumber(phone) {
         type: "post",
         dataType: "json",
         data: JSON.stringify({
-            "to": phoneInputEl.value
+            "to": phone
         }),
         contentType: "application/json",
         success: function (data) {
             sendAuthNum();
             // $("#confirm").attr("value", data);
             confirm.value=data;
-            document.getElementById('info_tel_num').style.display="";
+            document.getElementById('info_phone_num').style.display="";
             phoneNumInputEl.disabled=false;
             confirmBtn.disabled=false;
-            phoneSendBtn.style.background="#fdc200";
-            confirmBtn.style.background="#fdc200";
+            phoneSendBtn.style.background="#a8d98e";
+            confirmBtn.style.background="#a8d98e";
         },
     });
 }
@@ -239,13 +239,13 @@ function startTimer(count, display) {
 }
 
 /*** 휴대폰번호 인증번호 체크 ***/
-const numErrorMsgEl = document.querySelector('#info_tel_ck .error-msg');
+const numErrorMsgEl = document.querySelector('#info_phone_number .error-msg');
 confirmBtn.addEventListener('click', () => {
 
     if(confirm.value==phoneNumInputEl.value){
         numErrorMsgEl.textContent= errMsg.phoneNum.success;
         numErrorMsgEl.style.color='green';
-        document.getElementById("info_tel_num").style.display="none";
+        document.getElementById("info_phone_num").style.display="none";
         clearInterval(timer);
         account.phoneNum = confirm.value;
         phoneInputEl.readOnly = true;
@@ -286,7 +286,7 @@ emailInputEl.addEventListener('keyup', () => {
                 },
                 async:false,
                 success: function (result) {
-                    if (result) {
+                    if (!result) {
                         emailErrorMsgEl.textContent = errMsg.email.success;
                         emailErrorMsgEl.style.color='green';
                         account.email = emailInputEl.value;

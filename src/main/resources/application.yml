@@ -11,8 +11,10 @@ spring:
     defer-datasource-initialization: true
 
   profiles:
-    include: oauth
-
+    include:
+      - oauth
+      - sms
+      - mail
 
   datasource:
     url: jdbc:h2:mem:testdb;
@@ -21,8 +23,6 @@ spring:
   h2:
     console:
       enabled: true
-
-
 
   thymeleaf:
     cache: false
@@ -40,22 +40,6 @@ spring:
       cache: false
 
 
-  mail:
-    host: smtp.gmail.com
-    port: 465
-    username: iiojineee@gmail.com
-    password: xxtgsorsbghvkqnu
-    properties:
-      mail.smtp.auth: true
-      mail.smtp.ssl.enable: true
-      mail.smtp.ssl.trust: smtp.gmail.com
-      mail.smtp.starttls.enable: true
-
-naver-cloud-sms:
-  accessKey: "gBHVFkTXNquxkoV1Sa0y"
-  secretKey: "HDAYZhH7FZAc0do9ADRIcrHv1LBozvwKfPmI5Ifs"
-  serviceId: "ncp:sms:kr:315761739749:jinee_shop"
-  senderPhone: "01044032571"
 
 
 
