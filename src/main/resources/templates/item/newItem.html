@@ -1,0 +1,82 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>상품 등록</title>
+  <th:block layout:fragment="css">
+  </th:block>
+  <th:block layout:fragment="script"></th:block>
+</head>
+<div layout:fragment="content" class="main_center gray">
+  <div class="text-center">
+    <h4 class="h-text"> 상품 등록 </h4>
+    <form>
+      <div class="inner-div">
+        <div class="input-area">
+          <label>상품 카테고리</label>
+          <select type="text" id="category1" name="category1">
+            <option th:each="category : ${categories}" th:value="${category.getCategoryName()}" th:text="${category.getCategoryName()}"></option>
+          </select>
+          <select type="text" id="category2">
+            <option></option>
+          </select>
+        </div>
+        <div class="input-area">
+          <label>상품명</label>
+          <input type="text">
+        </div>
+        <div class="input-area">
+          <label>가격</label>
+          <input type="number">
+        </div>
+        <div class="input-area">
+          <label>수량</label>
+          <input type="number">
+        </div>
+        <div class="input-area text">
+          <label>상세정보</label>
+          <textarea></textarea>
+        </div>
+        <div class = "input-area">
+          <label>사진 등록</label>
+          <input type="file">
+        </div>
+        <button class="green_button" type="submit">등록</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    const category1 = document.getElementById('category1');
+
+    category1.addEventListener('change',()=>{
+      const selectValue= category1.value;
+      console.log(selectValue);
+
+      $.ajax({
+        url: "/item/findDetailCategory",
+        type: "POST",
+        data : { selectValue : selectValue },
+        success: function (response){
+          const categoty2 = document.getElementById('category2');
+          console.log(response);
+          categoty2.innerHTML = ''; // 기존 옵션 제거
+
+          // 받아온 데이터를 이용하여 새로운 옵션 생성 및 추가
+          response.forEach(function (category) {
+            const option = document.createElement('option');
+            option.value = category.categoryCode;
+            option.text = category.categoryName;
+            category2.appendChild(option);
+          });
+        },
+        error: function (error){
+          console.error("요청실패 "+error);
+        }
+      });
+    })
+  </script>
+</div>
+
+</html>

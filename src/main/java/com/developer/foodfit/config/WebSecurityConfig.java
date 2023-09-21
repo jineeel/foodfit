@@ -44,6 +44,7 @@ public class WebSecurityConfig {
                         authorize
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers(
+                                        AntPathRequestMatcher.antMatcher("/item/**"),
                                         AntPathRequestMatcher.antMatcher("/mypage"), //TODO:추후 삭제
                                         AntPathRequestMatcher.antMatcher("/login"),
                                         AntPathRequestMatcher.antMatcher("/api/**"),

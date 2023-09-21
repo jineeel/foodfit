@@ -343,7 +343,10 @@ section
 {
 	width: 100%;
 	background: #ffffff;
-	box-shadow: 0 0 16px rgba(0, 0, 0, 0.15); /** 상단 그림자 */
+	border-top: 1px solid #f3f3f3;
+	border-bottom: 1px solid #f3f3f3;
+
+	/*box-shadow: 0 0 16px rgba(0, 0, 0, 0.15); !** 상단 그림자 *!*/
 }
 .navbar
 {
@@ -382,26 +385,22 @@ section
 		display: none;
 	}
 }
-	.navbar_menu_all ul {
-
-	}
-
-	.navbar_menu_all:hover .navbar_menu_all_selection {
-		visibility: visible;
-		opacity: 95%;
-		margin-top: 22px;
+	.menu_all:hover + .navbar_menu_all_selection,
+	.navbar_menu_all_selection:hover,
+	.menu_all:hover + .navbar_menu_all_selection:hover {
+		visibility: visible !important;
+		opacity: 95% !important;
+		/*margin-top: 22px;*/
 	}
 
 	.navbar_menu_all li a {
-
 		font-family: 'Noto Sans KR', sans-serif;
 		display: flex;
 		margin-top: 5px;
 		color: #212121;
 		font-size: 18px;
 		font-weight: bold;
-		margin-left: 20px;
-
+		/*margin-left: 20px;*/
 	}
 
 	.navbar_menu_all li a i {
@@ -413,46 +412,35 @@ section
 
 	/**=======================*/
 	.navbar_menu_all_selection {
-
+		font-family: 'Noto Sans KR', sans-serif;
+		position: absolute;
 		display: block;
-		right: 0;
-		margin-top: 10%;
+		right: -40px;
+		/*margin-top: 10%;*/
 		width: 200px;
+		padding-top: 25px;
 		background: #ffffff;
 		visibility: hidden;
-
 		padding-bottom: 10px;
 		z-index: 1;
-		box-shadow: 0 0 25px rgba(126, 126, 126, 0.15);
-		/*-webkit-transition: opacity 0.3s ease;*/
-		/*-moz-transition: opacity 0.3s ease;*/
-		/*-ms-transition: opacity 0.3s ease;*/
-		/*-o-transition: opacity 0.3s ease;*/
-		/*transition: all 0.3s ease;*/
+		/*box-shadow: 0 0 25px rgba(126, 126, 126, 0.15);*/
 	}
 
 	.navbar_menu_all_selection li {
-		/*padding-left: 10px;*/
-		/*padding-right: 10px;*/
 		line-height: 50px;
 	}
 
 	.navbar_menu_all_selection li a {
+		font-family: 'Noto Sans KR', sans-serif;
 		display: block;
 		color: #212121;
 		/*border-bottom: solid 1px #d0d0d0;*/
 		font-size: 16px;
 		right: 10px;
 		width: 150px;
-		/*-webkit-transition: all 0.3s ease;*/
-		/*-moz-transition: all 0.3s ease;*/
-		/*-ms-transition: all 0.3s ease;*/
-		/*-o-transition: all 0.3s ease;*/
-		/*transition: all 0.3s ease;*/
 	}
-
 	.navbar_menu_all_selection li a:hover {
-		color: rgb(66, 66, 66);
+		color: rgb(103, 190, 56);
 	}
 
 	.navbar_menu_all_selection li:last-child a {
@@ -460,9 +448,6 @@ section
 		margin-bottom: 10px;
 	}
 
-	.navbar_menu_all_selection li a i {
-		/*margin-right: 10px;*/
-	}
 
 .navbar_user
 {
@@ -1587,7 +1572,7 @@ section
 }
 
 .h-text{
-	margin: 30px;
+	margin: 20px;
 }
 .h-text.c{
 	margin:5px;
