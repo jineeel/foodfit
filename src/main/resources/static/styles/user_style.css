@@ -189,6 +189,12 @@ body {
   font-family: 'Noto Sans KR', sans-serif;
   color: #e10707;
 }
+.checkResult {
+  margin: 20px;
+  font-size: 18px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #e10707;
+}
 .form-floating.btn{
   display: flex;
 }
@@ -406,12 +412,12 @@ input[type='number'] {
 .inner-div {
   display: inline-block;
   justify-content: center;
-  width:80%;
-  height: 600px;
+  width:60%;
+  height: 650px;
   margin:auto;
   background: #FFFFFF;
   border-radius: 50px;
-  padding-top: 40px;
+  padding: 40px;
 }
 
 .inner-div button{
@@ -428,7 +434,6 @@ input[type='number'] {
   display: flex;
   align-items: center;
   margin: 10px;
-  padding-left: 50px;
 }
 
 .input-area label{
@@ -436,13 +441,14 @@ input[type='number'] {
 }
 
 .input-area input{
-  width: 700px;
+  width: 800px;
+  height: 40px;
 }
 .input-area.text{
   height: 150px;
 }
 .input-area textarea{
-  width: 700px;
+  width: 800px;
   height: 150px;
 }
 .input-area select{

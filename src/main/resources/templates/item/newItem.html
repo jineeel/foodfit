@@ -12,48 +12,64 @@
 <div layout:fragment="content" class="main_center gray">
   <div class="text-center">
     <h4 class="h-text"> 상품 등록 </h4>
-    <form>
+    <form action="/api/item" method="post" id="itemForm" th:object="${itemImgResponse}" enctype="multipart/form-data">
       <div class="inner-div">
         <div class="input-area">
           <label>상품 카테고리</label>
           <select type="text" id="category1" name="category1">
+            <option>1차 카테고리</option>
             <option th:each="category : ${categories}" th:value="${category.getCategoryName()}" th:text="${category.getCategoryName()}"></option>
           </select>
           <select type="text" id="category2">
-            <option></option>
+            <option name="category"></option>
           </select>
         </div>
         <div class="input-area">
           <label>상품명</label>
-          <input type="text">
+          <input type="text" id="itemName" name="itemName">
         </div>
         <div class="input-area">
           <label>가격</label>
-          <input type="number">
+          <input type="number" id="price" name="price">
         </div>
         <div class="input-area">
           <label>수량</label>
-          <input type="number">
+          <input type="number" id="stockNumber" name="stockNumber">
         </div>
         <div class="input-area text">
           <label>상세정보</label>
-          <textarea></textarea>
+          <textarea id="itemDetail" name="itemDetail"></textarea>
         </div>
-        <div class = "input-area">
-          <label>사진 등록</label>
-          <input type="file">
+        <div th:if="${#lists.isEmpty(itemImgResponse.itemImgDtoList)}">
+          <div class="form-group" th:each="num: ${#numbers.sequence(1,3)}">
+            <div class="custom-file img-div">
+              <input type="file" class="custom-file-input" name="itemImgFile">
+              <label class="custom-file-label" th:text="상품이미지 + ${num}"></label>
+            </div>
+          </div>
         </div>
-        <button class="green_button" type="submit">등록</button>
+
+        <div th:if = "${not #lists.isEmpty(itemImgResponse.itemImgDtoList)}">
+          <div class="form-group" th:each="itemImgDto, status: ${itemImgResponse.itemImgDtoList}">
+            <div class="custom-file img-div">
+              <input type="file" class="custom-file-input" name="itemImgFile">
+              <input type="hidden" name="itemImgIds" th:value="${itemImgResponse.id}">
+              <label class="custom-file-label" th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}"></label>
+            </div>
+          </div>
+        </div>
+        <div id="resultFail" class="error-msg checkResult"></div>
+        <button class="green_button" type="submit" id="createBtn">등록</button>
       </div>
     </form>
   </div>
   <script>
+    const resultFail = document.getElementById('resultFail');
     const category1 = document.getElementById('category1');
-
+    let inputStatus;
     category1.addEventListener('change',()=>{
       const selectValue= category1.value;
       console.log(selectValue);
-
       $.ajax({
         url: "/item/findDetailCategory",
         type: "POST",
@@ -76,6 +92,60 @@
         }
       });
     })
+
+    const itemName = document.getElementById('itemName');
+    const price = document.getElementById('price');
+    const stockNumber = document.getElementById('stockNumber');
+    const itemDetail = document.getElementById('itemDetail');
+    const category2 = document.getElementById('category2');
+
+    const itemForm = document.getElementById('itemForm');
+
+    itemForm.addEventListener('submit', function (event) {
+      event.preventDefault(); // 폼 제출 동작 막기
+      if (!inputNullCheck()) {
+        return;
+      }
+      const formData = new FormData(itemForm);
+
+      fetch('/api/item', {
+        method: 'POST',
+        body: formData,
+      })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('네트워크 응답이 실패했습니다.');
+                }
+                return response.json(); // JSON 데이터 파싱
+              })
+              .then(result => {
+                location.replace("/item/itemList");
+              })
+              .catch(error => {
+                console.error("요청 실패 " + error);
+              });
+    });
+
+    function inputNullCheck(){
+        inputStatus = false;
+        if(!itemName.value){
+          resultFail.textContent="상품명을 입력해주세요";
+        }else if(!price.value){
+          resultFail.textContent="가격을 입력해주세요";
+        }else if(!stockNumber.value){
+          resultFail.textContent="수량을 입력해주세요";
+        }else if(!itemDetail.value){
+          resultFail.textContent="상세정보를 입력해주세요"
+        }else if(!category2.value){
+          resultFail.textContent="카테고리를 선택해주세요"
+        }else{
+          inputStatus = true;
+        }
+      return inputStatus;
+    }
+
+
+
   </script>
 </div>
 

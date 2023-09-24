@@ -16,7 +16,8 @@ public class CategoryResponse {
     private String parentCode;
     private Long level;
 
-    public CategoryResponse(String categoryName) {
+    public CategoryResponse(String categoryName, String categoryCode) {
         this.categoryName = categoryName;
+        this.categoryCode = categoryCode;
     }
 }

@@ -13,12 +13,12 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public List<Category> findCategory(Long level) {
+    public List<Category> findByLevel(Long level) {
         List<Category> categories= categoryRepository.findByLevel(level);
         return categories;
     }
 
-    public List<Category> findSelectedCategory(String selectedOption) {
+    public List<Category> findByCategoryName(String selectedOption) {
         Category category = categoryRepository.findByCategoryName(selectedOption);
         List<Category> categories = categoryRepository.findByParentCodeAndLevel(category.getCategoryCode(),2L);
         return categories;

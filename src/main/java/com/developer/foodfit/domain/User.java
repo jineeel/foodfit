@@ -44,7 +44,6 @@ public class User {
     @Builder
     public User(Long id, String userId, String email, String phone, String password, String username, Role role,
                 String provider, String providerId, LocalDateTime createDate, String zipcode, String streetAdr, String detailAdr) {
-
         this.id = id;
         this.userId = userId;
         this.email = email;

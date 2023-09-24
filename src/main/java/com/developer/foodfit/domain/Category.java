@@ -2,10 +2,12 @@ package com.developer.foodfit.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 @Getter
 @Entity
 public class Category {
@@ -26,5 +28,9 @@ public class Category {
     @Column(name="category_name")
     private String categoryName;
 
+    public Category(String categoryCode) {
+        // categoryCode를 사용하여 Category 객체 초기화
+        this.categoryCode = categoryCode;
+    }
 
 }

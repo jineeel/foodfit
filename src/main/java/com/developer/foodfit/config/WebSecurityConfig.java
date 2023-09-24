@@ -7,6 +7,7 @@ import com.developer.foodfit.dto.PrincipalDetails;
 import com.developer.foodfit.service.PrincipalOauthUserService;
 import com.developer.foodfit.service.PrincipalService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @Configuration
 @RequiredArgsConstructor
@@ -29,6 +31,8 @@ public class WebSecurityConfig {
     private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
 //    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Value("${uploadPath}") //application.properties에 설정한 uploadPath 프로퍼티 값을 읽어온다
+    String uploadPath;
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         // h2-console 사용
@@ -55,7 +59,8 @@ public class WebSecurityConfig {
                                         AntPathRequestMatcher.antMatcher("/plugins/**"),
                                         AntPathRequestMatcher.antMatcher("/styles/**")
                                 ).permitAll()
-                                .anyRequest().authenticated())
+                                .anyRequest().permitAll())
+                                //.authenticated())
                 .formLogin((form) ->
                         form.loginPage("/login").defaultSuccessUrl("/",true).failureHandler(loginFailHandler()))
                 .logout(logout -> logout.logoutSuccessUrl("/").permitAll()
@@ -89,6 +94,11 @@ public class WebSecurityConfig {
     @Bean
     public LoginFailHandler loginFailHandler(){
         return new LoginFailHandler();
+    }
+
+    public void addResourceHandlers(ResourceHandlerRegistry registry){
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations(uploadPath);
     }
 
 //    @Bean
