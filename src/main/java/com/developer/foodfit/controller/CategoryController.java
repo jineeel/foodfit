@@ -21,7 +21,7 @@ public class CategoryController{
 
         List<Category> selectedCategory = categoryService.findByCategoryName(selectValue);
         List<CategoryResponse> categoryResponses2 = selectedCategory.stream()
-                .map(m-> new CategoryResponse(m.getCategoryName(), m.getCategoryCode()))
+                .map(m-> new CategoryResponse(m.getCategoryName(), m.getCategoryCode(), m.getId()))
                 .collect(Collectors.toList());
 
         return categoryResponses2;
@@ -31,7 +31,7 @@ public class CategoryController{
     public List<CategoryResponse> findCategory(){
         List<Category> categoryList = categoryService.findByLevel(1L);
         List<CategoryResponse> categoryResponses = categoryList.stream()
-                .map(m-> new CategoryResponse(m.getCategoryName(), m.getCategoryCode()))
+                .map(m-> new CategoryResponse(m.getCategoryName(), m.getCategoryCode(), m.getId()))
                 .collect(Collectors.toList());
         return categoryResponses;
     }

@@ -31,8 +31,7 @@ public class WebSecurityConfig {
     private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
 //    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Value("${uploadPath}") //application.properties에 설정한 uploadPath 프로퍼티 값을 읽어온다
-    String uploadPath;
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         // h2-console 사용
@@ -96,22 +95,7 @@ public class WebSecurityConfig {
         return new LoginFailHandler();
     }
 
-    public void addResourceHandlers(ResourceHandlerRegistry registry){
-        registry.addResourceHandler("/images/**")
-                .addResourceLocations(uploadPath);
-    }
 
-//    @Bean
-//    public UserDetailsService users(){
-//        String rawPassword = "1234";
-//        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-//        UserDetails admin = PrincipalDetails
-//                .userId("admin")
-//                .password(encPassword)
-//                .role(Role.ADMIN)
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin);
-//    }
+
 }
 

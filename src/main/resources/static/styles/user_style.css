@@ -455,7 +455,6 @@ input[type='number'] {
   width: 200px;
   margin-right: 10px;
 }
-
-
-
-
+.div-vertical{
+  display: block;
+}

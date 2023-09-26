@@ -10,6 +10,6 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
 
     Category findByCategoryName(String categoryName);
     Category findByCategoryCode(String categoryCode);
-
+    Category findByParentCode(String parentCode);
     List<Category> findByParentCodeAndLevel(String categoryCode, long level);
 }

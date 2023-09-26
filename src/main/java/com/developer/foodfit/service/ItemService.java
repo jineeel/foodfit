@@ -9,6 +9,7 @@ import com.developer.foodfit.repository.CategoryRepository;
 import com.developer.foodfit.repository.ItemImgRepository;
 import com.developer.foodfit.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,6 +64,11 @@ public class ItemService {
     }
 
     public List<Item> findAll() {
-        return itemRepository.findAll();
+        return itemRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    }
+
+    public List<Item> findCategoryId(Long categoryId){
+//       Long categoryId = categoryRepository.findByParentCode(categoryCode).getId();
+       return itemRepository.findByCategoryId(categoryId);
     }
 }

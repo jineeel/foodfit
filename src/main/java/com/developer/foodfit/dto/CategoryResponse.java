@@ -11,13 +11,15 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class CategoryResponse {
+    private Long categoryId;
     private String categoryName;
     private String categoryCode;
     private String parentCode;
     private Long level;
 
-    public CategoryResponse(String categoryName, String categoryCode) {
+    public CategoryResponse(String categoryName, String categoryCode, Long categoryId) {
         this.categoryName = categoryName;
         this.categoryCode = categoryCode;
+        this.categoryId = categoryId;
     }
 }

@@ -28,4 +28,9 @@ public class ItemApiController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
+    @GetMapping("/api/item/{categoryId}")
+    public ResponseEntity<List<Item>> findItems(@PathVariable("categoryId")Long categoryId){
+        List<Item> all = itemService.findCategoryId(categoryId);
+        return ResponseEntity.status(HttpStatus.OK).body(all);
+    }
 }

@@ -39,24 +39,13 @@ spring:
     thymeleaf:
       cache: false
 
-#  servlet:
-#    multipart:
-#      enabled: true
-#      location: C:/Temp
-#      file-size-threshold: 2KB
-#      max-file-size: 200MB
-#      max-request-size: 215MB
-#
-#file:
-#  uploadDir: ${user.home}/itemImg
-
   servlet:
     multipart:
       max-file-size: 20MB
       max-request-size: 100MB
 
-itemImgLocation: C:\study\itemImg
-uploadPath: C:\study\itemImg\
+itemImgLocation: C:/foodfit
+uploadPath: file:///C:/foodfit/
 
 
 

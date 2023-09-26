@@ -1,0 +1,63 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block layout:fragment="css">
+        <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="/styles/categories_styles.css">
+        <link rel="stylesheet" type="text/css" href="/styles/categories_responsive.css">
+    </th:block>
+    <th:block layout:fragment="script"></th:block>
+</head>
+<div layout:fragment="content">
+    <div class="super_container">
+
+    <div class="container product_section_container">
+        <div class="row">
+            <div class="col product_section clearfix">
+                <!-- Main Content -->
+                <div class="main_content">
+                    <!-- Products -->
+                    <div class="products_iso">
+                        <div class="row">
+                            <div class="col">
+                                <!-- Product Grid -->
+                                <div class="product-grid" >
+                                    <!-- Product 1 -->
+                                    <div class="product-item" th:each="item : ${item}">
+                                            <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
+                                              <img th:src="@{${itemImg.imgUrl}}">
+                                                <div class="cart-img"><a href="#"><img src="/images/cart.png"></a></div>
+                                            </div>
+                                            <div class="favorite favorite_left"></div>
+                                            <div class="product_info">
+                                                <h6 class="product_name" th:text="${item.itemName}"><a href="single.html"></a></h6>
+                                                <div class="product_price" th:text="${item.price}"></div>
+                                            </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/styles/bootstrap4/popper.js"></script>
+    <script src="/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="/plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="/plugins/easing/easing.js"></script>
+    <script src="/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="/js/categories_custom.js"></script>
+</div>
+</html>
