@@ -18,7 +18,7 @@
         <div class="input-area">
           <label>상품 카테고리</label>
           <select type="text" id="category1" name="category1">
-            <option>1차 카테고리</option>
+            <option>카테고리 선택</option>
             <option th:each="category : ${categories}" th:value="${category.getCategoryName()}" th:text="${category.getCategoryName()}"></option>
           </select>
           <select type="text" id="category2" name="category">
@@ -108,6 +108,7 @@
 
     itemForm.addEventListener('submit', function (event) {
       event.preventDefault(); // 폼 제출 동작 막기
+
       if (!inputNullCheck()) {
         return;
       }
@@ -124,6 +125,7 @@
                 return response.json(); // JSON 데이터 파싱
               })
               .then(result => {
+                console.log("result"+result)
                 location.replace("/item");
               })
               .catch(error => {
@@ -148,8 +150,6 @@
         }
       return inputStatus;
     }
-
-
 
   </script>
 </div>

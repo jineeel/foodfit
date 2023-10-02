@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category,Long> {
-    List<Category> findByLevel(long level);
+    List<Category> findByDepth(long depth);
 
     Category findByCategoryName(String categoryName);
     Category findByCategoryCode(String categoryCode);
-    Category findByParentCode(String parentCode);
-    List<Category> findByParentCodeAndLevel(String categoryCode, long level);
+    List<Category> findByCategoryCodeAndParentCode(String categoryCode, String parentCode);
+    List<Category> findByParentCode(String parentCode);
+    List<Category> findByParentCodeAndDepth(String categoryCode, long level);
 }

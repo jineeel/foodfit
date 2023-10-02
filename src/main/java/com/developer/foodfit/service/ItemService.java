@@ -27,6 +27,8 @@ public class ItemService {
     private final ItemImgService itemImgService;
 
     public Item save(AddItemRequest request, String name, List<MultipartFile> itemImgFileList) throws Exception {
+        System.out.println(request.getCategory()+"!!!");
+
         Category category = categoryRepository.findByCategoryCode(request.getCategory());
 
         Item item = Item.builder()
@@ -59,16 +61,16 @@ public class ItemService {
         }
 
         return item;
-
-
     }
 
     public List<Item> findAll() {
         return itemRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
-    public List<Item> findCategoryId(Long categoryId){
-//       Long categoryId = categoryRepository.findByParentCode(categoryCode).getId();
-       return itemRepository.findByCategoryId(categoryId);
-    }
+//    public List<Item> findCategoryItem(String categoryCode){
+//
+//        List<Item> byCategoryParentCode = itemRepository.findByCategoryParentCode(categoryCode);
+//        System.out.println("!!"+byCategoryParentCode.size());
+//        return byCategoryParentCode;
+//    }
 }

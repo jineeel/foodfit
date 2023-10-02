@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,8 +33,9 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     private LocalDateTime createDate;
@@ -49,8 +51,8 @@ public class Item {
     private String author;
 
     @Builder
-    public Item(Long id, String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus,
-                Category category, LocalDateTime createDate, LocalDateTime updateDate, String author, String author1) {
+    public Item(Long id, String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Category category,
+                 LocalDateTime createDate, LocalDateTime updateDate, String author, String author1) {
         this.id = id;
         this.itemName = itemName;
         this.price = price;

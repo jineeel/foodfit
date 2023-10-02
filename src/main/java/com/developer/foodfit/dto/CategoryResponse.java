@@ -4,6 +4,7 @@ import com.developer.foodfit.domain.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,18 @@ public class CategoryResponse {
     private String categoryName;
     private String categoryCode;
     private String parentCode;
-    private Long level;
+    private Long depth;
 
-    public CategoryResponse(String categoryName, String categoryCode, Long categoryId) {
+    public CategoryResponse(String categoryName, String categoryCode, Long depth) {
         this.categoryName = categoryName;
         this.categoryCode = categoryCode;
-        this.categoryId = categoryId;
+        this.depth = depth;
+    }
+
+    public CategoryResponse(Category category) {
+        this.categoryId=category.getId();
+        this.categoryCode=category.getCategoryCode();
+        this.categoryName=category.getCategoryName();
+        this.parentCode=category.getParentCode();
     }
 }

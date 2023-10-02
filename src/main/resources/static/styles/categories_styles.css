@@ -694,7 +694,7 @@ COLOR PALETTE
 .product-grid
 {
 	width: 100%;
-	margin-top: 57px;
+	margin-top: 30px;
 }
 .product-item
 {
@@ -915,4 +915,26 @@ COLOR PALETTE
 	right: 15px;
 	/*visibility: hidden;*/
 	opacity: 80%;
+}
+.category-div{
+	margin-top: 40px;
+}
+.category-div a{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 500;
+	/*margin-top: 40px;*/
+	color: #1f1f1f;
+}
+.category-div div{
+	display: flex;
+	justify-content: center;
+	/*border-bottom: 1px solid #fff3cd;*/
+}
+
+.category-div p {
+	margin: 40px;
+	font-size: 16px;
+	color: #464646;
+	font-weight: 200;
 }

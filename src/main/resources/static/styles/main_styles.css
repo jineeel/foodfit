@@ -312,6 +312,7 @@ section
 {
 	font-family: 'Jua', sans-serif;
 	position: absolute;
+	margin-top: 5px;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
@@ -324,7 +325,8 @@ section
 {
 	font-size: 30px;
 	color: #212121;
-	font-weight: 900;
+	font-weight: 700;
+
 	text-transform: uppercase;
 }
 .logo_container a:hover{
@@ -367,7 +369,7 @@ section
 	display: block;
 	color: #212121;
 	font-size: 18px;
-	font-weight: bold;
+	font-weight: 300;
 	text-transform: uppercase;
 	padding-left: 30px;
 	padding-right: 30px;
@@ -395,10 +397,10 @@ section
 	.navbar_menu_all li a {
 		font-family: 'Noto Sans KR', sans-serif;
 		display: flex;
-		margin-top: 5px;
+		margin-top: 2px;
 		color: #212121;
 		font-size: 18px;
-		font-weight: bold;
+		font-weight: 300;
 		/*margin-left: 20px;*/
 	}
 
@@ -407,6 +409,7 @@ section
 		text-align: center;
 		padding: 5px;
 		margin-right: 10px;
+
 	}
 
 	/**=======================*/
@@ -455,6 +458,7 @@ section
 	justify-content: right;
 	height: 90px;
 }
+
 .navbar_user li
 {
 	display: inline-block;
@@ -1503,10 +1507,13 @@ section
 /*********************************
 11. Footer
 *********************************/
-
+.footer_div{
+	background: #ffffff;
+}
 .footer_nav_container
 {
 	height: 130px;
+
 }
 .cr
 {

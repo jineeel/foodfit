@@ -7,7 +7,7 @@ $(document).ready(function () {
             const categoryMenu = $("#categoryMenu");
             $.each(result, function (index, category){
                 const listCategory = $("<li>");
-                const link = $("<a>").attr("href", "/api/item/categoryId=" + category.categoryId).text(category.categoryName);
+                const link = $("<a>").attr("href", "/item/" + category.categoryCode).text(category.categoryName);
                 listCategory.append(link);
                 categoryMenu.append(listCategory);
 

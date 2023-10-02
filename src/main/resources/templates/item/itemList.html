@@ -26,10 +26,23 @@
                     <div class="products_iso">
                         <div class="row">
                             <div class="col">
+
                                 <!-- Product Grid -->
+                                <div class="category-div">
+                                    <div>
+                                       <a th:href="@{/item/{parentCode}(parentCode = ${parentCode})}"><a5 th:text="${categoryName}"></a5></a>
+                                    </div>
+                                    <div category-div inner>
+                                        <div th:each="categoryList:${categoryList}">
+                                            <a th:href="@{/item/{categoryCode}(categoryCode = ${categoryList.categoryCode})}"> <p th:text="${categoryList.categoryName}"></p></a>
+                                        </div>
+
+                                    </div>
+                                </div>
                                 <div class="product-grid" >
                                     <!-- Product 1 -->
-                                    <div class="product-item" th:each="item : ${item}">
+
+                                    <div class="product-item" th:each="item : ${item}" th:href="/item/detail">
                                             <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
                                               <img th:src="@{${itemImg.imgUrl}}">
                                                 <div class="cart-img"><a href="#"><img src="/images/cart.png"></a></div>

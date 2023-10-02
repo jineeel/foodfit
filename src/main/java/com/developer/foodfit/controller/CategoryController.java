@@ -21,17 +21,16 @@ public class CategoryController{
 
         List<Category> selectedCategory = categoryService.findByCategoryName(selectValue);
         List<CategoryResponse> categoryResponses2 = selectedCategory.stream()
-                .map(m-> new CategoryResponse(m.getCategoryName(), m.getCategoryCode(), m.getId()))
+                .map(m-> new CategoryResponse(m.getCategoryName(), m.getCategoryCode(), m.getDepth()))
                 .collect(Collectors.toList());
-
         return categoryResponses2;
     }
 
     @PostMapping("/item/findCategories")
     public List<CategoryResponse> findCategory(){
-        List<Category> categoryList = categoryService.findByLevel(1L);
+        List<Category> categoryList = categoryService.findByDepth(1L);
         List<CategoryResponse> categoryResponses = categoryList.stream()
-                .map(m-> new CategoryResponse(m.getCategoryName(), m.getCategoryCode(), m.getId()))
+                .map(m-> new CategoryResponse(m.getCategoryName(), m.getCategoryCode(), m.getDepth()))
                 .collect(Collectors.toList());
         return categoryResponses;
     }

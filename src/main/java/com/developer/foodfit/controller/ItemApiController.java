@@ -28,9 +28,13 @@ public class ItemApiController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @GetMapping("/api/item/{categoryId}")
-    public ResponseEntity<List<Item>> findItems(@PathVariable("categoryId")Long categoryId){
-        List<Item> all = itemService.findCategoryId(categoryId);
-        return ResponseEntity.status(HttpStatus.OK).body(all);
-    }
+//    @GetMapping("/api/item/{categoryCode}")
+//    public ResponseEntity<List<Item>> findItems(@PathVariable("categoryCode")String categoryCode){
+//        System.out.println("???"+categoryCode);
+//        List<Item> all = itemService.findCategoryId(categoryCode);
+//        for(int i =0; i<all.size(); i++){
+//            System.out.println("???"+all.get(i));
+//        }
+//        return ResponseEntity.status(HttpStatus.OK).body(all);
+//    }
 }
