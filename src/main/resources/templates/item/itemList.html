@@ -7,7 +7,6 @@
     <title>Title</title>
     <th:block layout:fragment="css">
         <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
-
         <link rel="stylesheet" type="text/css" href="/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
         <link rel="stylesheet" type="text/css" href="/styles/categories_styles.css">
         <link rel="stylesheet" type="text/css" href="/styles/categories_responsive.css">
@@ -16,35 +15,30 @@
 </head>
 <div layout:fragment="content">
     <div class="super_container">
-
-    <div class="container product_section_container">
-        <div class="row">
-            <div class="col product_section clearfix">
-                <!-- Main Content -->
-                <div class="main_content">
-                    <!-- Products -->
-                    <div class="products_iso">
-                        <div class="row">
-                            <div class="col">
-
-                                <!-- Product Grid -->
-                                <div class="category-div">
-                                    <div>
-                                       <a th:href="@{/item/{parentCode}(parentCode = ${parentCode})}"><a5 th:text="${categoryName}"></a5></a>
-                                    </div>
-                                    <div category-div inner>
-                                        <div th:each="categoryList:${categoryList}">
-                                            <a th:href="@{/item/{categoryCode}(categoryCode = ${categoryList.categoryCode})}"> <p th:text="${categoryList.categoryName}"></p></a>
+        <div class="container product_section_container">
+            <div class="row">
+                <div class="col product_section clearfix">
+                    <!-- Main Content -->
+                    <div class="main_content">
+                        <!-- Products -->
+                        <div class="products_iso">
+                            <div class="row">
+                                <div class="col">
+                                    <!-- 카테고리 -->
+                                    <div class="category-div">
+                                        <div>
+                                            <a th:href="@{/item/{parentCode}(parentCode = ${parentCode})}"><a5 th:text="${categoryName}"></a5></a>
                                         </div>
-
+                                        <div>
+                                            <div th:each="categoryList:${categoryList}">
+                                                <a th:href="@{/item/{categoryCode}(categoryCode = ${categoryList.categoryCode})}"> <p th:text="${categoryList.categoryName}"></p></a>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="product-grid" >
-                                    <!-- Product 1 -->
-
-                                    <div class="product-item" th:each="item : ${item}" th:href="/item/detail">
+                                    <div class="product-grid" >
+                                        <div class="product-item" th:each="item : ${item}" th:onclick="|location.href='/item/detail/${item.itemId}'|">
                                             <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
-                                              <img th:src="@{${itemImg.imgUrl}}">
+                                                <img th:src="@{${itemImg.imgUrl}}">
                                                 <div class="cart-img"><a href="#"><img src="/images/cart.png"></a></div>
                                             </div>
                                             <div class="favorite favorite_left"></div>
@@ -52,8 +46,7 @@
                                                 <h6 class="product_name" th:text="${item.itemName}"><a href="single.html"></a></h6>
                                                 <div class="product_price" th:text="${item.price}"></div>
                                             </div>
-
-
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +55,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/styles/bootstrap4/popper.js"></script>

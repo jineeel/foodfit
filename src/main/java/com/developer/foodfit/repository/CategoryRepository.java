@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category,Long> {
     List<Category> findByDepth(long depth);
-
     Category findByCategoryName(String categoryName);
     Category findByCategoryCode(String categoryCode);
     List<Category> findByCategoryCodeAndParentCode(String categoryCode, String parentCode);

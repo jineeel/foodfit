@@ -5,6 +5,7 @@ import com.developer.foodfit.domain.Category;
 import com.developer.foodfit.domain.Item;
 import com.developer.foodfit.domain.ItemImg;
 import com.developer.foodfit.dto.AddItemRequest;
+import com.developer.foodfit.dto.ItemResponse;
 import com.developer.foodfit.repository.CategoryRepository;
 import com.developer.foodfit.repository.ItemImgRepository;
 import com.developer.foodfit.repository.ItemRepository;
@@ -14,8 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -27,10 +28,7 @@ public class ItemService {
     private final ItemImgService itemImgService;
 
     public Item save(AddItemRequest request, String name, List<MultipartFile> itemImgFileList) throws Exception {
-        System.out.println(request.getCategory()+"!!!");
-
         Category category = categoryRepository.findByCategoryCode(request.getCategory());
-
         Item item = Item.builder()
                 .itemName(request.getItemName())
                 .price(request.getPrice())
@@ -63,14 +61,37 @@ public class ItemService {
         return item;
     }
 
-    public List<Item> findAll() {
-        return itemRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-    }
-
-//    public List<Item> findCategoryItem(String categoryCode){
-//
-//        List<Item> byCategoryParentCode = itemRepository.findByCategoryParentCode(categoryCode);
-//        System.out.println("!!"+byCategoryParentCode.size());
-//        return byCategoryParentCode;
+//    public List<Item> findAll() {
+//        return itemRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 //    }
+
+
+    //카테고리별 아이템 조회
+    public List<ItemResponse> findItemList(List<Category> categories) {
+        return categories.stream()
+                .flatMap(category -> category.getItems().stream())
+                .map(ItemResponse::new)
+                .sorted(Comparator.comparing(ItemResponse::getItemId).reversed())
+                .collect(Collectors.toList());
+    }
+//    public List<ItemResponse> findItemList(List<Category> categories){
+//        List<ItemResponse> itemResponseList = new ArrayList<>();
+//
+//        for(Category c: categories){
+//            List<Item> items = c.getItems();
+//            for(Item item:items){
+//                ItemResponse itemResponse = new ItemResponse(item);
+//                itemResponseList.add(itemResponse);
+//            }
+//        }
+//        Comparator<ItemResponse> itemIdComparator = (itemResponse1, itemResponse2) -> {
+//            Long itemId1 = itemResponse1.getItemId();
+//            Long itemId2 = itemResponse2.getItemId();
+//            return itemId2.compareTo(itemId1);
+//        };
+//        Collections.sort(itemResponseList,itemIdComparator);
+//
+//        return itemResponseList;
+//    }
+
 }

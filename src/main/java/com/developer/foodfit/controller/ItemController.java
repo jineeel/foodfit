@@ -44,54 +44,20 @@ public class ItemController {
         return "item/newItem";
     }
 
-    @GetMapping("/item/itemList")
-    public String itemList(Model model){
-        List<ItemResponse> itemResponseList = itemService.findAll().stream().map(ItemResponse::new).toList();
-        List<ItemImgResponse> itemImgResponseList = itemImgService.findAll().stream().map(ItemImgResponse::new).toList();
-        model.addAttribute("itemImg", itemImgResponseList);
-        model.addAttribute("item",itemResponseList);
-        return "item/itemList";
-    }
-
     @GetMapping("/item/{categoryCode}")
-    public  String findItems(@PathVariable("categoryCode")String categoryCode, Model model) throws Exception {
-        System.out.println("code=="+categoryCode);
-        Category category = categoryService.findByCategoryCode(categoryCode);
+    public String findItems(@PathVariable("categoryCode")String categoryCode, Model model) throws Exception {
+        String categoryName = categoryService.findCategoryName(categoryCode);
+        String parentCode = categoryService.findParentCode(categoryCode);
+        List<Category> itemCategories = categoryService.findCategoryItemList(categoryCode);
 
-        String categoryName;
-        List<Category> categoryList;
-        List<Category> categories;
-        String parentCode;
+        //카테고리 리스트
+        List<CategoryResponse> categoryResponsesList = categoryService.findCategoryList(categoryCode).stream().map(CategoryResponse::new).toList();
 
-        if(category.getDepth()==1){  //1차 카테고리 일 때
-            categoryName = category.getCategoryName();
-            categoryList = categoryService.findByParentCode(categoryCode);
-            categories = categoryList;
-            parentCode = category.getCategoryCode();
-        }else{
-            categoryName = categoryService.findByCategoryCode(category.getParentCode()).getCategoryName();
-            categoryList = categoryService.findByParentCode(category.getParentCode());
-            categories = categoryService.findByCategoryCodeAndParentCode(categoryCode,category.getParentCode());
-            parentCode = category.getParentCode();
-        }
-        List<CategoryResponse> categoryResponsesList = categoryList.stream().map(CategoryResponse::new).toList();
+        //카테고리별 아이템 리스트
+        List<ItemResponse> itemResponseList = itemService.findItemList(itemCategories);
 
-        List<ItemResponse> itemResponseList = new ArrayList<>();
-        for(Category c: categories){
-            List<Item> items = c.getItems();
-            for(Item item:items){
-                ItemResponse itemResponse = new ItemResponse(item);
-                itemResponseList.add(itemResponse);
-            }
-        }
-        Comparator<ItemResponse> itemIdComparator = (itemResponse1, itemResponse2) -> {
-            Long itemId1 = itemResponse1.getItemId();
-            Long itemId2 = itemResponse2.getItemId();
-            return itemId2.compareTo(itemId1);
-        };
-
-        Collections.sort(itemResponseList,itemIdComparator);
-        List<ItemImgResponse> itemImgResponseList = itemImgService.findAll().stream().map(ItemImgResponse::new).toList();
+        //카테고리별 아이템 이미지 리스트
+        List<ItemImgResponse> itemImgResponseList = itemImgService.findItemImg(itemResponseList);
 
         model.addAttribute("categoryList", categoryResponsesList);
         model.addAttribute("categoryName", categoryName);
@@ -102,8 +68,8 @@ public class ItemController {
         return "item/itemList";
     }
 
-    @GetMapping("/item/detail")
-    public String detailItem(){
+    @GetMapping("/item/detail/{itemId}")
+    public String detailItem(@PathVariable("itemId") Long itemId){
         return "item/itemDetail";
     }
 
