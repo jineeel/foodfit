@@ -1,10 +1,8 @@
 package com.developer.foodfit.service;
 
-import com.developer.foodfit.domain.Category;
-import com.developer.foodfit.domain.Item;
 import com.developer.foodfit.domain.ItemImg;
-import com.developer.foodfit.dto.ItemImgResponse;
-import com.developer.foodfit.dto.ItemResponse;
+import com.developer.foodfit.dto.ItemImgListResponse;
+import com.developer.foodfit.dto.ItemListResponse;
 import com.developer.foodfit.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
-import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,12 +54,15 @@ public class ItemImgService {
         return itemImgRepository.findAllByItemId(itemId);
     }
 
+    public List<ItemImg> findItemImgView(Long itemId){
+        return itemImgRepository.findItemImgByItemId(itemId);
+    }
     //카테고리별 아이템 이미지 리스트
-    public List<ItemImgResponse> findItemImg(List<ItemResponse> items) {
+    public List<ItemImgListResponse> findItemImgList(List<ItemListResponse> items) {
         return items.stream()
-                .map(ItemResponse::getItemId)
+                .map(ItemListResponse::getItemId)
                 .flatMap(itemId -> itemImgRepository.findItemImgByItemId(itemId).stream())
-                .map(ItemImgResponse::new)
+                .map(ItemImgListResponse::new)
                 .collect(Collectors.toList());
     }
 

@@ -43,8 +43,8 @@
                                             </div>
                                             <div class="favorite favorite_left"></div>
                                             <div class="product_info">
-                                                <h6 class="product_name" th:text="${item.itemName}"><a href="single.html"></a></h6>
-                                                <div class="product_price" th:text="${item.price}"></div>
+                                                <h6 class="product_name" th:text="${item.itemName}"></h6>
+                                                <div class="product_price" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></div>
                                             </div>
                                         </div>
                                     </div>

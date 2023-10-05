@@ -19,36 +19,38 @@
         <div class="container single_product_container">
             <div class="row">
                 <div class="col">
-
                     <!-- Breadcrumbs -->
-
                     <div class="breadcrumbs d-flex flex-row align-items-center">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="categories.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Men's</a></li>
-                            <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Single Product</a></li>
+                            <a href="/">
+                                <li th:text="Home"></li></a>
+                            <i class="fa fa-angle-right"></i>
+                            <a th:href="@{/item/{parentCode}(parentCode = ${category.parentCode})}">
+                                <li th:text="${parentName}"></li></a>
+                            <i class="fa fa-angle-right"></i>
+                            <a th:href="@{/item/{categoryCode}(categoryCode = ${category.categoryCode})}">
+                                <li class="active" th:text="${category.categoryName}"></li></a>
                         </ul>
                     </div>
-
                 </div>
             </div>
-
+            <div class="product_div">
             <div class="row">
                 <div class="col-lg-7">
                     <div class="single_product_pics">
                         <div class="row">
-                            <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
-                                <div class="single_product_thumbnails">
-                                    <ul>
-                                        <li><img src="/images/single_1_thumb.jpg" alt="" data-image="/images/single_1.jpg"></li>
-                                        <li class="active"><img src="/images/single_2_thumb.jpg" alt="" data-image="/images/single_2.jpg"></li>
-                                        <li><img src="/images/single_3_thumb.jpg" alt="" data-image="/images/single_3.jpg"></li>
-                                    </ul>
+                            <div class="product_image_div">
+                                <div class="image_div">
+                                    <div th:each="itemImg, index : ${itemImg}">
+                                        <img th:id="'itemSelectImage'+${index.index}" th:onclick="'selectImg('+ ${index.index} +')'" th:src="@{${itemImg.imgUrl}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-9 image_col order-lg-2 order-1">
-                                <div class="single_product_image">
-                                    <div class="single_product_image_background" style="background-image:url(/images/single_2.jpg)"></div>
+                                <div class="">
+                                    <div th:each="itemImg : ${itemImg}">
+                                        <div class="single_product_image_background" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
+                                            <img id="itemMainImage" th:src="@{${itemImg.imgUrl}}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -57,35 +59,28 @@
                 <div class="col-lg-5">
                     <div class="product_details">
                         <div class="product_details_title">
-                            <h2>Pocket cotton sweatshirt</h2>
-                            <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
+                            <h2 th:text="${item.itemName}"></h2>
                         </div>
-                        <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
-                            <span class="ti-truck"></span><span>free delivery</span>
-                        </div>
-                        <div class="original_price">$629.99</div>
-                        <div class="product_price">$495.00</div>
-                        <ul class="star_rating">
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                        </ul>
+                        <div class="original_price" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></div>
                         <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-                            <span>Quantity:</span>
+                            <span>수량:</span>
                             <div class="quantity_selector">
                                 <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                 <span id="quantity_value">1</span>
                                 <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                             </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+                        </div>
+                        <div class="product_purchase_div">
+                            <input type="button" class="green_button" th:value="구매하기">
+                        </div>
+                        <div class="product_button_div">
+                            <input type="button" class="green_button" th:value="장바구니">
                             <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
+            </div>
         </div>
 
         <!-- Tabs -->
@@ -97,9 +92,9 @@
                     <div class="col">
                         <div class="tabs_container">
                             <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
-                                <li class="tab active" data-active-tab="tab_1"><span>Description</span></li>
-                                <li class="tab" data-active-tab="tab_2"><span>Additional Information</span></li>
-                                <li class="tab" data-active-tab="tab_3"><span>Reviews (2)</span></li>
+                                <li class="tab active" data-active-tab="tab_1"><span>상세설명</span></li>
+<!--                                <li class="tab" data-active-tab="tab_2"><span>Additional Information</span></li>-->
+<!--                                <li class="tab" data-active-tab="tab_3"><span>리뷰</span></li>-->
                             </ul>
                         </div>
                     </div>
@@ -108,143 +103,103 @@
                     <div class="col">
 
                         <!-- Tab Description -->
-
                         <div id="tab_1" class="tab_container active">
                             <div class="row">
                                 <div class="col-lg-5 desc_col">
                                     <div class="tab_title">
-                                        <h4>Description</h4>
+                                        <h4>상세 설명</h4>
                                     </div>
-                                    <div class="tab_text_block">
-                                        <h2>Pocket cotton sweatshirt</h2>
-                                        <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
-                                    </div>
-                                    <div class="tab_image">
-                                        <img src="/images/desc_1.jpg" alt="">
-                                    </div>
-                                    <div class="tab_text_block">
-                                        <h2>Pocket cotton sweatshirt</h2>
-                                        <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 offset-lg-2 desc_col">
-                                    <div class="tab_image">
-                                        <img src="/images/desc_2.jpg" alt="">
-                                    </div>
-                                    <div class="tab_text_block">
-                                        <h2>Pocket cotton sweatshirt</h2>
-                                        <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
-                                    </div>
-                                    <div class="tab_image desc_last">
-                                        <img src="/images/desc_3.jpg" alt="">
+                                    <div class="tab_text_block" th:text="${item.itemDetail}"></div>
+                                    <div class="tab_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
+                                        <img th:src="@{${itemImg.imgUrl}}">
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Tab Additional Info -->
-
-                        <div id="tab_2" class="tab_container">
-                            <div class="row">
-                                <div class="col additional_info_col">
-                                    <div class="tab_title additional_info_title">
-                                        <h4>Additional Information</h4>
-                                    </div>
-                                    <p>COLOR:<span>Gold, Red</span></p>
-                                    <p>SIZE:<span>L,M,XL</span></p>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Tab Reviews -->
+<!--                        <div id="tab_3" class="tab_container">-->
+<!--                            <div class="row">-->
+<!--                                &lt;!&ndash; User Reviews &ndash;&gt;-->
+<!--                                <div class="col-lg-6 reviews_col">-->
+<!--                                    <div class="tab_title reviews_title">-->
+<!--                                        <h4>리뷰</h4>-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash; User Review &ndash;&gt;-->
+<!--                                    <div class="user_review_container d-flex flex-column flex-sm-row">-->
+<!--                                        <div class="user">-->
+<!--                                            <div class="user_pic"></div>-->
+<!--                                            <div class="user_rating">-->
+<!--                                                <ul class="star_rating">-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="review">-->
+<!--                                            <div class="review_date">27 Aug 2016</div>-->
+<!--                                            <div class="user_name">Brandon William</div>-->
+<!--                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
 
-                        <div id="tab_3" class="tab_container">
-                            <div class="row">
+<!--                                    &lt;!&ndash; User Review &ndash;&gt;-->
 
-                                <!-- User Reviews -->
+<!--                                    <div class="user_review_container d-flex flex-column flex-sm-row">-->
+<!--                                        <div class="user">-->
+<!--                                            <div class="user_pic"></div>-->
+<!--                                            <div class="user_rating">-->
+<!--                                                <ul class="star_rating">-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="review">-->
+<!--                                            <div class="review_date">27 Aug 2016</div>-->
+<!--                                            <div class="user_name">Brandon William</div>-->
+<!--                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
 
-                                <div class="col-lg-6 reviews_col">
-                                    <div class="tab_title reviews_title">
-                                        <h4>Reviews (2)</h4>
-                                    </div>
+<!--                                &lt;!&ndash; Add Review &ndash;&gt;-->
 
-                                    <!-- User Review -->
+<!--                                <div class="col-lg-6 add_review_col">-->
 
-                                    <div class="user_review_container d-flex flex-column flex-sm-row">
-                                        <div class="user">
-                                            <div class="user_pic"></div>
-                                            <div class="user_rating">
-                                                <ul class="star_rating">
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="review">
-                                            <div class="review_date">27 Aug 2016</div>
-                                            <div class="user_name">Brandon William</div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        </div>
-                                    </div>
+<!--                                    <div class="add_review">-->
+<!--                                        <form id="review_form" action="post">-->
+<!--                                            <div>-->
+<!--                                                <h1>Add Review</h1>-->
+<!--                                                <input id="review_name" class="form_input input_name" type="text" name="name" placeholder="Name*" required="required" data-error="Name is required.">-->
+<!--                                                <input id="review_email" class="form_input input_email" type="email" name="email" placeholder="Email*" required="required" data-error="Valid email is required.">-->
+<!--                                            </div>-->
+<!--                                            <div>-->
+<!--                                                <h1>Your Rating:</h1>-->
+<!--                                                <ul class="user_star_rating">-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>-->
+<!--                                                    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>-->
+<!--                                                </ul>-->
+<!--                                                <textarea id="review_message" class="input_review" name="message"  placeholder="Your Review" rows="4" required data-error="Please, leave us a review."></textarea>-->
+<!--                                            </div>-->
+<!--                                            <div class="text-left text-sm-right">-->
+<!--                                                <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">submit</button>-->
+<!--                                            </div>-->
+<!--                                        </form>-->
+<!--                                    </div>-->
 
-                                    <!-- User Review -->
+<!--                                </div>-->
 
-                                    <div class="user_review_container d-flex flex-column flex-sm-row">
-                                        <div class="user">
-                                            <div class="user_pic"></div>
-                                            <div class="user_rating">
-                                                <ul class="star_rating">
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="review">
-                                            <div class="review_date">27 Aug 2016</div>
-                                            <div class="user_name">Brandon William</div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Add Review -->
-
-                                <div class="col-lg-6 add_review_col">
-
-                                    <div class="add_review">
-                                        <form id="review_form" action="post">
-                                            <div>
-                                                <h1>Add Review</h1>
-                                                <input id="review_name" class="form_input input_name" type="text" name="name" placeholder="Name*" required="required" data-error="Name is required.">
-                                                <input id="review_email" class="form_input input_email" type="email" name="email" placeholder="Email*" required="required" data-error="Valid email is required.">
-                                            </div>
-                                            <div>
-                                                <h1>Your Rating:</h1>
-                                                <ul class="user_star_rating">
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                                                </ul>
-                                                <textarea id="review_message" class="input_review" name="message"  placeholder="Your Review" rows="4" required data-error="Please, leave us a review."></textarea>
-                                            </div>
-                                            <div class="text-left text-sm-right">
-                                                <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
+<!--                            </div>-->
+<!--                        </div>-->
 
                     </div>
                 </div>
@@ -254,9 +209,6 @@
 
 
     </div>
-
-
-
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/styles/bootstrap4/popper.js"></script>
     <script src="/styles/bootstrap4/bootstrap.min.js"></script>
@@ -265,5 +217,12 @@
     <script src="/plugins/easing/easing.js"></script>
     <script src="/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="/js/single_custom.js"></script>
+    <script>
+        function selectImg(index){
+            const itemSelectImage = document.getElementById('itemSelectImage'+index);
+            const itemMainImage = document.getElementById('itemMainImage');
+            itemMainImage.src=itemSelectImage.src;
+        }
+    </script>
 </div>
 </html>

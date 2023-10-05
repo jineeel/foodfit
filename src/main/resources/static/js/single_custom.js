@@ -48,9 +48,9 @@ jQuery(document).ready(function($)
 	});
 
 	initMenu();
-	initThumbnail();
+	// initThumbnail();
 	initQuantity();
-	initStarRating();
+	// initStarRating();
 	initFavorite();
 	initTabs();
 
@@ -179,26 +179,26 @@ jQuery(document).ready(function($)
 
 	*/
 
-	function initThumbnail()
-	{
-		if($('.single_product_thumbnails ul li').length)
-		{
-			var thumbs = $('.single_product_thumbnails ul li');
-			var singleImage = $('.single_product_image_background');
-
-			thumbs.each(function()
-			{
-				var item = $(this);
-				item.on('click', function()
-				{
-					thumbs.removeClass('active');
-					item.addClass('active');
-					var img = item.find('img').data('image');
-					singleImage.css('background-image', 'url(' + img + ')');
-				});
-			});
-		}	
-	}
+	// function initThumbnail()
+	// {
+	// 	if($('.single_product_thumbnails ul li').length)
+	// 	{
+	// 		var thumbs = $('.single_product_thumbnails ul li');
+	// 		var singleImage = $('#itemMainImage');
+	//
+	// 		thumbs.each(function()
+	// 		{
+	// 			var item = $(this);
+	// 			item.on('click', function()
+	// 			{
+	// 				thumbs.removeClass('active');
+	// 				item.addClass('active');
+	// 				var img = item.find('img').data('image');
+	// 				singleImage.css('url(' + img + ')');
+	// 			});
+	// 		});
+	// 	}
+	// }
 
 	/* 
 
@@ -237,34 +237,34 @@ jQuery(document).ready(function($)
 
 	*/
 
-	function initStarRating()
-	{
-		if($('.user_star_rating li').length)
-		{
-			var stars = $('.user_star_rating li');
-
-			stars.each(function()
-			{
-				var star = $(this);
-
-				star.on('click', function()
-				{
-					var i = star.index();
-
-					stars.find('i').each(function()
-					{
-						$(this).removeClass('fa-star');
-						$(this).addClass('fa-star-o');
-					});
-					for(var x = 0; x <= i; x++)
-					{
-						$(stars[x]).find('i').removeClass('fa-star-o');
-						$(stars[x]).find('i').addClass('fa-star');
-					};
-				});
-			});
-		}
-	}
+	// function initStarRating()
+	// {
+	// 	if($('.user_star_rating li').length)
+	// 	{
+	// 		var stars = $('.user_star_rating li');
+	//
+	// 		stars.each(function()
+	// 		{
+	// 			var star = $(this);
+	//
+	// 			star.on('click', function()
+	// 			{
+	// 				var i = star.index();
+	//
+	// 				stars.find('i').each(function()
+	// 				{
+	// 					$(this).removeClass('fa-star');
+	// 					$(this).addClass('fa-star-o');
+	// 				});
+	// 				for(var x = 0; x <= i; x++)
+	// 				{
+	// 					$(stars[x]).find('i').removeClass('fa-star-o');
+	// 					$(stars[x]).find('i').addClass('fa-star');
+	// 				};
+	// 			});
+	// 		});
+	// 	}
+	// }
 
 	/* 
 

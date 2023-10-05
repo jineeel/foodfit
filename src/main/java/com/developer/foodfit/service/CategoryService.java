@@ -1,7 +1,6 @@
 package com.developer.foodfit.service;
 
 import com.developer.foodfit.domain.Category;
-import com.developer.foodfit.dto.ItemResponse;
 import com.developer.foodfit.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

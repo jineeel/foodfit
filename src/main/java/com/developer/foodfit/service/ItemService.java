@@ -5,12 +5,11 @@ import com.developer.foodfit.domain.Category;
 import com.developer.foodfit.domain.Item;
 import com.developer.foodfit.domain.ItemImg;
 import com.developer.foodfit.dto.AddItemRequest;
-import com.developer.foodfit.dto.ItemResponse;
+import com.developer.foodfit.dto.ItemListResponse;
 import com.developer.foodfit.repository.CategoryRepository;
 import com.developer.foodfit.repository.ItemImgRepository;
 import com.developer.foodfit.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,17 +60,13 @@ public class ItemService {
         return item;
     }
 
-//    public List<Item> findAll() {
-//        return itemRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-//    }
-
 
     //카테고리별 아이템 조회
-    public List<ItemResponse> findItemList(List<Category> categories) {
+    public List<ItemListResponse> findItemList(List<Category> categories) {
         return categories.stream()
                 .flatMap(category -> category.getItems().stream())
-                .map(ItemResponse::new)
-                .sorted(Comparator.comparing(ItemResponse::getItemId).reversed())
+                .map(ItemListResponse::new)
+                .sorted(Comparator.comparing(ItemListResponse::getItemId).reversed())
                 .collect(Collectors.toList());
     }
 //    public List<ItemResponse> findItemList(List<Category> categories){
@@ -94,4 +89,7 @@ public class ItemService {
 //        return itemResponseList;
 //    }
 
+    public Item findById(Long itemId){
+        return itemRepository.findById(itemId).orElseThrow(()-> new IllegalArgumentException(""));
+    }
 }

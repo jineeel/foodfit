@@ -16,7 +16,7 @@ body {
   padding-bottom: 20px;
   margin-bottom: 40px;
   width: 100%;
-  height: 700px;
+  /*height: 700px;*/
 }
 .form-signin {
   width: 100%;
@@ -423,6 +423,7 @@ input[type='number'] {
 }
 
 .inner-div button{
+  width: 400px;
   width: 400px;
 }
 .main_center.gray{
