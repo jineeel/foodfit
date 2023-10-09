@@ -33,4 +33,11 @@ public class ItemApiController {
         return ResponseEntity.ok().body(updateItem);
     }
 
+    /** 상품 삭제 **/
+    @DeleteMapping("/api/item/{id}")
+    public ResponseEntity<Item> deleteItem(@PathVariable Long id){
+        System.out.println("id=="+id);
+        itemService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }

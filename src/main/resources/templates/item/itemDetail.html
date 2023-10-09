@@ -41,6 +41,8 @@
                     <div class="single_product_pics">
                         <div class="row">
                             <div class="product_image_div">
+                                <input type="hidden" id="id" th:value="${item.itemId}">
+                                <input type="hidden" id="categoryCode" th:value="${category.categoryCode}">
                                 <div class="image_div">
                                     <div th:each="itemImg, index : ${itemImg}">
                                         <img th:id="'itemSelectImage'+${index.index}" th:onclick="'selectImg('+ ${index.index} +')'" th:src="@{${itemImg.imgUrl}}">
@@ -80,7 +82,7 @@
                         </div>
                         <div class="product_admin_div" sec:authorize="hasAnyAuthority('GUEST')">
                             <input type="button" id="updateButton"  th:onclick="|location.href='@{/item?id={id}(id=${item.itemId})}'|" th:value="|상품 수정|">
-                            <input type="button" id="deleteButton" class="product_delete" th:value="|상품 삭제|">
+                            <input type="button" id="deleteBtn" class="product_delete" th:value="|상품 삭제|">
                         </div>
                     </div>
                 </div>
@@ -121,6 +123,7 @@
                         </div>
 
                         <!-- Tab Reviews -->
+                        <div>
 <!--                        <div id="tab_3" class="tab_container">-->
 <!--                            <div class="row">-->
 <!--                                &lt;!&ndash; User Reviews &ndash;&gt;-->
@@ -204,7 +207,7 @@
 
 <!--                            </div>-->
 <!--                        </div>-->
-
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,5 +221,7 @@
     <script src="/plugins/easing/easing.js"></script>
     <script src="/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="/js/single_custom.js"></script>
+    <script src="/js/item.js"></script>
 </div>
+
 </html>

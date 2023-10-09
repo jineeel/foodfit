@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Getter
@@ -20,7 +21,7 @@ public class ItemImg{
     private String imgUrl; //이미지 조회 경로
     private String repImgYn;  //대표 이미지 여부
 
-    @ManyToOne(fetch = FetchType.LAZY) //상품 엔티티와 다대일 단방향 관계로 매핑/ 매핑된 상품 엔티티 정보가 필요한 경우 데이터를 조회
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) //상품 엔티티와 다대일 단방향 관계로 매핑/ 매핑된 상품 엔티티 정보가 필요한 경우 데이터를 조회
     @JoinColumn(name="item_id")
     private Item item;
 

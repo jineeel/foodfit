@@ -11,7 +11,9 @@ import com.developer.foodfit.dto.UpdateItemRequest;
 import com.developer.foodfit.repository.CategoryRepository;
 import com.developer.foodfit.repository.ItemImgRepository;
 import com.developer.foodfit.repository.ItemRepository;
+import com.developer.foodfit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +30,7 @@ public class ItemService {
     private final CategoryRepository categoryRepository;
     private final ItemImgRepository itemImgRepository;
     private final ItemImgService itemImgService;
+    private final UserRepository userRepository;
 
     /** 상품 저장 **/
     public Item save(AddItemRequest request, String name, List<MultipartFile> itemImgFileList) throws Exception {
@@ -64,7 +67,6 @@ public class ItemService {
         return item;
     }
 
-
     /** 카테고리 상품 조회 **/
     public List<ItemListResponse> findItemList(List<Category> categories) {
         return categories.stream()
@@ -83,6 +85,7 @@ public class ItemService {
     public Item update(Long id, String author, List<MultipartFile> itemImgFileList, UpdateItemRequest request) throws Exception {
         Category category = categoryRepository.findByCategoryCode(request.getCategory());
         Item item = itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException(""));
+        authorizeItemRole();
         item.update(author,request,category);
 
         List<ItemImg> itemImgList = itemImgRepository.findAllByItemId(request.getId());
@@ -98,5 +101,25 @@ public class ItemService {
             }
         }
         return item;
+    }
+
+    /** 상품 삭제 **/
+    public void delete(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException(""));
+        List<ItemImg> itemImgList = itemImgRepository.findItemImgByItemId(item.getId());
+        authorizeItemRole();
+
+        for(int i=0; i<itemImgList.size(); i++){
+            itemImgRepository.delete(itemImgList.get(i));
+        }
+        itemRepository.delete(item);
+    }
+
+    private void authorizeItemRole(){
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        String userRole = userRepository.findByUserId(userName).orElseThrow(()-> new IllegalArgumentException("")).getRole().getKey();
+        if(!(userRole=="ROLE_GUEST")){
+            throw new IllegalArgumentException("not authorized");
+        }
     }
 }

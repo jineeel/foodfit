@@ -35,6 +35,7 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
 
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")

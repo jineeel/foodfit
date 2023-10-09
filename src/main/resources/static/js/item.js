@@ -14,6 +14,8 @@ if(createBtn){
     createBtn.addEventListener('click', (event)=>{
         event.preventDefault(); // 폼 제출 동작 막기
 
+        const formData = new FormData(itemForm);
+
         function success() {
             location.replace(`/item`);
         }
@@ -22,7 +24,7 @@ if(createBtn){
             location.replace(`/item`);
         }
 
-        itemRequest('POST',`api/item`, success,fail);
+        itemRequest('POST',`api/item`,formData, success,fail);
     });
 }
 
@@ -31,7 +33,7 @@ if(updateBtn){
     updateBtn.addEventListener('click', (event)=>{
         let id = document.getElementById('id').value;
         event.preventDefault(); // 폼 제출 동작 막기
-
+        const formData = new FormData(itemForm);
         function success() {
             location.replace(`/item/detail/${id}`);
         }
@@ -40,21 +42,37 @@ if(updateBtn){
             location.replace(`/item/detail/${id}`);
         }
 
-        itemRequest('PUT', `api/item/${id}`, success, fail);
+        itemRequest('PUT', `api/item/${id}`,formData, success, fail);
     });
 }
 
-function itemRequest(method, url, success, fail){
-    if(!inputNullCheck()){
-        return;
-    }
-    const formData = new FormData(itemForm);
+const deleteBtn = document.getElementById('deleteBtn');
+if(deleteBtn){
+    deleteBtn.addEventListener('click', (event) => {
 
+        let id= document.getElementById('id').value;
+        let categoryCode = document.getElementById('categoryCode').value;
+
+        function success(){
+            location.replace(`/item/list/${categoryCode}`);
+        }
+        function fail(){
+            location.replace(`/item/detail/${id}`);
+        }
+        itemRequest('DELETE', `/api/item/${id}`,null, success, fail);
+    })
+}
+
+function itemRequest(method, url, body, success, fail){
+    if(method!="DELETE"){
+        if(!inputNullCheck()){
+            return;
+        }
+    }
     fetch(url,{
         method: method,
-        body : formData,
-    })
-        .then(response=>{
+        body : body,
+    }).then(response=>{
             if (response.status === 200 || response.status === 201) {
                 return success();
             }
