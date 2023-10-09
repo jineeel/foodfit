@@ -5,12 +5,15 @@ import com.developer.foodfit.domain.Category;
 import com.developer.foodfit.domain.Item;
 import com.developer.foodfit.domain.ItemImg;
 import com.developer.foodfit.dto.AddItemRequest;
+import com.developer.foodfit.dto.ItemImgResponse;
 import com.developer.foodfit.dto.ItemListResponse;
+import com.developer.foodfit.dto.UpdateItemRequest;
 import com.developer.foodfit.repository.CategoryRepository;
 import com.developer.foodfit.repository.ItemImgRepository;
 import com.developer.foodfit.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -26,6 +29,7 @@ public class ItemService {
     private final ItemImgRepository itemImgRepository;
     private final ItemImgService itemImgService;
 
+    /** 상품 저장 **/
     public Item save(AddItemRequest request, String name, List<MultipartFile> itemImgFileList) throws Exception {
         Category category = categoryRepository.findByCategoryCode(request.getCategory());
         Item item = Item.builder()
@@ -61,7 +65,7 @@ public class ItemService {
     }
 
 
-    //카테고리별 아이템 조회
+    /** 카테고리 상품 조회 **/
     public List<ItemListResponse> findItemList(List<Category> categories) {
         return categories.stream()
                 .flatMap(category -> category.getItems().stream())
@@ -69,27 +73,30 @@ public class ItemService {
                 .sorted(Comparator.comparing(ItemListResponse::getItemId).reversed())
                 .collect(Collectors.toList());
     }
-//    public List<ItemResponse> findItemList(List<Category> categories){
-//        List<ItemResponse> itemResponseList = new ArrayList<>();
-//
-//        for(Category c: categories){
-//            List<Item> items = c.getItems();
-//            for(Item item:items){
-//                ItemResponse itemResponse = new ItemResponse(item);
-//                itemResponseList.add(itemResponse);
-//            }
-//        }
-//        Comparator<ItemResponse> itemIdComparator = (itemResponse1, itemResponse2) -> {
-//            Long itemId1 = itemResponse1.getItemId();
-//            Long itemId2 = itemResponse2.getItemId();
-//            return itemId2.compareTo(itemId1);
-//        };
-//        Collections.sort(itemResponseList,itemIdComparator);
-//
-//        return itemResponseList;
-//    }
 
     public Item findById(Long itemId){
         return itemRepository.findById(itemId).orElseThrow(()-> new IllegalArgumentException(""));
+    }
+
+    /** 상품 수정 **/
+    @Transactional
+    public Item update(Long id, String author, List<MultipartFile> itemImgFileList, UpdateItemRequest request) throws Exception {
+        Category category = categoryRepository.findByCategoryCode(request.getCategory());
+        Item item = itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException(""));
+        item.update(author,request,category);
+
+        List<ItemImg> itemImgList = itemImgRepository.findAllByItemId(request.getId());
+
+        //이미지 등록
+        for(int i=0;i<itemImgFileList.size();i++){
+            if (i < itemImgList.size() && itemImgList.get(i) != null) {
+                itemImgService.updateItemImg(itemImgList.get(i).getId(), itemImgFileList.get(i));
+            } else {
+                ItemImg itemImg = new ItemImg();
+                itemImg.setItem(item);
+                itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
+            }
+        }
+        return item;
     }
 }

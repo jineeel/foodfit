@@ -1,6 +1,7 @@
 package com.developer.foodfit.domain;
 
 import com.developer.foodfit.constant.Role;
+import com.developer.foodfit.dto.UpdateUserRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -67,6 +68,15 @@ public class User {
         this.zipcode = zipcode;
         this.streetAdr = streetAdr;
         this.detailAdr = detailAdr;
+    }
+    public void update(UpdateUserRequest request) {
+        this.email = request.getEmail();
+        this.phone = request.getPhone();
+        this.password = request.getPassword();
+        this.username = request.getUsername();
+        this.zipcode = request.getZipcode();
+        this.streetAdr = request.getStreetAdr();
+        this.detailAdr = request.getDetailAdr();
     }
 
     public void updatePassword(String password){

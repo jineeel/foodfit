@@ -2,6 +2,7 @@ package com.developer.foodfit.controller;
 
 import com.developer.foodfit.domain.Item;
 import com.developer.foodfit.dto.AddItemRequest;
+import com.developer.foodfit.dto.UpdateItemRequest;
 import com.developer.foodfit.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,19 +19,18 @@ public class ItemApiController {
 
     private final ItemService itemService;
 
+    /** 상품 등록 **/
     @PostMapping("/api/item")
     public ResponseEntity<Item> createItem(AddItemRequest request, Principal principal,@RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) throws Exception {
-        Item saved = itemService.save(request, principal.getName(),itemImgFileList);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        Item saveItem = itemService.save(request, principal.getName(),itemImgFileList);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saveItem);
     }
 
-//    @GetMapping("/api/item/{categoryCode}")
-//    public ResponseEntity<List<Item>> findItems(@PathVariable("categoryCode")String categoryCode){
-//        System.out.println("???"+categoryCode);
-//        List<Item> all = itemService.findCategoryId(categoryCode);
-//        for(int i =0; i<all.size(); i++){
-//            System.out.println("???"+all.get(i));
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(all);
-//    }
+    /** 상품 수정 **/
+    @PutMapping("/api/item/{id}")
+    public ResponseEntity<Item> updateItem(@PathVariable Long id, Principal principal, @RequestParam("itemImgFile")List<MultipartFile> itemImgFileList, UpdateItemRequest request) throws Exception {
+        Item updateItem = itemService.update(id,principal.getName(),itemImgFileList,request);
+        return ResponseEntity.ok().body(updateItem);
+    }
+
 }

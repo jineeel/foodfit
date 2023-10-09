@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -73,5 +74,15 @@ public class CategoryService {
     public Category getCategoryByCode(String categoryCode){
         return categoryRepository.findByCategoryCode(categoryCode);
     }
+
+    public Optional<Category> findByCategoryId(Long categoryId) {
+        return categoryRepository.findById(categoryId);
+    }
+
+    public String findParentName(String categoryCode){
+        Category category = getCategoryByCode(categoryCode);
+        return category.getDepth() == 1? category.getCategoryName() : getCategoryByCode(category.getParentCode()).getCategoryName();
+    }
+
 
 }

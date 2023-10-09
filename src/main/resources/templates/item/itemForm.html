@@ -1,0 +1,152 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>상품 등록</title>
+  <th:block layout:fragment="css">
+    <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
+  </th:block>
+  <th:block layout:fragment="script"></th:block>
+</head>
+<div layout:fragment="content" class="main_center gray">
+  <div class="text-center">
+    <h4 class="h-text"> 상품 등록 </h4>
+    <form id="itemForm" enctype="multipart/form-data">
+      <div class="inner-div">
+        <div class="input-area">
+          <label>상품 카테고리</label>
+          <select type="text" id="category1" name="category1" th:onchange="categoryDetail()">
+            <option>카테고리 선택</option>
+            <option th:each="category : ${categories}" th:value="${category.getCategoryName()}" th:text="${category.getCategoryName()}" ></option>
+          </select>
+          <select type="text" id="category2" name="category">
+            <option name="category"></option>
+          </select>
+        </div>
+        <input type="hidden" id="id" th:value="${item.itemId}">
+        <input type="hidden" id="categoryValue1" th:value="${parentName}">
+        <input type="hidden" id="categoryValue2" th:value="${item.category}">
+        <div class="input-area">
+          <label>상품명</label>
+          <input type="text" id="itemName" name="itemName" th:value="${item.itemName}">
+        </div>
+        <div class="input-area">
+          <label>가격</label>
+          <input type="number" id="price" name="price" th:value="${item.price} == 0 ? '' : ${item.price}">
+        </div>
+        <div class="input-area">
+          <label>수량</label>
+          <input type="number" id="stockNumber" name="stockNumber" th:value="${item.stockNumber} == 0 ? '' : ${item.stockNumber}">
+        </div>
+        <div class="input-area text">
+          <label>상세정보</label>
+          <textarea id="itemDetail" name="itemDetail" th:text="${item.itemDetail}"></textarea>
+        </div>
+
+        <div class="input-area text">
+          <div>
+            <label class="custom-label" th:text="상품이미지"></label>
+          </div>
+          <div class="div-vertical">
+
+            <div th:if="${item.itemId}==null">
+                <div class="custom-file" th:each="num, index: ${#numbers.sequence(1,3)}">
+                    <input type="button" value="상품 이미지" th:onclick="'selectFile(' + ${index.index } + ')'">
+                    <input type="file" th:id="'file' + ${index.index}" class="custom-file-input" name="itemImgFile" style="display:none;" th:onclick="bindDomEvent()" accept=".png, .jpg, .jpeg, .bmp, .gif">
+                    <label th:for="'file' + ${index.index}" class="custom-file-label"></label>
+                </div>
+            </div>
+
+            <div th:if="${item.itemId != null}">
+              <div class="custom-file" th:each="itemImg, iterStat : ${itemImg}">
+                <input type="button" value="상품 이미지" th:onclick="'selectFile(' + ${iterStat.index} + ')'">
+                <input type="file" th:id="'file' + ${iterStat.index}" class="custom-file-input" name="itemImgFile" style="display:none;" th:onclick="bindDomEvent()" accept=".png, .jpg, .jpeg, .bmp, .gif">
+                <label th:for="'file' + ${iterStat.index}" class="custom-file-label"  th:text="${itemImg.orgImgName} != null ? ${itemImg.orgImgName} : '' "></label>
+              </div>
+              <!-- itemImg가 3개 미만인 경우 빈 입력 필드를 추가 -->
+              <div class="custom-file" th:each="_, iterStat : ${#numbers.sequence(itemImg.size(), 2)}" th:unless="${itemImg.size() >= 3}">
+                <input type="button" value="상품 이미지" th:onclick="'selectFile(' + ${iterStat.index+itemImg.size()} + ')'">
+                <input type="file" th:id="'file' + ${iterStat.index+itemImg.size()}" class="custom-file-input" name="itemImgFile" style="display:none;" th:onclick="bindDomEvent()" accept=".png, .jpg, .jpeg, .bmp, .gif">
+                <label th:for="'file' + ${iterStat.index+itemImg.size()}" class="custom-file-label"></label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div id="resultFail" class="error-msg checkResult"></div>
+        <button th:if="${item.itemId} != null" class="green_button" type="button" id="updateBtn">수정</button>
+        <button th:if="${item.itemId} == null" class="green_button" type="button" id="createBtn">등록</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      const categoryValue1 = document.getElementById('categoryValue1').value;
+      const categoryValue2 = document.getElementById('categoryValue2').value;
+
+      if(categoryValue1){
+        document.getElementById('category1').value = categoryValue1;
+        categoryDetail(categoryValue2);
+      }
+    });
+    function bindDomEvent(){
+      $(".custom-file-input").on("change", function() {
+        const fileName = $(this).val().split("\\").pop();  //이미지 파일명
+        let fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
+        fileExt = fileExt.toLowerCase(); //소문자 변환
+
+        if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
+          alert("이미지 파일만 등록이 가능합니다.");
+          // $(".custom-file-input").val('');
+          // $(this).closest(".custom-file").find(".custom-file-label").html('');
+          return;
+        }
+        // 해당 파일 입력 필드에 대한 라벨을 찾아 업데이트
+        $(this).closest(".custom-file").find(".custom-file-label").html(fileName);
+      });
+    }
+
+    function selectFile(index){
+      document.getElementById('file'+index).click();
+    }
+  </script>
+  <script>
+    const resultFail = document.getElementById('resultFail');
+    const category1 = document.getElementById('category1');
+
+    function categoryDetail(categoryValue2){
+      const selectValue= category1.value;
+      console.log(selectValue);
+      $.ajax({
+        url: "/item/findDetailCategory",
+        type: "POST",
+        data : { selectValue : selectValue },
+        success: function (response){
+          const categoty2 = document.getElementById('category2');
+          console.log(response);
+          categoty2.innerHTML = '';
+
+          response.forEach(function (category) {
+            const option = document.createElement('option');
+            option.value = category.categoryCode;
+            option.text = category.categoryName;
+            category2.appendChild(option);
+          });
+
+          if(categoryValue2){
+            category2.value = categoryValue2;
+          }
+        },
+        error: function (error){
+          console.error("요청실패 "+error);
+        }
+      });
+    }
+  </script>
+  <script src="/js/item.js"></script>
+</div>
+
+</html>

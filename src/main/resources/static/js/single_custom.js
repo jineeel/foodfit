@@ -317,3 +317,9 @@ jQuery(document).ready(function($)
 		}
 	}
 });
+
+function selectImg(index){
+	const itemSelectImage = document.getElementById('itemSelectImage'+index);
+	const itemMainImage = document.getElementById('itemMainImage');
+	itemMainImage.src=itemSelectImage.src;
+}

@@ -1,7 +1,7 @@
 package com.developer.foodfit.service;
 
 import com.developer.foodfit.domain.ItemImg;
-import com.developer.foodfit.dto.ItemImgListResponse;
+import com.developer.foodfit.dto.ItemImgResponse;
 import com.developer.foodfit.dto.ItemListResponse;
 import com.developer.foodfit.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +26,7 @@ public class ItemImgService {
     private final ItemImgRepository itemImgRepository;
     private final FileService fileService;
 
+    /** 상품 이미지 저장 **/
     public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws Exception{
         String oriImgName = itemImgFile.getOriginalFilename();
         String imgName = "";
@@ -46,9 +47,7 @@ public class ItemImgService {
 
     public List<ItemImg> findAll() {
         return itemImgRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-       // return itemImgRepository.findByItemIdAndRepImgYn(1L,"Y");//
     }
-
 
     public List<ItemImg> findAllByItemId(Long itemId) {
         return itemImgRepository.findAllByItemId(itemId);
@@ -57,30 +56,38 @@ public class ItemImgService {
     public List<ItemImg> findItemImgView(Long itemId){
         return itemImgRepository.findItemImgByItemId(itemId);
     }
-    //카테고리별 아이템 이미지 리스트
-    public List<ItemImgListResponse> findItemImgList(List<ItemListResponse> items) {
+
+    /** 카테고리별 상품 이미지 리스트 **/
+    public List<ItemImgResponse> findItemImgList(List<ItemListResponse> items) {
         return items.stream()
                 .map(ItemListResponse::getItemId)
                 .flatMap(itemId -> itemImgRepository.findItemImgByItemId(itemId).stream())
-                .map(ItemImgListResponse::new)
+                .map(ItemImgResponse::new)
                 .collect(Collectors.toList());
     }
 
-//    public List<ItemImgResponse> findItemImg(List<ItemResponse> items){
-//        List<ItemImgResponse> itemImgResponseList = new ArrayList<>();
-//
-//        for(ItemResponse i: items){
-//            List<ItemImg> itemImgList = itemImgRepository.findItemImgByItemId(i.getItemId());
-//            for(ItemImg itemImg : itemImgList){
-//                ItemImgResponse itemImgResponse = new ItemImgResponse(itemImg);
-//                itemImgResponseList.add(itemImgResponse);
-//            }
-//        }
-//        return itemImgResponseList;
-//    }
+    public List<ItemImg> findItemImg(Long itemId) {
+        return itemImgRepository.findItemImgByItemId(itemId);
+    }
 
+    /** 상품 이미지 업데이트 **/
+    public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception{
+        if(!itemImgFile.isEmpty()){
+            ItemImg savedItemImg = itemImgRepository.findById(itemImgId)
+                    .orElseThrow(()->new IllegalArgumentException());
 
+            //기존 이미지 파일 삭제
+            if(!StringUtils.isEmpty(savedItemImg.getImgName())) {
+                fileService.deleteFile(itemImgLocation+"/"+
+                        savedItemImg.getImgName());
+            }
 
+            String oriImgName = itemImgFile.getOriginalFilename();
+            String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
+            String imgUrl = "/images/item/" + imgName;
+            savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
+        }
+    }
 
 }
 

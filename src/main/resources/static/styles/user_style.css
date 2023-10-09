@@ -460,8 +460,29 @@ input[type='number'] {
 }
 .div-vertical{
   display: block;
+  width: 800px;
 }
 
 .super_container{
   background: #ffffff;
+}
+
+.custom-file{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.custom-file label{
+  margin-left: 10px;
+  text-align: left;
+}
+.custom-file input[type='button']{
+  justify-content: center;
+  width: 120px;
+  height: 40px;
+  border-radius: 3px;
+  border: solid 1px #d3d3d3;
 }

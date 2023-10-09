@@ -14,8 +14,10 @@ public class ItemViewResponse {
     private Long itemId;
     private String itemName;
     private int price;
+    private int stockNumber;
     private ItemSellStatus itemSellStatus;
     private String category;
+    private String categoryName;
     private String itemDetail;
 
 
@@ -25,7 +27,9 @@ public class ItemViewResponse {
         this.price = item.getPrice();
         this.itemSellStatus = item.getItemSellStatus();
         this.category = item.getCategory().getCategoryCode();
+        this.categoryName = item.getCategory().getCategoryName();
         this.itemDetail = item.getItemDetail();
+        this.stockNumber = item.getStockNumber();
     }
 }
 

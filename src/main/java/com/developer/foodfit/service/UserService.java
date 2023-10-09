@@ -52,8 +52,8 @@ public class UserService {
         if(target.getProviderId()==null){
             encPassword = bCryptPasswordEncoder.encode(rawPassword);
         }
-        target.update(request.getEmail(), request.getPhone(), encPassword, request.getUsername(), request.getZipcode(), request.getStreetAdr(), request.getDetailAdr());
-
+//        target.update(request.getEmail(), request.getPhone(), encPassword, request.getUsername(), request.getZipcode(), request.getStreetAdr(), request.getDetailAdr());
+        target.update(request);
         return target;
     }
 

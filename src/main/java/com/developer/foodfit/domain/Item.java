@@ -1,11 +1,13 @@
 package com.developer.foodfit.domain;
 
 import com.developer.foodfit.constant.ItemSellStatus;
+import com.developer.foodfit.dto.UpdateItemRequest;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,13 +43,6 @@ public class Item {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
-//    @OneToMany(
-//            mappedBy = "ItemImg",
-//            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-//            orphanRemoval = true
-//    )
-//    private List<ItemImg> itemImg = new ArrayList<>();
-
     private String author;
 
     @Builder
@@ -65,4 +60,14 @@ public class Item {
         this.author = author;
     }
 
+    public void update(String author, UpdateItemRequest request, Category category) {
+        this.itemName = request.getItemName();
+        this.price = request.getPrice();
+        this.stockNumber = request.getStockNumber();
+        this.itemDetail = request.getItemDetail();
+        this.itemSellStatus = request.getItemSellStatus();
+        this.updateDate = LocalDateTime.now();
+        this.category = category;
+        this.author = author;
+    }
 }
