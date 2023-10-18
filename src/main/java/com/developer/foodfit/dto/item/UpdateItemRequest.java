@@ -1,8 +1,6 @@
-package com.developer.foodfit.dto;
+package com.developer.foodfit.dto.item;
 
 import com.developer.foodfit.constant.ItemSellStatus;
-import com.developer.foodfit.domain.Category;
-import com.developer.foodfit.domain.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,16 +10,16 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
-public class AddItemRequest {
+@Setter
+public class UpdateItemRequest {
+    private Long id;
     private String itemName;
     private int price;
     private int stockNumber;
     private ItemSellStatus itemSellStatus;
     private String itemDetail;
     private String category;
-    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
     private String author;
-
 }

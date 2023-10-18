@@ -866,45 +866,45 @@ COLOR PALETTE
 	opacity: 1;
 }
 /*.favorite*/
-{
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	color: #b9b4c7;
-	width: 17px;
-	height: 17px;
-	visibility: hidden;
-	opacity: 0;
-}
-.favorite_left
-{
-	left: 25px;
-}
-.favorite.active
-{
-	visibility: visible;
-	opacity: 1;
-}
-.product-item:hover .favorite
-{
-	visibility: visible;
-	opacity: 1;
-}
-.favorite.active::after
-{
-	font-family: 'FontAwesome';
-	content:'\f004';
-	color: #fe4c50;
-}
-.favorite::after
-{
-	font-family: 'FontAwesome';
-	content:'\f08a';
-}
-.favorite:hover::after
-{
-	color: #fe4c50;
-}
+/*{*/
+/*	position: absolute;*/
+/*	top: 15px;*/
+/*	right: 15px;*/
+/*	color: #b9b4c7;*/
+/*	width: 17px;*/
+/*	height: 17px;*/
+/*	visibility: hidden;*/
+/*	opacity: 0;*/
+/*}*/
+/*.favorite_left*/
+/*{*/
+/*	left: 25px;*/
+/*}*/
+/*.favorite.active*/
+/*{*/
+/*	visibility: visible;*/
+/*	opacity: 1;*/
+/*}*/
+/*.product-item:hover .favorite*/
+/*{*/
+/*	visibility: visible;*/
+/*	opacity: 1;*/
+/*}*/
+/*.favorite.active::after*/
+/*{*/
+/*	font-family: 'FontAwesome';*/
+/*	content:'\f004';*/
+/*	color: #fe4c50;*/
+/*}*/
+/*.favorite::after*/
+/*{*/
+/*	font-family: 'FontAwesome';*/
+/*	content:'\f08a';*/
+/*}*/
+/*.favorite:hover::after*/
+/*{*/
+/*	color: #fe4c50;*/
+/*}*/
 
 
 .cart-img img{

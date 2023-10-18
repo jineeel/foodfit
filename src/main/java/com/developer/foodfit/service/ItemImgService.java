@@ -1,8 +1,8 @@
 package com.developer.foodfit.service;
 
 import com.developer.foodfit.domain.ItemImg;
-import com.developer.foodfit.dto.ItemImgResponse;
-import com.developer.foodfit.dto.ItemListResponse;
+import com.developer.foodfit.dto.item.ItemImgResponse;
+import com.developer.foodfit.dto.item.ItemListResponse;
 import com.developer.foodfit.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,6 +57,15 @@ public class ItemImgService {
         return itemImgRepository.findItemImgByItemId(itemId);
     }
 
+    /** 아이템 대표 이미지 **/
+    public String findRegImgItemId(Long itemId){
+        List<ItemImg> itemImg = itemImgRepository.findItemImgByItemId(itemId);
+        return itemImg.stream()
+                .filter(img -> "Y".equals(img.getRepImgYn()))
+                .map(ItemImg::getImgUrl)
+                .findFirst()
+                .orElse("");
+    }
     /** 카테고리별 상품 이미지 리스트 **/
     public List<ItemImgResponse> findItemImgList(List<ItemListResponse> items) {
         return items.stream()

@@ -465,6 +465,7 @@ input[type='number'] {
 
 .super_container{
   background: #ffffff;
+  min-height: 1000px;
 }
 
 .custom-file{
@@ -486,3 +487,5 @@ input[type='number'] {
   border-radius: 3px;
   border: solid 1px #d3d3d3;
 }
+
+

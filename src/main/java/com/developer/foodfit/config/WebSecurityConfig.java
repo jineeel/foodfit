@@ -1,13 +1,9 @@
 package com.developer.foodfit.config;
 
 import com.developer.foodfit.config.oauth.OAuth2LoginFailureHandler;
-import com.developer.foodfit.constant.Role;
-import com.developer.foodfit.domain.User;
-import com.developer.foodfit.dto.PrincipalDetails;
 import com.developer.foodfit.service.PrincipalOauthUserService;
 import com.developer.foodfit.service.PrincipalService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,13 +11,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @Configuration
 @RequiredArgsConstructor
@@ -58,8 +50,8 @@ public class WebSecurityConfig {
                                         AntPathRequestMatcher.antMatcher("/plugins/**"),
                                         AntPathRequestMatcher.antMatcher("/styles/**")
                                 ).permitAll()
-                                .anyRequest().permitAll())
-                                //.authenticated())
+//                                .anyRequest().permitAll())
+                                .anyRequest().authenticated()) //TODO:추후 변경
                 .formLogin((form) ->
                         form.loginPage("/login").defaultSuccessUrl("/",true).failureHandler(loginFailHandler()))
                 .logout(logout -> logout.logoutSuccessUrl("/").permitAll()

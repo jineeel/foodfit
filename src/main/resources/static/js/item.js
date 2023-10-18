@@ -8,7 +8,6 @@ const itemDetail = document.getElementById('itemDetail');
 const category2 = document.getElementById('category2');
 const itemForm = document.getElementById('itemForm')
 
-
 const createBtn = document.getElementById('createBtn');
 if(createBtn){
     createBtn.addEventListener('click', (event)=>{
@@ -103,4 +102,13 @@ function inputNullCheck(){
         inputStatus = true;
     }
     return inputStatus;
+}
+
+const purchaseBtn = document.getElementById('purchaseBtn');
+if(purchaseBtn){
+    purchaseBtn.addEventListener('click', ()=>{
+        const quantity = document.getElementById('quantity_value').textContent;
+        const url = '/order?id='+itemId.value+'&quantity='+quantity;
+        window.location.href = url;
+    })
 }

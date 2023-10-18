@@ -1,9 +1,7 @@
-package com.developer.foodfit.dto;
+package com.developer.foodfit.dto.item;
 
 import com.developer.foodfit.constant.ItemSellStatus;
 import com.developer.foodfit.domain.Item;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;

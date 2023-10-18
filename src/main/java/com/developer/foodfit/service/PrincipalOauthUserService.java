@@ -6,7 +6,7 @@ import com.developer.foodfit.config.oauth.NaverUserInfo;
 import com.developer.foodfit.config.oauth.OAuth2UserInfo;
 import com.developer.foodfit.constant.Role;
 import com.developer.foodfit.domain.User;
-import com.developer.foodfit.dto.PrincipalDetails;
+import com.developer.foodfit.dto.user.PrincipalDetails;
 import com.developer.foodfit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

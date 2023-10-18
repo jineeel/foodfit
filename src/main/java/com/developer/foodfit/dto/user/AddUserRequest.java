@@ -1,4 +1,4 @@
-package com.developer.foodfit.dto;
+package com.developer.foodfit.dto.user;
 
 import com.developer.foodfit.constant.Role;
 

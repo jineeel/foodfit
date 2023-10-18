@@ -1,8 +1,8 @@
 package com.developer.foodfit.controller;
 
 import com.developer.foodfit.domain.Item;
-import com.developer.foodfit.dto.AddItemRequest;
-import com.developer.foodfit.dto.UpdateItemRequest;
+import com.developer.foodfit.dto.item.AddItemRequest;
+import com.developer.foodfit.dto.item.UpdateItemRequest;
 import com.developer.foodfit.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,7 +36,6 @@ public class ItemApiController {
     /** 상품 삭제 **/
     @DeleteMapping("/api/item/{id}")
     public ResponseEntity<Item> deleteItem(@PathVariable Long id){
-        System.out.println("id=="+id);
         itemService.delete(id);
         return ResponseEntity.ok().build();
     }

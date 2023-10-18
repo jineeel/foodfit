@@ -1,13 +1,12 @@
 package com.developer.foodfit.controller;
 
 import com.developer.foodfit.domain.User;
-import com.developer.foodfit.dto.AddUserRequest;
-import com.developer.foodfit.dto.UpdateUserRequest;
+import com.developer.foodfit.dto.user.AddUserRequest;
+import com.developer.foodfit.dto.user.UpdateUserRequest;
 import com.developer.foodfit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 

@@ -1,4 +1,4 @@
-package com.developer.foodfit.dto;
+package com.developer.foodfit.dto.item;
 
 import com.developer.foodfit.domain.ItemImg;
 import lombok.Getter;

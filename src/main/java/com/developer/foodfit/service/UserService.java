@@ -2,8 +2,8 @@ package com.developer.foodfit.service;
 
 import com.developer.foodfit.constant.Role;
 import com.developer.foodfit.domain.User;
-import com.developer.foodfit.dto.AddUserRequest;
-import com.developer.foodfit.dto.UpdateUserRequest;
+import com.developer.foodfit.dto.user.AddUserRequest;
+import com.developer.foodfit.dto.user.UpdateUserRequest;
 import com.developer.foodfit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

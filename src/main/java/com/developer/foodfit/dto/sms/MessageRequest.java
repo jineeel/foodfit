@@ -1,4 +1,4 @@
-package com.developer.foodfit.dto;
+package com.developer.foodfit.dto.sms;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -87,24 +87,39 @@
 	line-height: 30px;
 	margin-top: 21px;
 }
-.product_purchase_div input[type="button"]{
-	margin-top: 30px;
-	width: 100%;
-	height: 50px;
-}
-.product_button_div{
+.product_purchase_div{
 	display: flex;
 	margin-top: 10px;
 	float: right;
 	width: 100%;
 }
-.product_button_div input[type="button"]{
-	font-family: 'Noto Sans KR', sans-serif;
-	width: 50%;
-	background: #ffffff;
-	border: solid 1px #e5e5e5;
-	border-radius: 2px;
+.product_purchase_div input[type="button"]{
+	margin-top: 30px;
+	width: 100%;
+	height: 50px;
 }
+.product_purchase_div #purchaseBtn{
+	margin-left: 10px;
+}
+.product_purchase_div #cartBtn{
+	font-family: 'Noto Sans KR', sans-serif;
+	background: #ffffff;
+	border: solid 1px #cccccc;
+	border-radius: 4px;
+}
+/*.product_button_div{*/
+/*	display: flex;*/
+/*	margin-top: 10px;*/
+/*	float: right;*/
+/*	width: 100%;*/
+/*}*/
+/*.product_button_div input[type="button"]{*/
+/*	font-family: 'Noto Sans KR', sans-serif;*/
+/*	width: 50%;*/
+/*	background: #ffffff;*/
+/*	border: solid 1px #e5e5e5;*/
+/*	border-radius: 2px;*/
+/*}*/
 .product_admin_div{
 	display: flex;
 	justify-content: right;
@@ -165,30 +180,30 @@
 {
 	color: #b5aec4;
 }
-.product_favorite
-{
-	width: 50%;
-	height: 40px;
-	margin-left: 10px;
-	border: solid 1px #e5e5e5;
-	border-radius: 2px;
-	cursor: pointer;
-}
-.product_favorite:hover::after
-{
-	color: #fe4c50;
-}
-.product_favorite::after
-{
-	font-family: 'FontAwesome';
-	content:'\f08a';
-	font-size: 14px;
-}
-.product_favorite.active::after
-{
-	content:'\f004';
-	color: #fe4c50;
-}
+/*.product_favorite*/
+/*{*/
+/*	width: 50%;*/
+/*	height: 40px;*/
+/*	margin-left: 10px;*/
+/*	border: solid 1px #e5e5e5;*/
+/*	border-radius: 2px;*/
+/*	cursor: pointer;*/
+/*}*/
+/*.product_favorite:hover::after*/
+/*{*/
+/*	color: #fe4c50;*/
+/*}*/
+/*.product_favorite::after*/
+/*{*/
+/*	font-family: 'FontAwesome';*/
+/*	content:'\f08a';*/
+/*	font-size: 14px;*/
+/*}*/
+/*.product_favorite.active::after*/
+/*{*/
+/*	content:'\f004';*/
+/*	color: #fe4c50;*/
+/*}*/
 
 /*********************************
 7. Tabs

@@ -4,10 +4,9 @@ import com.developer.foodfit.constant.ItemSellStatus;
 import com.developer.foodfit.domain.Category;
 import com.developer.foodfit.domain.Item;
 import com.developer.foodfit.domain.ItemImg;
-import com.developer.foodfit.dto.AddItemRequest;
-import com.developer.foodfit.dto.ItemImgResponse;
-import com.developer.foodfit.dto.ItemListResponse;
-import com.developer.foodfit.dto.UpdateItemRequest;
+import com.developer.foodfit.dto.item.AddItemRequest;
+import com.developer.foodfit.dto.item.ItemListResponse;
+import com.developer.foodfit.dto.item.UpdateItemRequest;
 import com.developer.foodfit.repository.CategoryRepository;
 import com.developer.foodfit.repository.ItemImgRepository;
 import com.developer.foodfit.repository.ItemRepository;
@@ -115,6 +114,7 @@ public class ItemService {
         itemRepository.delete(item);
     }
 
+    //권한 확인
     private void authorizeItemRole(){
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         String userRole = userRepository.findByUserId(userName).orElseThrow(()-> new IllegalArgumentException("")).getRole().getKey();

@@ -74,12 +74,10 @@
                             </div>
                         </div>
                         <div class="product_purchase_div">
-                            <input type="button" class="green_button" th:value="구매하기">
+                            <input type="button" id="cartBtn" th:value="장바구니">
+                            <input type="button" id="purchaseBtn" class="green_button" th:value="구매하기">
                         </div>
-                        <div class="product_button_div">
-                            <input type="button" th:value="장바구니">
-                            <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
-                        </div>
+
                         <div class="product_admin_div" sec:authorize="hasAnyAuthority('GUEST')">
                             <input type="button" id="updateButton"  th:onclick="|location.href='@{/item?id={id}(id=${item.itemId})}'|" th:value="|상품 수정|">
                             <input type="button" id="deleteBtn" class="product_delete" th:value="|상품 삭제|">
@@ -222,6 +220,7 @@
     <script src="/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="/js/single_custom.js"></script>
     <script src="/js/item.js"></script>
+
 </div>
 
 </html>

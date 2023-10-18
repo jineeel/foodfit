@@ -1,6 +1,6 @@
 package com.developer.foodfit.controller;
 
-import com.developer.foodfit.dto.MessageRequest;
+import com.developer.foodfit.dto.sms.MessageRequest;
 import com.developer.foodfit.service.SmsService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;

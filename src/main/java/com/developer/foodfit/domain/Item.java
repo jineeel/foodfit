@@ -1,17 +1,14 @@
 package com.developer.foodfit.domain;
 
 import com.developer.foodfit.constant.ItemSellStatus;
-import com.developer.foodfit.dto.UpdateItemRequest;
+import com.developer.foodfit.dto.item.UpdateItemRequest;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter

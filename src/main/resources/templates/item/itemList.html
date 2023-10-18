@@ -41,7 +41,6 @@
                                                 <img th:src="@{${itemImg.imgUrl}}">
                                                 <div class="cart-img"><a href="#"><img src="/images/cart.png"></a></div>
                                             </div>
-                                            <div class="favorite favorite_left"></div>
                                             <div class="product_info">
                                                 <h6 class="product_name" th:text="${item.itemName}"></h6>
                                                 <div class="product_price" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></div>

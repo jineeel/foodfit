@@ -2,12 +2,17 @@ package com.developer.foodfit.controller;
 
 import com.developer.foodfit.domain.Category;
 import com.developer.foodfit.domain.Item;
-import com.developer.foodfit.domain.ItemImg;
 import com.developer.foodfit.dto.*;
+import com.developer.foodfit.dto.item.ItemImgResponse;
+import com.developer.foodfit.dto.item.ItemListResponse;
+import com.developer.foodfit.dto.item.ItemViewResponse;
 import com.developer.foodfit.service.CategoryService;
 import com.developer.foodfit.service.ItemImgService;
 import com.developer.foodfit.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

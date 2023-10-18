@@ -1,4 +1,4 @@
-package com.developer.foodfit.dto;
+package com.developer.foodfit.dto.item;
 
 import com.developer.foodfit.constant.ItemSellStatus;
 import com.developer.foodfit.domain.Item;
@@ -10,26 +10,30 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor
-public class ItemViewResponse {
+@ToString
+public class ItemListResponse {
+
     private Long itemId;
     private String itemName;
     private int price;
-    private int stockNumber;
     private ItemSellStatus itemSellStatus;
     private String category;
-    private String categoryName;
-    private String itemDetail;
 
-
-    public ItemViewResponse(Item item) {
+    public ItemListResponse(Item item) {
         this.itemId = item.getId();
         this.itemName = item.getItemName();
         this.price = item.getPrice();
         this.itemSellStatus = item.getItemSellStatus();
-        this.category = item.getCategory().getCategoryCode();
-        this.categoryName = item.getCategory().getCategoryName();
-        this.itemDetail = item.getItemDetail();
-        this.stockNumber = item.getStockNumber();
+        this.category = item.getCategory().getCategoryName();
     }
-}
 
+
+//    public ItemResponse(Item item) {
+//        this.itemId = item.getId();
+//        this.itemName = item.getItemName();
+//        this.price = item.getPrice();
+//        this.itemSellStatus = item.getItemSellStatus();
+//        this.category = item.getCategory().getCategoryName();
+//    }
+//
+}

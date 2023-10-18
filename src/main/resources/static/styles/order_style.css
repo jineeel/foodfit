@@ -1,0 +1,292 @@
+.main_form{
+    background: #FFFFFF;
+    min-height: 2000px;
+    padding-top: 150px;
+}
+.order_form{
+    width: 1250px;
+    margin: auto;
+}
+.order_form h5{
+    text-align: left;
+    margin-top: 35px;
+}
+.div_form{
+    display: flex;
+    height: 50px;
+}
+.div_form:not(:last-of-type){
+    border-bottom: solid 1px #dfdfdf;
+}
+.div_form p{
+    width: 160px;
+    height: 100%;
+    line-height: 50px;
+    background: #efefef;
+}
+
+.div_form input{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-top: 5px;
+    margin-left: 20px;
+    height: 40px;
+    border: solid 1px #dadada;
+    padding: 10px;
+}
+
+.addr_div_form{
+    display: flex;
+    height: 140px;
+}
+.addr_div_form:not(:last-of-type){
+    border-bottom: solid 1px #dfdfdf;
+}
+.addr_div_form p{
+    width: 160px;
+    height: 100%;
+    line-height: 138px;
+    background: #efefef;
+}
+
+.addr_div_form input{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-top: 5px;
+    margin-left: 20px;
+    width: auto;
+    height: 40px;
+    border: solid 1px #dadada;
+    padding: 10px;
+}
+
+.addr_div{
+    display: grid;
+}
+.addr_div div{
+    display: flex;
+}
+.addr_div input[type="button"]{
+    align-items:center;
+    margin-left: 10px;
+    width: 100px;
+    font-size: 14px;
+}
+.checks_addr{
+
+}
+.checks_addr input{
+    margin-left: 20px;
+}
+.checks_addr label{
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #383838;
+    margin-left: 10px;
+    vertical-align:top;
+    padding-top: 12px;
+}
+
+/*********************************
+1. 주문정보
+*********************************/
+.order_item_div{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 2px #d9d9d9;
+    padding: 10px;
+
+}
+.order_item_div img{
+    width: 120px;
+    margin: 20px;
+}
+
+.order_item_div span{
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 60%;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 20px;
+}
+
+.order_item_div p{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 200;
+    color: #646464;
+    text-align: right;
+    margin: 40px;
+}
+
+/*********************************
+2. 구매자 정보
+*********************************/
+.order_user_div{
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 310px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 2px #d9d9d9;
+    padding: 10px;
+}
+/*********************************
+3. 배송지 정보
+*********************************/
+.order_addr_div{
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 402px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 2px #d9d9d9;
+    padding: 10px;
+}
+.addr_text_div{
+    display: grid;
+}
+
+.addr_text_div select{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-left: 20px;
+    width: 300px;
+    height: 40px;
+    color: #4d4d4d;
+    border: solid 1px #dadada;
+    padding: 5px;
+}
+.addr_text_form{
+    display: flex;
+    height: 90px;
+}
+.addr_text_form:not(:last-of-type){
+    border-bottom: solid 1px #dfdfdf;
+}
+.addr_text_form p{
+    width: 160px;
+    height: 100%;
+    line-height: 90px;
+    background: #efefef;
+}
+
+.addr_text_form input{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-top: 5px;
+    margin-left: 20px;
+    width: auto;
+    height: 40px;
+    border: solid 1px #dadada;
+    padding: 10px;
+
+}
+/*********************************
+4. 결제 정보
+*********************************/
+.order_pay_div{
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 122px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 2px #d9d9d9;
+    padding: 10px;
+}
+.order_pay_div select{
+     font-family: 'Noto Sans KR', sans-serif;
+     font-size: 15px;
+     margin-top: 5px;
+     margin-left: 20px;
+     width: 300px;
+     height: 40px;
+     color: #4d4d4d;
+     border: solid 1px #dadada;
+     padding: 5px;
+ }
+
+/*********************************
+5. 총 결제 금액
+*********************************/
+.order_money_div{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    height: 122px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 2px #d9d9d9;
+    padding: 10px;
+}
+.order_money_div div{
+    display: grid;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.order_money_div p{
+    margin: 0px;
+    color: #888888;
+    font-weight: 300;
+}
+.order_money_div span{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+}
+.order_money_div img{
+    width: 40px;
+    opacity: 90%;
+}
+/*********************************
+6. 주문 동의
+*********************************/
+.order_agree_div{
+    width: 100%;
+    height: 100px;
+    border-top: solid 2px #d9d9d9;
+    padding: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.order_agree_div div{
+    float: left;
+}
+
+.order_agree_div input{
+    margin: 10px;
+}
+/*********************************
+7. 주문 버튼
+*********************************/
+.order_button_div{
+    width: 1250px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.order_button_div input{
+    width: 200px;
+    height: 60px;
+    margin-top: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 150px;
+    background: #67be38;
+    border: none;
+    border-radius: 3px;
+}
+.cancel{
+    background: #a0a0a0 !important;
+}

@@ -1,19 +1,15 @@
 package com.developer.foodfit.controller;
 
 import com.developer.foodfit.domain.User;
-import com.developer.foodfit.dto.AddUserRequest;
-import com.developer.foodfit.dto.UpdateUserRequest;
-import com.developer.foodfit.dto.ViewUserResponse;
+import com.developer.foodfit.dto.user.ViewUserResponse;
 import com.developer.foodfit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller

@@ -1,0 +1,173 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>주문</title>
+    <th:block layout:fragment="css">
+        <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
+        <link href="/styles/order_style.css" type="text/css" rel="stylesheet">
+    </th:block>
+    <th:block layout:fragment="script"></th:block>
+</head>
+<div layout:fragment="content">
+    <div class="main_form">
+        <div class="text-center">
+                <h4 class="h-text c">주문/결제</h4>
+                <form>
+                <div class="order_form">
+                    <h5 class="h-text"> 주문 상품</h5>
+                    <div class="order_item_div" th:each="item : ${item}">
+                        <input type="hidden" id="itemId" th:value="${item.id}">
+                        <img  th:src="@{${regImg}}">
+                        <span th:text="${item.itemName}"></span>
+                            <p th:text="|${quantity}개|"></p>
+                            <p th:text="|${item.price}원|"></p>
+                    </div>
+                </div>
+
+                <!-- 구매자 정보 -->
+                <div class="order_form">
+                    <h5 class="h-text"> 주문자 정보</h5>
+                    <div class="order_user_div">
+                        <div class="div_form">
+                            <p>주문자</p>
+                            <input type="text" id="userName" th:value="${user.getUsername()}" readonly>
+                        </div>
+                        <div class="div_form">
+                            <p>이메일</p>
+                            <input type="text" id="userEmail" th:value="${user.getEmail()}" readonly>
+                        </div>
+                        <div class="div_form">
+                            <p>연락처</p>
+                            <input type="text" id="userPhone" th:value="${user.getPhone()}" readonly>
+                        </div>
+                        <div class="addr_div_form">
+                            <p>주소</p>
+                            <div class="addr_div">
+                                <input type="text" id="zipcodeEx" th:value="${user.getZipcode()}" readonly>
+                                <input type="text" id="streetAdrEx" th:value="${user.getStreetAdr()}" readonly>
+                                <input type="text" id="detailAdrEx" th:value="${user.getDetailAdr()}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 배송지 정보 -->
+                <div class="order_form">
+                    <h5 class="h-text"> 배송지 정보</h5>
+                    <div class="order_addr_div">
+                        <div class="div_form">
+                            <p>배송지 선택</p>
+                            <div class="checks_addr" id="checks_addr">
+                                <input type="radio" id="rd" name="addr" value="addrEx"><label for="rd">주문자 정보와 동일</label>
+                                <input type="radio" id="rd2" name="addr" value="addrNew" checked><label for="rd2">새로운 배송지</label>
+                            </div>
+                        </div>
+                        <div class="div_form">
+                            <p>받는 사람</p>
+                            <input type="text" id="orderName">
+                        </div>
+                        <div class="addr_div_form">
+                            <p>주소</p>
+                            <div class="addr_div">
+                                <div>
+                                    <input type="text" id="zipcode" name="zipcode" readonly>
+                                    <input type="button" id="addrSearch" value="주소 검색">
+                                </div>
+                                    <input type="text" id="streetAdr" name="streetAdr" readonly>
+                                    <input type="text" id="detailAdr" name="detailAdr">
+
+                            </div>
+                        </div>
+                        <div class="div_form">
+                            <p>연락처</p>
+                            <input type="text" id="phone">
+                        </div>
+                        <div class="addr_text_form">
+                            <p>배송 요청 사항</p>
+                            <div class="addr_text_div">
+                                <select id="selectBox">
+                                    <option th:text="|--메시지 선택 (선택사항)--|"></option>
+                                    <option th:text="|배송전 미리 연락 바랍니다.|"></option>
+                                    <option th:text="|부재 시 경비실에 맡겨주세요.|"></option>
+                                    <option th:text="|부재 시 문 앞에 놓아주세요.|"></option>
+                                    <option th:text="|빠른 배송 부탁드립니다.|"></option>
+                                    <option th:text="|택배함에 보관해주세요.|"></option>
+                                    <option th:text="|직접 입력|"></option>
+                                </select>
+                                <input type="text" id="addrText">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 결제 정보 (무통장입금) -->
+                <div class="order_form">
+                    <h5 class="h-text"> 결제 정보 [무통장 입금]</h5>
+                    <div class="order_pay_div">
+                        <div class="div_form">
+                            <p>입금은행</p>
+                            <select>
+                                <option th:text="|--선택해 주세요--|"></option>
+                                <option th:text="|카카오뱅크 : 3333-05-7819421 이진희|"></option>
+                            </select>
+                        </div>
+                        <div class="div_form">
+                            <p>입금자명</p>
+                            <input type="text" id="payUser">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 총 금액 -->
+                <div class="order_form">
+                    <h5 class="h-text"> 총 결제 금액</h5>
+                    <div class="order_money_div">
+                        <div>
+                            <p>총 주문금액</p>
+                            <span th:text="14900"></span>
+                        </div>
+                        <img src="/images/plus.png">
+                        <div>
+                            <p>총 배송비</p>
+                            <span th:text="3500"></span>
+                        </div>
+                        <img src="/images/equal.png">
+                        <div>
+                            <p>총 결제금액</p>
+                            <span th:text="18400"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 주문 동의-->
+                <div class="order_form">
+                    <h5 class="h-text"> 주문 동의</h5>
+                    <div class="order_agree_div">
+                        <div>
+                            <input type="checkbox" id="checkBox1" th:text="|주문할 상품의 상품, 가격, 배송정보 등을 최종 확인하였으며, 개인정보 제3자 제공 동의에 관한 내용을 모두 이해하였으며, 이에 동의합니다.|">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkBox2" th:text="|주문은 만 14세 이상 사용자만 가능합니다. 본인은 만 14세 이상이며, 이를 확인하였습니다.|">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="resultFail" class="error-msg checkResult"></div>
+                <!-- 결제하기/취소 버튼 -->
+                <div class="order_button_div">
+                    <input type="button" id="payBtn" th:value="결제하기">
+                    <input type="button" class="cancel" onclick="history.back();" th:value="취소">
+                </div>
+                </form>
+
+        </div>
+    </div>
+    <script src="/js/address.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/js/order.js"></script>
+</div>
+</html>

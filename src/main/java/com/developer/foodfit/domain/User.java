@@ -1,7 +1,7 @@
 package com.developer.foodfit.domain;
 
 import com.developer.foodfit.constant.Role;
-import com.developer.foodfit.dto.UpdateUserRequest;
+import com.developer.foodfit.dto.user.UpdateUserRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

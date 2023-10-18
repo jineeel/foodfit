@@ -1,7 +1,6 @@
-package com.developer.foodfit.dto;
+package com.developer.foodfit.dto.item;
 
 import com.developer.foodfit.domain.ItemImg;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
