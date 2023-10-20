@@ -79,6 +79,12 @@ public class ItemService {
         return itemRepository.findById(itemId).orElseThrow(()-> new IllegalArgumentException(""));
     }
 
+    public List<Item> findItem(Long itemId){
+        Optional<Item> item = itemRepository.findById(itemId);
+
+        return item.map(Collections::singletonList).orElse(Collections.emptyList());
+    }
+
     /** 상품 수정 **/
     @Transactional
     public Item update(Long id, String author, List<MultipartFile> itemImgFileList, UpdateItemRequest request) throws Exception {

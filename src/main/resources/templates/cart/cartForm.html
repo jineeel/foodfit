@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>주문</title>
+  <th:block layout:fragment="css">
+    <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
+    <link href="/styles/order_style.css" type="text/css" rel="stylesheet">
+  </th:block>
+  <th:block layout:fragment="script"></th:block>
+</head>
+<div layout:fragment="content">
+  <div class="main_form">
+    <div class="text-center">
+      <h4 class="h-text c">장바구니</h4>
+      <form>
+        <div class="order_form">
+          <h5 class="h-text"> 주문 상품</h5>
+          <div class="order_item_div" th:each="cartItem : ${cartItemList}">
+            <input type="hidden" id="itemId" th:value="${cartItem.id}">
+            <div th:each="regImgList: ${regImgLis}">
+            <img th:src="@{${regImgList}}"></div>
+            <span th:each="itemList: ${itemList}" th:text="${itemList.itemName}"></span>
+            <p th:text="|${cartItem.count}개|"></p>
+            <p th:each="itemList: ${itemList}" th:text="|${itemList.price}원|"></p>
+          </div>
+        </div>
+
+
+
+        <div id="resultFail" class="error-msg checkResult"></div>
+        <!-- 결제하기/취소 버튼 -->
+        <div class="order_button_div">
+          <input type="button" id="payBtn" th:value="구매하기">
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="/js/order.js"></script>
+</div>
+</html>

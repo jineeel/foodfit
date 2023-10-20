@@ -36,7 +36,7 @@ public class OrderService {
                 .build();
 
         orderRepository.save(order);
-//        System.out.println("request.getItemId()="+request.getItemId());
+        System.out.println("request.getItemId()="+request.getItemId());
         Item Item = itemRepository.findById(request.getItemId()).orElseThrow();
 
 //        for(int i=0; i<orderItemList.size(); i++){

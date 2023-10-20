@@ -66,6 +66,17 @@ public class ItemImgService {
                 .findFirst()
                 .orElse("");
     }
+
+    /** 아이템 대표 이미지 리스트 **/
+    public List<String> findRegImgListItemId(Long itemId) {
+        return itemImgRepository.findItemImgByItemId(itemId).stream()
+                .filter(img -> "Y".equals(img.getRepImgYn()))
+                .map(ItemImg::getImgUrl)
+                .findFirst()
+                .map(Collections::singletonList)
+                .orElse(Collections.emptyList());
+    }
+
     /** 카테고리별 상품 이미지 리스트 **/
     public List<ItemImgResponse> findItemImgList(List<ItemListResponse> items) {
         return items.stream()

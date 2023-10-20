@@ -25,7 +25,7 @@ public class OrderController {
     @GetMapping("/order")
     public String order(@RequestParam(value = "id")Long id, @RequestParam(value="quantity") Long quantity, Model model, Principal principal){
         Item item = itemService.findById(id);
-
+        System.out.println("itemImgService.findRegImgItemId(id)="+itemImgService.findRegImgItemId(id));
         model.addAttribute("user",userService.findByUserId(principal.getName()));
         model.addAttribute("item", item);
         model.addAttribute("quantity", quantity);

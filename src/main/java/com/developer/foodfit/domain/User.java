@@ -69,6 +69,7 @@ public class User {
         this.streetAdr = streetAdr;
         this.detailAdr = detailAdr;
     }
+
     public void update(UpdateUserRequest request) {
         this.email = request.getEmail();
         this.phone = request.getPhone();

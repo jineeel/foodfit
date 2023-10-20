@@ -26,10 +26,10 @@
                             <a href="/">
                                 <li th:text="Home"></li></a>
                             <i class="fa fa-angle-right"></i>
-                            <a th:href="@{/item/{parentCode}(parentCode = ${category.parentCode})}">
+                            <a th:href="@{/item/list/{parentCode}(parentCode = ${category.parentCode})}">
                                 <li th:text="${parentName}"></li></a>
                             <i class="fa fa-angle-right"></i>
-                            <a th:href="@{/item/{categoryCode}(categoryCode = ${category.categoryCode})}">
+                            <a th:href="@{/item/list/{categoryCode}(categoryCode = ${category.categoryCode})}">
                                 <li class="active" th:text="${category.categoryName}"></li></a>
                         </ul>
                     </div>
@@ -211,6 +211,7 @@
             </div>
         </div>
     </div>
+
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/styles/bootstrap4/popper.js"></script>
     <script src="/styles/bootstrap4/bootstrap.min.js"></script>
@@ -220,7 +221,7 @@
     <script src="/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="/js/single_custom.js"></script>
     <script src="/js/item.js"></script>
-
+    <script src="/js/cart.js"></script>
 </div>
 
 </html>

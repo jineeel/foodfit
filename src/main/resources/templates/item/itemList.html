@@ -35,16 +35,19 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="product-grid" >
-                                        <div class="product-item" th:each="item : ${item}" th:onclick="|location.href='/item/detail/${item.itemId}'|">
+                                        <div class="product-item" th:each="item,index : ${item}" th:onclick="|location.href='/item/detail/${item.itemId}'|">
                                             <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
                                                 <img th:src="@{${itemImg.imgUrl}}">
-                                                <div class="cart-img"><a href="#"><img src="/images/cart.png"></a></div>
+                                                <div class="cart-img"><img src="/images/cart.png" class="cartBtn"></div>
                                             </div>
                                             <div class="product_info">
                                                 <h6 class="product_name" th:text="${item.itemName}"></h6>
                                                 <div class="product_price" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></div>
                                             </div>
+                                            <input type="hidden" class="count" th:value="1">
+                                            <input type="hidden" class="itemId" th:value="${item.itemId}">
                                         </div>
                                     </div>
                                 </div>
@@ -55,6 +58,7 @@
             </div>
         </div>
     </div>
+
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/styles/bootstrap4/popper.js"></script>
     <script src="/styles/bootstrap4/bootstrap.min.js"></script>
@@ -63,5 +67,6 @@
     <script src="/plugins/easing/easing.js"></script>
     <script src="/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="/js/categories_custom.js"></script>
+    <script src="/js/cart.js"></script>
 </div>
 </html>
