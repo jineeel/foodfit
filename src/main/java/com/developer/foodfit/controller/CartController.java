@@ -32,31 +32,25 @@ public class CartController {
     @GetMapping("/cart")
     public String findCart(Principal principal, Model model){
         Cart cart = cartService.findCart(principal);
-        List<CartItemListResponse> cartItemList = cartItemService.findCartItem(cart).stream().map(CartItemListResponse::new).toList();
+        if(cart!=null){
+            List<CartItemListResponse> cartItemList = cartItemService.findCartItem(cart).stream().map(CartItemListResponse::new).toList();
 
-        List<ItemListResponse> itemList = cartItemList.stream()
-                .map(cartItem -> itemService.findItem(cartItem.getItemId()))
-                .flatMap(List::stream) // Flattens the list of items
-                .map(ItemListResponse::new)
-                .collect(Collectors.toList());
+            List<ItemListResponse> itemList = cartItemList.stream()
+                    .map(cartItem -> itemService.findItem(cartItem.getItemId()))
+                    .flatMap(List::stream) // Flattens the list of items
+                    .map(ItemListResponse::new)
+                    .collect(Collectors.toList());
 
-        List<ItemImgResponse> itemImgList = itemList.stream()
-                        .map(item -> itemImgService.findItemImg(item.getItemId()))
-                        .flatMap(List::stream)
-                        .map(ItemImgResponse::new)
-                        .collect(Collectors.toList());
+            List<ItemImgResponse> regImgList = itemList.stream()
+                    .map(item -> itemImgService.findRegImgListItemId(item.getItemId()))
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList());
 
-        List<List<String>> regImgLists = itemImgList.stream()
-                .map(itemImg -> itemImgService.findRegImgListItemId(itemImg.getItemId()))
-                .collect(Collectors.toList());
-
-        for (int i=0; i<regImgLists.size(); i++){
-            System.out.println(regImgLists.get(i).toString());
+            model.addAttribute("cartItemList", cartItemList);
+            model.addAttribute("itemList", itemList);
+            model.addAttribute("regImgList", regImgList);
         }
-//        List<CategoryResponse> categoryResponsesList = categoryService.findCategoryList(categoryCode).stream().map(CategoryResponse::new).toList();
-        model.addAttribute("cartItemList", cartItemList);
-        model.addAttribute("itemList", itemList);
-        model.addAttribute("regImgLis", regImgLists);
+
         return "cart/cartForm";
     }
 

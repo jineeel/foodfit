@@ -69,12 +69,12 @@
                             <span>수량:</span>
                             <div class="quantity_selector">
                                 <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                <span id="quantity_value">1</span>
+                                <span class="quantity_value">1</span>
                                 <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                             </div>
                         </div>
                         <div class="product_purchase_div">
-                            <input type="button" id="cartBtn" th:value="장바구니">
+                            <input type="button" class="cartBtnDetail" th:value="장바구니">
                             <input type="button" id="purchaseBtn" class="green_button" th:value="구매하기">
                         </div>
 
@@ -223,5 +223,4 @@
     <script src="/js/item.js"></script>
     <script src="/js/cart.js"></script>
 </div>
-
 </html>

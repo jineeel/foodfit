@@ -4,6 +4,7 @@ const addrText = document.getElementById('addrText');
 const zipcode = document.getElementById('zipcode');
 const streetAdr = document.getElementById('streetAdr');
 const detailAdr = document.getElementById('detailAdr');
+
 $(document).ready(function(){
     $("input[name='addr']").change(function(){
         if($("input[name='addr']:checked").val() == 'addrEx'){

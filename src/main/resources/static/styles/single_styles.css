@@ -101,7 +101,7 @@
 .product_purchase_div #purchaseBtn{
 	margin-left: 10px;
 }
-.product_purchase_div #cartBtn{
+.product_purchase_div .cartBtnDetail{
 	font-family: 'Noto Sans KR', sans-serif;
 	background: #ffffff;
 	border: solid 1px #cccccc;
@@ -166,7 +166,7 @@
 .quantity_selector span
 {
 	font-weight: 500;
-	color: #232530;
+	color: #383838;
 }
 .plus,
 .minus
@@ -178,7 +178,7 @@
 .plus:hover,
 .minus:hover
 {
-	color: #b5aec4;
+	color: #a8a8a8;
 }
 /*.product_favorite*/
 /*{*/

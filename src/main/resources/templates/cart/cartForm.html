@@ -7,7 +7,7 @@
   <title>주문</title>
   <th:block layout:fragment="css">
     <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
-    <link href="/styles/order_style.css" type="text/css" rel="stylesheet">
+    <link href="/styles/cart_style.css" type="text/css" rel="stylesheet">
   </th:block>
   <th:block layout:fragment="script"></th:block>
 </head>
@@ -16,15 +16,34 @@
     <div class="text-center">
       <h4 class="h-text c">장바구니</h4>
       <form>
-        <div class="order_form">
+        <div class="cart_form">
           <h5 class="h-text"> 주문 상품</h5>
-          <div class="order_item_div" th:each="cartItem : ${cartItemList}">
-            <input type="hidden" id="itemId" th:value="${cartItem.id}">
-            <div th:each="regImgList: ${regImgLis}">
-            <img th:src="@{${regImgList}}"></div>
-            <span th:each="itemList: ${itemList}" th:text="${itemList.itemName}"></span>
-            <p th:text="|${cartItem.count}개|"></p>
-            <p th:each="itemList: ${itemList}" th:text="|${itemList.price}원|"></p>
+
+          <div class="cart_form_flex">
+            <input type="checkbox" id="allCheck">
+            <span th:text="|전체 선택|"> </span>
+
+          </div>
+          <div th:each="cartItem,index : ${cartItemList}">
+            <div class="cart_item_div" th:each="item: ${itemList}" th:if="${cartItem.itemId==item.itemId}">
+              <input type="checkbox">
+              <div class="cart_item_div form" th:onclick="|location.href='@{/item/detail/{id}(id=${item.itemId})}'|">
+                  <img th:each="regImg: ${regImgList}" th:if="${regImg.itemId==item.itemId}" th:src="@{${regImg.imgUrl}}" >
+                  <span th:text="${item.itemName}"></span>
+              </div>
+              <div class="count_form">
+                <div class="quantity_selector">
+                    <input type="hidden" class="cartItemId" th:value="${cartItem.id}">
+                  <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                  <span class="quantity_value" th:text="${cartItem.count}"></span>
+                  <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                </div>
+                <input type="button" class="countBtn" th:value="변경">
+                </div>
+                <input type="hidden" class="originPrice" th:value="${item.price}">
+                <p class="price" th:text="(${item.price}*${cartItem.count})+'원'"></p>
+                <input type="button" class="deleteCartItem" th:value="|상품 삭제|">
+            </div>
           </div>
         </div>
 
@@ -32,7 +51,7 @@
 
         <div id="resultFail" class="error-msg checkResult"></div>
         <!-- 결제하기/취소 버튼 -->
-        <div class="order_button_div">
+        <div class="cart_button_div">
           <input type="button" id="payBtn" th:value="구매하기">
         </div>
       </form>
@@ -40,6 +59,6 @@
     </div>
   </div>
 
-  <script src="/js/order.js"></script>
+  <script src="/js/cart.js"></script>
 </div>
 </html>

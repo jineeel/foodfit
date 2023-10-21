@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -46,6 +47,19 @@ public class CartItemService {
     }
 
     public List<CartItem> findCartItem(Cart cart) {
+        System.out.println("sss="+cart.getId());
         return cartItemRepository.findByCartId(cart.getId());
+    }
+
+    @Transactional
+    public CartItem updateCount(Long cartItemId, int count) {
+        System.out.println("cartItemId=="+cartItemId);
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow();
+        cartItem.update(count);
+        return cartItem;
+    }
+
+    public void delete(Long cartItemId) {
+        cartItemRepository.deleteById(cartItemId);
     }
 }

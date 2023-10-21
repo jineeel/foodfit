@@ -68,10 +68,10 @@ public class ItemImgService {
     }
 
     /** 아이템 대표 이미지 리스트 **/
-    public List<String> findRegImgListItemId(Long itemId) {
+    public List<ItemImgResponse> findRegImgListItemId(Long itemId) {
         return itemImgRepository.findItemImgByItemId(itemId).stream()
                 .filter(img -> "Y".equals(img.getRepImgYn()))
-                .map(ItemImg::getImgUrl)
+                .map(ItemImgResponse::new)
                 .findFirst()
                 .map(Collections::singletonList)
                 .orElse(Collections.emptyList());
