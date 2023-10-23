@@ -18,6 +18,7 @@ public class ItemListResponse {
     private int price;
     private ItemSellStatus itemSellStatus;
     private String category;
+    private int stockNumber;
 
     public ItemListResponse(Item item) {
         this.itemId = item.getId();
@@ -25,6 +26,7 @@ public class ItemListResponse {
         this.price = item.getPrice();
         this.itemSellStatus = item.getItemSellStatus();
         this.category = item.getCategory().getCategoryName();
+        this.stockNumber = item.getStockNumber();
     }
 
 

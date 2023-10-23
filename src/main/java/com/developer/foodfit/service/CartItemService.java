@@ -47,7 +47,6 @@ public class CartItemService {
     }
 
     public List<CartItem> findCartItem(Cart cart) {
-        System.out.println("sss="+cart.getId());
         return cartItemRepository.findByCartId(cart.getId());
     }
 
@@ -61,5 +60,15 @@ public class CartItemService {
 
     public void delete(Long cartItemId) {
         cartItemRepository.deleteById(cartItemId);
+    }
+
+    public int findCartCount(User user) {
+        Cart cart = cartRepository.findCartByUserId(user.getId());
+        List<CartItem> cartItemList = cartItemRepository.findByCartId(cart.getId());
+        return cartItemList.size();
+    }
+
+    public CartItem findById(Long cartItemId) {
+        return cartItemRepository.findById(cartItemId).orElseThrow();
     }
 }

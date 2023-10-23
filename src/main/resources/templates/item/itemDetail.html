@@ -41,6 +41,7 @@
                     <div class="single_product_pics">
                         <div class="row">
                             <div class="product_image_div">
+                                <input type="hidden" class="stockNum" th:value="${item.stockNumber}">
                                 <input type="hidden" id="id" th:value="${item.itemId}">
                                 <input type="hidden" id="categoryCode" th:value="${category.categoryCode}">
                                 <div class="image_div">

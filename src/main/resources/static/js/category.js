@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.ajax({
         url : "/item/findCategories",
-        type : "post",
+        type : "POST",
         success: function (result){
             console.log(result)
             const categoryMenu = $("#categoryMenu");
@@ -18,6 +18,23 @@ $(document).ready(function () {
             console.error("카테고리 요청 실패"+error);
         }
     });
+
+    // const checkout_items = document.getElementById('checkout_items');
+    // $.ajax({
+    //     url : "/cart/itemCount",
+    //     type : "POST",o
+    //     success: function (result){
+    //         console.log(result)
+    //         if(result!=0){
+    //             checkout_items.textContent = result
+    //         }else{
+    //             checkout_items.textContent="";
+    //         }
+    //
+    //     },error: function (error){
+    //         console.error("카테고리 요청 실패"+error);
+    //     }
+    // });
 })
 
 

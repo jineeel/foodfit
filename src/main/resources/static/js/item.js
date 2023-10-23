@@ -107,7 +107,7 @@ function inputNullCheck(){
 const purchaseBtn = document.getElementById('purchaseBtn');
 if(purchaseBtn){
     purchaseBtn.addEventListener('click', ()=>{
-        const quantity = document.getElementById('quantity_value').textContent;
+        const quantity = document.querySelector('.quantity_value').textContent;
         const url = '/order?id='+itemId.value+'&quantity='+quantity;
         window.location.href = url;
     })

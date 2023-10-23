@@ -11,68 +11,68 @@
     text-align: left;
     margin-top: 35px;
 }
-.cart_form_flex{
-    display: flex;
-    margin: 20px;
-}
 
 /*********************************
 1. 장바구니 아이템
 *********************************/
-.cart_item_div{
-    display: flex;
-    align-items: center;
-    float: left;
-    /*justify-content: left;*/
-    width: 100%;
-    height: 150px;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    border: solid 2px #d9d9d9;
-    padding: 10px;
-}
-.cart_item_div img{
-    width: 120px;
-    margin: 20px;
-}
 
-.cart_item_div span{
+.cart_table{
+    border: solid 1px #e8e8e8;
+    width: 1250px;
+    margin: auto;
     font-family: 'Noto Sans KR', sans-serif;
-    /*width: 42%;*/
-    text-align: left;
-    font-size: 18px;
-    font-weight: 500;
-    margin: 20px;
-}
-
-.cart_item_div p{
-    font-family: 'Noto Sans KR', sans-serif;
-    width: 200px;
-    font-size: 17px;
-    font-weight: 500;
+    font-size: 16px;
     color: #383838;
-    margin-top: 20px;
 }
-.cart_item_div input[type="checkbox"]{
-    margin: 10px;
-}
-.deleteCartItem{
+input[type="button"]{
     width: 80px;
     height: 30px;
-    font-family: 'Noto Sans KR', sans-serif;
     font-size: 14px;
-    margin: 30px;
     background: #FFFFFF;
     border: solid 1px #d3d3d3;
     color: #383838;
     border-radius: 3px;
 }
-.cart_item_div .form{
-    width: 700px;
-    margin: 0;
-    padding-right: 100px;
-    border: none;
+.cart_table tr{
+    border: solid 1px #e8e8e8;
+    padding: 10px;
+    height: 40px;
+}
+.cart_table th{
+    border: solid 1px #e8e8e8;
+    width: 150px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: 400;
+}
+
+.cart_table th p{
+    font-size: 15px;
+    font-weight: 300;
+    color: #383838;
+    align-items: center;
+    margin-top: 15px;
+}
+.cart_table th:nth-child(1){
+    width: 50px;
+}
+.cart_table th:nth-child(2){
+    width: 600px;
+}
+.cart_table th:nth-child(2) span{
+    font-size: 17px;
+    margin: 20px;
+}
+.cart_table th img{
+    width: 120px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.cart_item_info{
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }
 /*********************************
 2. 수량 버튼
@@ -99,9 +99,10 @@
 .quantity_selector span
 {
     font-weight: 300;
-    color: #383838;
+    color: #606060;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
+    margin: 10px;
 }
 .plus,
 .minus
@@ -120,17 +121,66 @@
     justify-content: center;
 }
 .count_form input[type="button"]{
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px;
     width: 50px;
-    height: 25px;
-    border: none;
     margin: auto;
-    border-radius: 3px;
 }
 
 /*********************************
-3. 구매하기 버튼
+3. 선택 삭제 버튼
+*********************************/
+.check_btn_div{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+.check_btn_div input[type="button"]{
+    width: 120px;
+font-size: 13px;
+    /*height: 30px;*/
+    /*font-size: 14px;*/
+    /*background: #FFFFFF;*/
+    /*border: solid 1px #d3d3d3;*/
+    /*color: #383838;*/
+    /*border-radius: 3px;*/
+}
+/*********************************
+4. 구매 금액
+*********************************/
+.cart_money_div{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    height: 122px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 1px #e8e8e8;
+    padding: 10px;
+}
+.cart_money_div div{
+    display: grid;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.cart_money_div p{
+    margin: 0px;
+    color: #888888;
+    font-weight: 300;
+    font-size: 15px;
+}
+.cart_money_div span{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: #383838;
+}
+.cart_money_div img{
+    width: 40px;
+    opacity: 90%;
+}
+/*********************************
+5. 구매하기 버튼
 *********************************/
 .cart_button_div{
     width: 1250px;
@@ -139,14 +189,13 @@
     justify-content: center;
     font-family: 'Noto Sans KR', sans-serif;
 }
-.cart_button_div input{
+.cart_button_div input[type="button"]{
     width: 200px;
     height: 60px;
     margin-top: 50px;
-    margin-left: 10px;
-    margin-right: 10px;
     margin-bottom: 150px;
     background: #67be38;
-    border: none;
-    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 500;
 }
+
