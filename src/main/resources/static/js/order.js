@@ -33,17 +33,47 @@ selectBox.addEventListener('change',()=>{
     }
 
 })
-
+const order_item_div = document.querySelectorAll('.order_item_div');
 const payBtn = document.getElementById('payBtn');
+
+const itemId= document.querySelectorAll('.itemId');
+const orderPrice = document.querySelectorAll('.itemPrice');
+const count = document.querySelectorAll('.count');
 payBtn.addEventListener("click", (e)=>{
     if(inputNullCheck()){
+        let orderItemList = [];
+        let orderItemData;
+
+        order_item_div.forEach((orderItemDiv, index)=>{
+            orderItemData = {
+                "itemId" : itemId[index].value,
+                "orderPrice" : orderPrice[index].textContent,
+                "count" : count[index].textContent,
+            }
+            orderItemList.push(orderItemData);
+        });
+
+        let orderUserData = {
+            "orderName" : document.getElementById('orderName').value,
+            "orderPhone" : document.getElementById('phone').value,
+            "orderZipcode" : document.getElementById('zipcode').value,
+            "orderStreetAdr" : document.getElementById('streetAdr').value,
+            "orderDetailAdr" : document.getElementById('detailAdr').value,
+            "orderMessage" : document.getElementById('addrText').value
+         }
+
+        let addOrderRequest = {
+            "orderItemRequests" : orderItemList,
+            "orderUserRequest" : orderUserData
+        }
+
         $.ajax({ //주문 저장하는 컨트롤러
             url:"/api/order",
             type:"POST",
-            // data:,
-            contentType:"application/json; charset=utf-8",
+            data: JSON.stringify(addOrderRequest),
+            contentType: "application/json",
             success: function (){
-
+                // location.replace('/')
             },error:function (error){
                 console.error("에러",error);
             }
@@ -74,4 +104,24 @@ function inputNullCheck(){
 
     }
     return false;
+}
+const orderItemDiv = document.querySelectorAll('.order_item_div');
+const totalAmount = document.getElementById('totalAmount')
+const totalShippingFee = document.getElementById('totalShippingFee');
+const totalPayment = document.getElementById('totalPayment');
+const itemPrice = document.querySelectorAll('.itemPrice');
+$(document).ready(function () {
+    totalPay();
+});
+
+function totalPay(){
+    let resultPrice= 0;
+    orderItemDiv.forEach((orderItem, index)=>{
+        resultPrice += parseInt(itemPrice[index].textContent);
+    })
+    if(totalAmount){
+        let amount = totalAmount.textContent = resultPrice +"원"
+        let shippingFee = totalShippingFee.textContent = parseInt(totalAmount.textContent) >= 40000 ? "무료" : "3500원";
+        let payment= totalPayment.textContent = shippingFee =="무료" ? amount : parseInt(amount)+parseInt(shippingFee)+"원";
+    }
 }

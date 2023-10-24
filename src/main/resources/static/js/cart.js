@@ -2,7 +2,9 @@ const cartBtns = document.querySelectorAll('.cartBtn');
 const itemIds = document.querySelectorAll('.itemId');
 const counts = document.querySelectorAll('.count');
 
-/** 리스트에서 장바구니 추가 **/
+/*
+    상품 리스트에서 장바구니 추가
+ */
 if(cartBtns){
 cartBtns.forEach((cartBtn, index) => {
     cartBtn.addEventListener('click', (event) => {
@@ -20,7 +22,9 @@ cartBtns.forEach((cartBtn, index) => {
     });
 });
 }
-/** 상품 디테일에서 장바구니 추가 **/
+/*
+    상품 디테일에서 장바구니 추가
+ */
 const cartBtn = document.querySelector('.cartBtnDetail');
 if(cartBtn){
     cartBtn.addEventListener('click', (event)=>{
@@ -57,32 +61,14 @@ function cartRequest(method, url, body, success, fail){
         return fail();
     });
 }
-
-/** 장바구니 추가 확인창 **/
-function successConfirm(){
-    Swal.fire({
-        text: '상품이 장바구니에 추가되었습니다',
-        icon: 'success',
-        showCancelButton: true,
-        confirmButtonColor: '#66bc39',
-        cancelButtonColor: '#8a8a8a',
-        confirmButtonText: '장바구니로 이동',
-        cancelButtonText: '계속 쇼핑',
-        width: 400,
-
-    }).then((result) => {
-        if (result.value) {
-            location.replace(`/cart`)
-        }
-    })
-}
-
+/*
+    장바구니 수량 버튼
+ */
 const plus = document.querySelectorAll('.plus');
 const minus = document.querySelectorAll('.minus');
 const quantity_value = document.querySelectorAll('.quantity_value');
 const quantity_selectors = document.querySelectorAll('.quantity_selector');
 const stockNum = document.querySelectorAll('.stockNum');
-/** 수량 **/
 if(quantity_selectors){
     quantity_selectors.forEach((quantity_selector, index) => {
         const plusButton = plus[index];
@@ -91,6 +77,7 @@ if(quantity_selectors){
 
         let quantity = parseInt(valueElement.textContent); // 현재 수량 가져오기
         let stockNumber = parseInt(stockNum[index].value); // 상품 재고 수량
+
         plusButton.addEventListener('click', function () {
             if(valueElement.textContent < stockNumber){
                 quantity += 1;
@@ -105,13 +92,14 @@ if(quantity_selectors){
         });
     });
 }
-
+/*
+    장바구니 상품 수량 변경
+ */
 const countBtns = document.querySelectorAll('.countBtn');
 let prices = document.querySelectorAll('.price')
 const originPrice = document.querySelectorAll('.originPrice')
 const cartItemId = document.querySelectorAll('.cartItemId');
 const shippingFee = document.querySelectorAll('.shippingFee');
-/** 장바구니 상품 수량 변경 **/
 if(countBtns){
     countBtns.forEach((countBtn, index)=>{
         countBtn.addEventListener('click', ()=>{
@@ -138,22 +126,16 @@ if(countBtns){
     })
 }
 
-/** 장바구니 상품 삭제 **/
-const deleteCartItems = document.querySelectorAll('.deleteCartItem');
-deleteCartItems.forEach((deleteCartItem, index)=>{
-    deleteCartItem.addEventListener('click', ()=>{
-        deleteItem(cartItemId[index].value);
-    })
-})
+/*
+    총 결제 금액
+ */
 const cartItems = document.querySelectorAll('.cartItems');
 const totalAmount = document.getElementById('totalAmount')
 const totalShippingFee = document.getElementById('totalShippingFee');
 const totalPayment = document.getElementById('totalPayment');
-
 $(document).ready(function () {
     totalPay();
 });
-
 function totalPay(){
     let resultPrice= 0;
     cartItems.forEach((cartItem, index)=>{
@@ -165,14 +147,27 @@ function totalPay(){
         let payment= totalPayment.textContent = shippingFee =="무료" ? amount : parseInt(amount)+parseInt(shippingFee)+"원";
     }
 }
-
+/*
+    체크박스 전체 선택
+ */
 function selectAll(selectAll){
     const checkBoxes = document.querySelectorAll('input[type="checkbox"]');
     checkBoxes.forEach((checkbox)=>{
         checkbox.checked=selectAll.checked;
     })
 }
-
+/*
+    상품 하나씩 삭제
+ */
+const deleteCartItems = document.querySelectorAll('.deleteCartItem');
+deleteCartItems.forEach((deleteCartItem, index)=>{
+    deleteCartItem.addEventListener('click', ()=>{
+        deleteItem(cartItemId[index].value);
+    })
+})
+/*
+    상품 여러개 삭제
+ */
 const cartForm = document.getElementById('cartForm');
 const selectDelete = document.getElementById('selectDelete');
 if(cartForm){
@@ -183,7 +178,9 @@ if(cartForm){
         deleteItem(selectedItems);
     })
 }
-
+/*
+    상품 삭제
+ */
 function deleteItem(cartItemId){
     $.ajax({
         url: "/api/cart/"+cartItemId,
@@ -195,33 +192,66 @@ function deleteItem(cartItemId){
         }
     })
 }
-
+/*
+    구매하기 버튼
+ */
 const payBtn = document.getElementById('payBtn');
 if(payBtn){
     payBtn.addEventListener('click', ()=>{
         const cartItemCheckboxes = Array.from(document.querySelectorAll('input[name="checkItem"]:checked'));
         const cartItemId = cartItemCheckboxes.map(item => item.value).join(",");
-
-        const quantities = cartItemCheckboxes.map(checkbox => {
+        const quantity = cartItemCheckboxes.map(checkbox => {
             const quantityText = checkbox.closest('tr.cartItems').querySelector('.quantity_value').textContent;
             return quantityText.trim(); // Trim to remove leading/trailing spaces
-        }).join(",");
+        })
+          .join(",");
 
-        console.log("++"+quantities)
-        const url = '/order/'+cartItemId;
-        window.location.href = url;
-        // $.ajax({
-        //     url: "/order/"+cartItemId,
-        //     type:"GET",
-        //     data: {
-        //         "quantity": quantities
-        //     },
-        //     contentType:"application/json; charset=utf-8",
-        //     success: function (result){
-        //         alert("??");
-        //     },error:function (error){
-        //         console.error("에러",error);
-        //     }
-        // })
+        if(cartItemCheckboxes.length>0){
+            const url = '/order?id='+cartItemId+'&quantity='+quantity;
+            window.location.href = url;
+        }else{
+            errorConfirm();
+        }
+
+
+    })
+}
+
+/*
+    success Alert
+ */
+function successConfirm(){
+    Swal.fire({
+        text: '상품이 장바구니에 추가되었습니다',
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#66bc39',
+        cancelButtonColor: '#8a8a8a',
+        confirmButtonText: '장바구니로 이동',
+        cancelButtonText: '계속 쇼핑',
+        width: 400,
+
+    }).then((result) => {
+        if (result.value) {
+            location.replace(`/cart`)
+        }
+    })
+}
+/*
+    error Alert
+ */
+function errorConfirm(){
+    Swal.fire({
+        text: '구매할 상품을 선택해주세요',
+        icon: 'error',
+        showCancelButton: false,
+        confirmButtonColor: '#8a8a8a',
+        confirmButtonText: '확인',
+        width: 400,
+
+    }).then((result) => {
+        if (result.value) {
+            location.replace(`/cart`)
+        }
     })
 }

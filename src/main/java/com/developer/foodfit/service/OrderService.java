@@ -6,6 +6,7 @@ import com.developer.foodfit.domain.Order;
 import com.developer.foodfit.domain.OrderItem;
 import com.developer.foodfit.domain.User;
 import com.developer.foodfit.dto.order.AddOrderItemRequest;
+import com.developer.foodfit.dto.order.AddOrderUserRequest;
 import com.developer.foodfit.repository.ItemRepository;
 import com.developer.foodfit.repository.OrderRepository;
 import com.developer.foodfit.repository.UserRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -25,10 +27,16 @@ public class OrderService {
     private final OrderItemService orderItemService;
     private final ItemRepository itemRepository;
 
-    public Order save(AddOrderItemRequest request, Principal principal) {
+    public Order save(List<AddOrderItemRequest> orderItemRequest, AddOrderUserRequest orderUserRequest, Principal principal) {
         User user = userRepository.findByUserId(principal.getName()).orElseThrow();
         Order order = Order.builder()
                 .user(user)
+                .orderName(orderUserRequest.getOrderName())
+                .orderPhone(orderUserRequest.getOrderPhone())
+                .orderZipcode(orderUserRequest.getOrderZipcode())
+                .orderStreetAdr(orderUserRequest.getOrderStreetAdr())
+                .orderDetailAdr(orderUserRequest.getOrderDetailAdr())
+                .orderMessage(orderUserRequest.getOrderMessage())
                 .orderStatus(OrderStatus.ORDER)
                 .orderDate(LocalDateTime.now())
                 .regTime(LocalDateTime.now())
@@ -36,14 +44,12 @@ public class OrderService {
                 .build();
 
         orderRepository.save(order);
-        System.out.println("request.getItemId()="+request.getItemId());
-        Item Item = itemRepository.findById(request.getItemId()).orElseThrow();
 
-//        for(int i=0; i<orderItemList.size(); i++){
-//            OrderItem orderItem = new OrderItem();
-//            orderItem.
-//        }
-        orderItemService.save(request,order,Item);
+        for(int i=0; i<orderItemRequest.size(); i++){
+            Item Item = itemRepository.findById(orderItemRequest.get(i).getItemId()).orElseThrow();
+            orderItemService.save(orderItemRequest.get(i),order,Item);
+        }
+
         return order;
     }
 

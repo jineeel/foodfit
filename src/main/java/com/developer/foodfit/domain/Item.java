@@ -68,4 +68,8 @@ public class Item {
         this.category = category;
         this.author = author;
     }
+
+    public void updateStockNumber(int stockNumber){
+        this.stockNumber = this.stockNumber-stockNumber;
+    }
 }

@@ -12,8 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -62,13 +62,15 @@ public class CartItemService {
         cartItemRepository.deleteById(cartItemId);
     }
 
-    public int findCartCount(User user) {
+    public List<CartItem> findCart(User user) {
         Cart cart = cartRepository.findCartByUserId(user.getId());
-        List<CartItem> cartItemList = cartItemRepository.findByCartId(cart.getId());
-        return cartItemList.size();
+        List<CartItem> cartItem = new ArrayList<>();
+        if(cart!=null){
+            cartItem = cartItemRepository.findByCartId(cart.getId());
+        }
+        return cartItem;
     }
-
-    public CartItem findById(Long cartItemId) {
-        return cartItemRepository.findById(cartItemId).orElseThrow();
+    public CartItem findCartItemId(Long cartId, Long itemId){
+        return cartItemRepository.findByCartIdAndItemId(cartId,itemId);
     }
 }

@@ -172,114 +172,45 @@ jQuery(document).ready(function($)
 		fsOverlay.css('pointer-events', "none");
 		menuActive = false;
 	}
-
-	/* 
-
-	4. Init Thumbnail
-
-	*/
-
-	// function initThumbnail()
-	// {
-	// 	if($('.single_product_thumbnails ul li').length)
-	// 	{
-	// 		var thumbs = $('.single_product_thumbnails ul li');
-	// 		var singleImage = $('#itemMainImage');
-	//
-	// 		thumbs.each(function()
-	// 		{
-	// 			var item = $(this);
-	// 			item.on('click', function()
-	// 			{
-	// 				thumbs.removeClass('active');
-	// 				item.addClass('active');
-	// 				var img = item.find('img').data('image');
-	// 				singleImage.css('url(' + img + ')');
-	// 			});
-	// 		});
-	// 	}
-	// }
-
 	/* 
 
 	5. Init Quantity
 
 	*/
+	const stockNum = document.querySelector('.stockNum');
+	function initQuantity() {
+		const plusButton = document.querySelector('.plus');
+		const minusButton = document.querySelector('.minus');
+		const valueElement = document.querySelector('.quantity_value')
 
-	function initQuantity()
-	{
-		if($('.plus').length && $('.minus').length)
-		{
-			var plus = $('.plus');
-			var minus = $('.minus');
-			var value = $('.quantity_value');
+		let quantity = parseInt(valueElement.textContent); // 현재 수량 가져오기
+		let stockNumber = parseInt(stockNum.value); // 상품 재고 수량
 
-			plus.on('click', function()
-			{
-				var x = parseInt(value.text());
-				value.text(x + 1);
-			});
+		plusButton.addEventListener('click', function () {
+			if (valueElement.textContent < stockNumber) {
+				quantity += 1;
+				valueElement.textContent = quantity;
+			}
+		});
+		minusButton.addEventListener('click', function () {
+			if (quantity > 1) {
+				quantity -= 1;
+				valueElement.textContent = quantity;
+			}
+		});
 
-			minus.on('click', function()
-			{
-				var x = parseInt(value.text());
-				if(x > 1)
-				{
-					value.text(x - 1);
-				}
-			});
-		}
 	}
-
-	/* 
-
-	6. Init Star Rating
-
-	*/
-
-	// function initStarRating()
-	// {
-	// 	if($('.user_star_rating li').length)
-	// 	{
-	// 		var stars = $('.user_star_rating li');
-	//
-	// 		stars.each(function()
-	// 		{
-	// 			var star = $(this);
-	//
-	// 			star.on('click', function()
-	// 			{
-	// 				var i = star.index();
-	//
-	// 				stars.find('i').each(function()
-	// 				{
-	// 					$(this).removeClass('fa-star');
-	// 					$(this).addClass('fa-star-o');
-	// 				});
-	// 				for(var x = 0; x <= i; x++)
-	// 				{
-	// 					$(stars[x]).find('i').removeClass('fa-star-o');
-	// 					$(stars[x]).find('i').addClass('fa-star');
-	// 				};
-	// 			});
-	// 		});
-	// 	}
-	// }
-
 	/* 
 
 	7. Init Favorite
 
 	*/
 
-	function initFavorite()
-	{
-		if($('.product_favorite').length)
-		{
+	function initFavorite() {
+		if ($('.product_favorite').length) {
 			var fav = $('.product_favorite');
 
-			fav.on('click', function()
-			{
+			fav.on('click', function () {
 				fav.toggleClass('active');
 			});
 		}

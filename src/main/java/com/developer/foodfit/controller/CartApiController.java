@@ -4,6 +4,7 @@ import com.developer.foodfit.domain.Cart;
 import com.developer.foodfit.domain.CartItem;
 import com.developer.foodfit.domain.User;
 import com.developer.foodfit.dto.cart.AddCartRequest;
+import com.developer.foodfit.dto.cart.CartViewResponse;
 import com.developer.foodfit.service.CartItemService;
 import com.developer.foodfit.service.CartService;
 import com.developer.foodfit.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -49,14 +51,17 @@ public class CartApiController {
         return ResponseEntity.ok().build();
     }
 
-//
-//    @PostMapping("/cart/itemCount")
-//    public int findCartCount(Principal principal){
-//        User user = userService.findByUserId(principal.getName());
-//        int cartItemCount=0;
-//        if(user!=null){
-//            cartItemCount = cartItemService.findCartCount(user);
-//        }
-//        return cartItemCount;
-//    }
+    /** 장바구니 아이템 수량 **/
+    @PostMapping("/cart/itemCount")
+    public ResponseEntity<CartViewResponse> findCartCount(Principal principal){
+        User user = userService.findByUserId(principal.getName());
+        CartViewResponse cartViewResponse = new CartViewResponse();
+        if(user!=null){
+            List<CartItem> cartItems = cartItemService.findCart(user);
+            for (CartItem cartItem : cartItems) {
+                cartViewResponse.update(cartItem.getCart().getId(), cartItems.size());
+            }
+        }
+        return ResponseEntity.ok().body(cartViewResponse);
+    }
 }

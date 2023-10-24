@@ -36,8 +36,16 @@ public class Order {
     private LocalDateTime regTime;
     private LocalDateTime updateTime;
 
+    private String orderName;
+    private String orderPhone;
+    private String orderZipcode;
+    private String orderStreetAdr;
+    private String orderDetailAdr;
+    private String orderMessage;
+
     @Builder
-    public Order(Long id, User user, List<OrderItem> orderItems, LocalDateTime orderDate, OrderStatus orderStatus, LocalDateTime regTime, LocalDateTime updateTime) {
+    public Order(Long id, User user, List<OrderItem> orderItems, LocalDateTime orderDate, OrderStatus orderStatus, LocalDateTime regTime, LocalDateTime updateTime,
+                 String orderName, String orderPhone, String orderZipcode, String orderStreetAdr, String orderDetailAdr, String orderMessage) {
         this.id = id;
         this.user = user;
         this.orderItems = orderItems;
@@ -45,6 +53,13 @@ public class Order {
         this.orderStatus = orderStatus;
         this.regTime = regTime;
         this.updateTime = updateTime;
+        this.orderName = orderName;
+        this.orderPhone = orderPhone;
+        this.orderZipcode = orderZipcode;
+        this.orderStreetAdr = orderStreetAdr;
+        this.orderDetailAdr = orderDetailAdr;
+        this.orderMessage =orderMessage;
+
     }
 
 

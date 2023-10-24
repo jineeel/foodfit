@@ -107,6 +107,12 @@ public class ItemService {
         }
         return item;
     }
+    @Transactional
+    public Item updateStockNumber(Long id, int stockNumber){
+        Item item = itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException(""));
+        item.updateStockNumber(stockNumber);
+        return item;
+    }
 
     /** 상품 삭제 **/
     public void delete(Long id) {

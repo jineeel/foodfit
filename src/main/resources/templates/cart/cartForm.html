@@ -31,7 +31,7 @@
 
               <tr class="cartItems" th:each="cartItem,index : ${cartItemList}">
                 <div th:each="item: ${itemList}" th:if="${cartItem.itemId==item.itemId}">
-                  <th><input type="checkbox" name="checkItem" th:value="${cartItem.id}"></th>
+                  <th><input type="checkbox" id="checkItem" name="checkItem" th:value="${item.itemId}"></th>
                   <th>
                     <div class="cart_item_info" th:onclick="|location.href='@{/item/detail/{id}(id=${item.itemId})}'|">
                       <input type="hidden" class="stockNum" th:value="${item.stockNumber}">

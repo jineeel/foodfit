@@ -88,24 +88,23 @@
 1. 주문정보
 *********************************/
 .order_item_div{
+    font-family: 'Noto Sans KR', sans-serif;
     display: flex;
     align-items: center;
     width: 100%;
-    height: 150px;
-    margin-top: 10px;
+    height: 140px;
+    /*margin-top: 10px;*/
     margin-left: auto;
     margin-right: auto;
-    border: solid 2px #d9d9d9;
+    border: solid 2px #d3d3d3;
     padding: 10px;
-
 }
 .order_item_div img{
     width: 120px;
-    margin: 20px;
+    margin: 10px;
 }
 
 .order_item_div span{
-    font-family: 'Noto Sans KR', sans-serif;
     width: 60%;
     text-align: left;
     font-size: 18px;
@@ -114,14 +113,15 @@
 }
 
 .order_item_div p{
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 200;
     color: #646464;
     text-align: right;
-    margin: 40px;
+    margin: 50px;
 }
-
+.order_item_div div{
+    display: flex;
+}
 /*********************************
 2. 구매자 정보
 *********************************/
@@ -133,7 +133,7 @@
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    border: solid 2px #d9d9d9;
+    border: solid 2px #d3d3d3;
     padding: 10px;
 }
 /*********************************
@@ -147,7 +147,7 @@
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    border: solid 2px #d9d9d9;
+    border: solid 2px #d3d3d3;
     padding: 10px;
 }
 .addr_text_div{
@@ -200,7 +200,7 @@
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    border: solid 2px #d9d9d9;
+    border: solid 2px #d3d3d3;
     padding: 10px;
 }
 .order_pay_div select{
@@ -227,7 +227,7 @@
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    border: solid 2px #d9d9d9;
+    border: solid 2px #d3d3d3;
     padding: 10px;
 }
 .order_money_div div{
@@ -239,11 +239,12 @@
     margin: 0px;
     color: #888888;
     font-weight: 300;
+    font-size: 15px;
 }
 .order_money_div span{
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 28px;
-    font-weight: 500;
+    font-size: 26px;
+    font-weight: 400;
 }
 .order_money_div img{
     width: 40px;
@@ -255,7 +256,7 @@
 .order_agree_div{
     width: 100%;
     height: 100px;
-    border-top: solid 2px #d9d9d9;
+    border-top: solid 2px #d3d3d3;
     padding: 10px;
     font-family: 'Noto Sans KR', sans-serif;
 }

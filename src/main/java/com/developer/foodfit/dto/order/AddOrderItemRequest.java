@@ -11,13 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class AddOrderItemRequest {
-    private Long id;
-    private Item item;
     private Long itemId;
-    private Order order;
     private int orderPrice;
     private int count;
-    private LocalDateTime regTime;
-    private LocalDateTime updateTime;
-
 }

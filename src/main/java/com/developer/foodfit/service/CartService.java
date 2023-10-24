@@ -32,7 +32,6 @@ public class CartService {
         Cart userCart = cartRepository.findCartByUserId(user.getId());
 
         if(userCart==null){
-            System.out.println("여기 타나");
             cartRepository.save(cart);
             targetCart=cart;
         }else{
@@ -47,7 +46,10 @@ public class CartService {
     public Cart findCart(Principal principal) {
         User user = userRepository.findByUserId(principal.getName()).orElseThrow();
         Cart cart = cartRepository.findCartByUserId(user.getId());
-
         return cart;
+    }
+
+    public Cart findCartId(Long userId){
+        return cartRepository.findCartByUserId(userId);
     }
 }

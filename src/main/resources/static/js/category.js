@@ -18,23 +18,25 @@ $(document).ready(function () {
             console.error("카테고리 요청 실패"+error);
         }
     });
+    const checkoutItems = document.getElementById('checkout_items');
+    if(checkoutItems){
+        $.ajax({
+            url : "/cart/itemCount",
+            type : "POST",
+            success: function (result){
+                if(result.cartItemCount>0){
+                    checkoutItems.textContent = result.cartItemCount;
+                    checkoutItems.style.display="flex"
+                }else{
+                    checkoutItems.textContent="";
+                    checkoutItems.style.display="none"
+                }
+            },error: function (error){
+                console.error("카테고리 요청 실패"+error);
+            }
+        });
+    }
 
-    // const checkout_items = document.getElementById('checkout_items');
-    // $.ajax({
-    //     url : "/cart/itemCount",
-    //     type : "POST",o
-    //     success: function (result){
-    //         console.log(result)
-    //         if(result!=0){
-    //             checkout_items.textContent = result
-    //         }else{
-    //             checkout_items.textContent="";
-    //         }
-    //
-    //     },error: function (error){
-    //         console.error("카테고리 요청 실패"+error);
-    //     }
-    // });
 })
 
 

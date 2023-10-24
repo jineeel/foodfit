@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
+import java.util.ServiceLoader;
+
 @Entity
 @Getter
 @Setter
@@ -30,5 +32,6 @@ public class ItemImg{
         this.imgName = imgName;
         this.imgUrl = imgUrl;
     }
+
 }
 

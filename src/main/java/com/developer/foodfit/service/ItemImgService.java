@@ -76,6 +76,9 @@ public class ItemImgService {
                 .map(Collections::singletonList)
                 .orElse(Collections.emptyList());
     }
+    public ItemImg findRegImgItemIds(Long itemId) {
+        return itemImgRepository.findByItemIdAndRepImgYn(itemId,"Y");
+    }
 
     /** 카테고리별 상품 이미지 리스트 **/
     public List<ItemImgResponse> findItemImgList(List<ItemListResponse> items) {

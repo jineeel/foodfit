@@ -19,11 +19,13 @@
                 <div class="order_form">
                     <h5 class="h-text"> 주문 상품</h5>
                     <div class="order_item_div" th:each="item : ${item}">
-                        <input type="hidden" id="itemId" th:value="${item.id}">
-                        <img  th:src="@{${regImg}}">
+                        <input type="hidden" class="itemId" id="itemId" th:value="${item.itemId}">
+                        <img th:each="repImg : ${repImg}" th:if="${item.itemId==repImg.itemId}" th:src="@{${repImg.imgUrl}}">
                         <span th:text="${item.itemName}"></span>
-                            <p th:text="|${quantity}개|"></p>
-                            <p th:text="|${item.price}원|"></p>
+                        <div th:each="orderItem : ${orderItem}" th:if="${item.itemId==orderItem.itemId}">
+                            <p id="count" class="count" th:text="${orderItem.itemCount}"></p>
+                            <p class="itemPrice" id="orderPrice" th:text="${item.price * orderItem.itemCount}"></p>
+                        </div>
                     </div>
                 </div>
 
@@ -127,17 +129,17 @@
                     <div class="order_money_div">
                         <div>
                             <p>총 주문금액</p>
-                            <span th:text="14900"></span>
+                            <span id="totalAmount"></span>
                         </div>
                         <img src="/images/plus.png">
                         <div>
                             <p>총 배송비</p>
-                            <span th:text="3500"></span>
+                            <span id="totalShippingFee"></span>
                         </div>
                         <img src="/images/equal.png">
                         <div>
                             <p>총 결제금액</p>
-                            <span th:text="18400"></span>
+                            <span id="totalPayment"></span>
                         </div>
                     </div>
                 </div>
