@@ -39,9 +39,8 @@
                                     <div class="product-grid" >
                                         <div class="product-item" th:each="item,index : ${item}" th:onclick="|location.href='/item/detail/${item.itemId}'|">
                                             <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
-                                                <div id="itemSoldOut" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}">
-                                                    <div class="soldOut_div"><span class="itemSellStatus" th:text="|SOLD OUT|"></span></div>
-                                                    <div class="soldOut_form"></div>
+                                                <span class="itemSellStatus" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}" th:text="|SOLD OUT|"></span>
+                                                <div class="itemSoldOut" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}">
                                                 </div>
                                                 <img th:src="@{${itemImg.imgUrl}}">
                                                 <div class="cart-img"><img src="/images/cart.png" class="cartBtn"></div>
