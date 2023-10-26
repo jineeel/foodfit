@@ -32,13 +32,15 @@ public class OrderItemService {
         orderItemRepository.save(orderItem);
 
         //상품 수량 수정
-        itemService.updateStockNumber(orderItem.getItem().getId(),request.getCount());
+        itemService.updateItemCount(item.getId(),request.getCount());
 
         //장바구니 상품 삭제
         Item itemId = itemService.findById(item.getId());
         Cart Cart = cartService.findCartId(order.getUser().getId());
-        CartItem cartItemId = cartItemService.findCartItemId(Cart.getId(), itemId.getId());
-        cartItemService.delete(cartItemId.getId());
+        if(Cart!=null && request.getOrderType().equals("cart")){
+            CartItem cartItemId = cartItemService.findCartItemId(Cart.getId(), itemId.getId());
+            cartItemService.delete(cartItemId.getId());
+        }
 
         return orderItem;
     }

@@ -8,6 +8,7 @@ import com.developer.foodfit.domain.User;
 import com.developer.foodfit.dto.order.AddOrderItemRequest;
 import com.developer.foodfit.dto.order.AddOrderUserRequest;
 import com.developer.foodfit.repository.ItemRepository;
+import com.developer.foodfit.repository.OrderItemRepository;
 import com.developer.foodfit.repository.OrderRepository;
 import com.developer.foodfit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemService orderItemService;
     private final ItemRepository itemRepository;
+    private final OrderItemRepository orderItemRepository;
 
     public Order save(List<AddOrderItemRequest> orderItemRequest, AddOrderUserRequest orderUserRequest, Principal principal) {
         User user = userRepository.findByUserId(principal.getName()).orElseThrow();
@@ -54,4 +56,11 @@ public class OrderService {
     }
 
 
+    public Order findById(Long orderId) {
+        return orderRepository.findById(orderId).orElseThrow();
+    }
+
+    public List<OrderItem> findByOrderId(Long orderId) {
+        return orderItemRepository.findByOrderId(orderId);
+    }
 }

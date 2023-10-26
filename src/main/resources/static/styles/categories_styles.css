@@ -61,7 +61,6 @@ COLOR PALETTE
 	cursor: pointer;
 
 }
-
 .product
 {
 	width: 100%;
@@ -75,6 +74,7 @@ COLOR PALETTE
 	padding-right: 15px;
 	position: relative;
 	width: 100%;
+	display: flex;
 }
 .product_image img
 {
@@ -89,8 +89,8 @@ COLOR PALETTE
 }
 .product_name
 {
-  margin-top: 10px;
-
+  	margin-top: 10px;
+	height: 30px;
 }
 .product_name a
 {

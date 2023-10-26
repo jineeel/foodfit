@@ -21,23 +21,22 @@ public class WebSecurityConfig {
 
     private final PrincipalOauthUserService principalOauthUserService;
     private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        // h2-console 사용
-        return (web) -> web.ignoring()
-                .requestMatchers(PathRequest.toH2Console())
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        // h2-console 사용
+//        return (web) -> web.ignoring()
+//                .requestMatchers(PathRequest.toH2Console())
+//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .csrf(crsf -> crsf.disable())
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers(PathRequest.toH2Console()).permitAll()
+//                                .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers(
                                         AntPathRequestMatcher.antMatcher("/item/**"),
                                         AntPathRequestMatcher.antMatcher("/mypage"), //TODO:추후 삭제
@@ -50,8 +49,7 @@ public class WebSecurityConfig {
                                         AntPathRequestMatcher.antMatcher("/plugins/**"),
                                         AntPathRequestMatcher.antMatcher("/styles/**")
                                 ).permitAll()
-//                                .anyRequest().permitAll())
-                                .anyRequest().authenticated()) //TODO:추후 변경
+                                .anyRequest().authenticated())
                 .formLogin((form) ->
                         form.loginPage("/login").defaultSuccessUrl("/",true).failureHandler(loginFailHandler()))
                 .logout(logout -> logout.logoutSuccessUrl("/").permitAll()

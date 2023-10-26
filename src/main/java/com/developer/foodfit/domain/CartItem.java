@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor
 @Entity
@@ -25,11 +27,14 @@ public class CartItem {
 
     private int count;
 
+    private LocalDateTime regTime;
+
     @Builder
-    public CartItem(Cart cart, Item item, int count) {
+    public CartItem(Cart cart, Item item, int count, LocalDateTime regTime) {
         this.cart = cart;
         this.item = item;
         this.count = count;
+        this.regTime = regTime;
     }
 
     public void updateCount(int count){

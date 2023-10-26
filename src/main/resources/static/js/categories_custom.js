@@ -56,6 +56,20 @@ jQuery(document).ready(function($)
 	initPriceSlider();
 	initCheckboxes();
 
+	// setItemSellStatus();
+
+	// function setItemSellStatus(){
+	// 	const productItem = document.querySelectorAll('.product-item');
+	// 	const itemSellStatus = document.querySelectorAll('.itemSellStatus')
+	// 	const itemImage = document.querySelectorAll('.itemImage');
+	// 	const cartBtn = document.querySelectorAll('.cartBtn');
+	// 	productItem.forEach((productItem,index)=>{
+	// 		if(itemSellStatus[index].textContent=='SELL'){
+	// 			// itemImage[index].style.filter="brightness(90%)";
+	// 			cartBtn[index].style.display = "none";
+	// 		}
+	// 	});
+	// }
 	/* 
 
 	2. Set Header

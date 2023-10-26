@@ -39,13 +39,14 @@ public class ItemService {
                 .price(request.getPrice())
                 .stockNumber(request.getStockNumber())
                 .itemDetail(request.getItemDetail())
-                .itemSellStatus(ItemSellStatus.SELL)
+//                .itemSellStatus(ItemSellStatus.SELL)
                 .category(category)
                 .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .author(name)
                 .build();
         itemRepository.save(item);
+        setItemSellStatus(item, request.getStockNumber());
 
         //이미지 등록
         for(int i=0;i<itemImgFileList.size();i++){
@@ -62,7 +63,6 @@ public class ItemService {
 
             itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
         }
-
         return item;
     }
 
@@ -92,6 +92,7 @@ public class ItemService {
         Item item = itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException(""));
         authorizeItemRole();
         item.update(author,request,category);
+        setItemSellStatus(item, request.getStockNumber());
 
         List<ItemImg> itemImgList = itemImgRepository.findAllByItemId(request.getId());
 
@@ -107,10 +108,14 @@ public class ItemService {
         }
         return item;
     }
+    /** 상품 수량 + 상품 판매 상태 수정 **/
     @Transactional
-    public Item updateStockNumber(Long id, int stockNumber){
+    public Item updateItemCount(Long id, int stockNumber){
         Item item = itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException(""));
         item.updateStockNumber(stockNumber);
+        if(item.getStockNumber()<=0){
+            item.updateItemStatusSoldOut();
+        }
         return item;
     }
 
@@ -132,6 +137,14 @@ public class ItemService {
         String userRole = userRepository.findByUserId(userName).orElseThrow(()-> new IllegalArgumentException("")).getRole().getKey();
         if(!(userRole=="ROLE_GUEST")){
             throw new IllegalArgumentException("not authorized");
+        }
+    }
+    //상품 상태
+    public void setItemSellStatus(Item item, int stockNumber){
+        if(stockNumber>0){
+            item.updateItemStatusSell();
+        }else{
+            item.updateItemStatusSoldOut();
         }
     }
 }

@@ -37,7 +37,8 @@ dependencies {
 	implementation 'commons-io:commons-io:2.7'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
 
-	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+//	runtimeOnly 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

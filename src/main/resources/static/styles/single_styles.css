@@ -107,19 +107,7 @@
 	border: solid 1px #cccccc;
 	border-radius: 4px;
 }
-/*.product_button_div{*/
-/*	display: flex;*/
-/*	margin-top: 10px;*/
-/*	float: right;*/
-/*	width: 100%;*/
-/*}*/
-/*.product_button_div input[type="button"]{*/
-/*	font-family: 'Noto Sans KR', sans-serif;*/
-/*	width: 50%;*/
-/*	background: #ffffff;*/
-/*	border: solid 1px #e5e5e5;*/
-/*	border-radius: 2px;*/
-/*}*/
+
 .product_admin_div{
 	display: flex;
 	justify-content: right;
@@ -180,30 +168,70 @@
 {
 	color: #a8a8a8;
 }
-/*.product_favorite*/
-/*{*/
-/*	width: 50%;*/
-/*	height: 40px;*/
-/*	margin-left: 10px;*/
-/*	border: solid 1px #e5e5e5;*/
-/*	border-radius: 2px;*/
-/*	cursor: pointer;*/
-/*}*/
-/*.product_favorite:hover::after*/
-/*{*/
-/*	color: #fe4c50;*/
-/*}*/
-/*.product_favorite::after*/
-/*{*/
-/*	font-family: 'FontAwesome';*/
-/*	content:'\f08a';*/
-/*	font-size: 14px;*/
-/*}*/
-/*.product_favorite.active::after*/
-/*{*/
-/*	content:'\f004';*/
-/*	color: #fe4c50;*/
-/*}*/
+.product_shipping_div div{
+	display: flex;
+	margin-top: 20px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.product_shipping_div span{
+	margin-right : 20px;
+}
+.product_shipping_div p{
+	font-weight: 200;
+}
+
+.product_totalPay_div{
+	display: flex;
+	margin-top: 30px;
+	font-family: 'Noto Sans KR', sans-serif;
+	align-items: center;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #eeeeee;
+	border-bottom: 1px solid #eeeeee;
+}
+.product_totalPay_div span{
+	width: 100px;
+}
+.product_totalPay_div div{
+	width: 100%;
+	display: flex;
+	justify-content: right;
+	align-items: center;
+}
+.product_totalPay_div div span{
+	color: #e76363;
+	min-width: 150px;
+	right: 0;
+	font-size: 26px;
+	text-align: right;
+	justify-content: center;
+	font-weight: 500;
+	/*margin-left: 30px;*/
+}
+.product_totalPay_div div p{
+	margin-left: 5px;
+	margin-right: 5px;
+	font-weight: 200;
+	display: contents;
+}
+.product_itemStatus_div {
+	width: 100%;
+	font-family: 'Noto Sans KR', sans-serif;
+	display: grid;
+	justify-items: center;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.product_itemStatus_div img{
+	width: 10%;
+	opacity: 80%;
+	margin: 20px;
+}
+.product_itemStatus_div span{
+	font-size: 15px;
+}
+
 
 /*********************************
 7. Tabs

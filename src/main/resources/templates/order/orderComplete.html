@@ -1,0 +1,76 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>주문</title>
+  <th:block layout:fragment="css">
+    <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
+    <link href="/styles/order_style.css" type="text/css" rel="stylesheet">
+  </th:block>
+  <th:block layout:fragment="script"></th:block>
+</head>
+<div layout:fragment="content">
+  <div class="main_form">
+    <div class="text-center">
+      <h4 class="h-text c">주문 완료</h4>
+        <div class="order_check_info">
+          <img src="/images/complete.png">
+          <h5>주문이 완료 되었습니다!</h5>
+        </div>
+        <div class="order_item_info">
+          <table class="order_item_table">
+            <thead>
+            <div th:each="orderItem: ${orderItem}">
+              <tr>
+                <th><span th:text="${orderItem.orderItemName}"></span></th>
+                <th> <span th:text="|${orderItem.orderCount}개|"></span></th>
+                <th> <span th:text="|${orderItem.orderPrice}원|"></span></th>
+              </tr>
+
+            </div>
+            </thead>
+          </table>
+
+        </div>
+        <!-- 총 구매 금액 -->
+        <div class="order_total_info" th:with="totalPrice=${#aggregates.sum(orderItem.![orderPrice])}" >
+          <div>
+            <p th:text="|배송비 : ${totalPrice >= 40000 ? '무료' : '3500원'}|"></p>
+            <span th:text="|총 주문 금액 : ${totalPrice >= 40000 ? totalPrice : totalPrice + 3500}|"></span>
+          </div>
+          <span th:text="|주문 일시 : ${#temporals.format(order.regTime, 'yyyy.MM.dd HH:mm')}|"></span>
+        </div>
+        <div class="order_user_info">
+          <table class="order_user_table">
+            <span th:text="|주문자 정보|"></span>
+            <thead>
+              <tr>
+                <th><span th:text="주문자명"></span> </th>
+                <th><span th:text="${order.orderName}"></span></th>
+              </tr>
+              <tr>
+                <th><span th:text="핸드폰번호"></span></th>
+                <th><span th:text="${order.orderPhone}"></span></th>
+              </tr>
+              <tr>
+                <th><span th:text="배송지"></span></th>
+                <th><span th:text="|(${order.orderZipcode}) ${order.orderStreetAdr} ${order.orderDetailAdr}|"></span></th>
+              </tr>
+              <tr>
+                <th><span th:text="배송메세지"></span></th>
+                <th><span th:text="${order.orderMessage}"></span></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <!-- 주문내역/메인페이지 버튼 -->
+        <div class="order_button_div">
+          <input type="button" id="payBtn" th:value="|주문 내역 보기|">
+          <input type="button" class="cancel" onclick="location.href='/'" th:value="|메인 페이지로 이동|">
+        </div>
+    </div>
+  </div>
+</div>
+</html>

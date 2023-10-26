@@ -58,7 +58,7 @@ public class ItemImgService {
     }
 
     /** 아이템 대표 이미지 **/
-    public String findRegImgItemId(Long itemId){
+    public String findRepImgItemId(Long itemId){
         List<ItemImg> itemImg = itemImgRepository.findItemImgByItemId(itemId);
         return itemImg.stream()
                 .filter(img -> "Y".equals(img.getRepImgYn()))
@@ -68,7 +68,7 @@ public class ItemImgService {
     }
 
     /** 아이템 대표 이미지 리스트 **/
-    public List<ItemImgResponse> findRegImgListItemId(Long itemId) {
+    public List<ItemImgResponse> findRepImgListItemId(Long itemId) {
         return itemImgRepository.findItemImgByItemId(itemId).stream()
                 .filter(img -> "Y".equals(img.getRepImgYn()))
                 .map(ItemImgResponse::new)
@@ -76,7 +76,7 @@ public class ItemImgService {
                 .map(Collections::singletonList)
                 .orElse(Collections.emptyList());
     }
-    public ItemImg findRegImgItemIds(Long itemId) {
+    public ItemImg findRepImgItemIds(Long itemId) {
         return itemImgRepository.findByItemIdAndRepImgYn(itemId,"Y");
     }
 

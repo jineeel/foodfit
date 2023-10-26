@@ -62,10 +62,22 @@
                 </div>
                 <div class="col-lg-5">
                     <div class="product_details">
+                        <!-- 상품명 -->
                         <div class="product_details_title">
                             <h2 th:text="${item.itemName}"></h2>
                         </div>
+                        <!-- 상품 가격 -->
+                        <input type="hidden" id="originalPrice" th:value="${item.price}">
                         <div class="original_price" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></div>
+                        <!-- TODO: 배송비 -->
+                        <div class="product_shipping_div">
+                            <div>
+                                    <span th:text="배송비"></span>
+                                <span th:text="3500원"></span>
+                            </div>
+                            <p th:text="|40,000원 이상 구매시 배송비 무료|"></p>
+                        </div>
+                        <!-- 수량 -->
                         <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                             <span>수량:</span>
                             <div class="quantity_selector">
@@ -74,11 +86,27 @@
                                 <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                             </div>
                         </div>
-                        <div class="product_purchase_div">
+                        <!-- TODO: 총 상품 금액 -->
+                        <div class="product_totalPay_div">
+                            <span th:text="|총 상품 금액|"></span>
+                            <div>
+                                <p th:text="|총 수량|"></p>
+                                <p id="totalCount">1</p>
+                                <p th:text="개"></p>
+                                <span id="totalPrice" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></span>
+                            </div>
+                        </div>
+                        <!-- 장바구니/구매하기 -->
+                        <div class="product_purchase_div" th:if="${#strings.equals(item.itemSellStatus, 'SELL')}">
                             <input type="button" class="cartBtnDetail" th:value="장바구니">
                             <input type="button" id="purchaseBtn" class="green_button" th:value="구매하기">
                         </div>
-
+                        <!-- 품절 -->
+                        <div class="product_itemStatus_div" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}">
+                            <img src="/images/soldOut.png">
+                            <span th:text="|이 상품은 현재 구매할 수 없는 상품입니다|"></span>
+                        </div>
+                        <!-- 관리자 상품 수정/삭제 -->
                         <div class="product_admin_div" sec:authorize="hasAnyAuthority('GUEST')">
                             <input type="button" id="updateButton"  th:onclick="|location.href='@{/item?id={id}(id=${item.itemId})}'|" th:value="|상품 수정|">
                             <input type="button" id="deleteBtn" class="product_delete" th:value="|상품 삭제|">

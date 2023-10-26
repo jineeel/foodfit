@@ -150,19 +150,24 @@ function totalPay(){
 /*
     체크박스 전체 선택
  */
+const cartItemStatus = document.querySelectorAll('.cartItemStatus')
 function selectAll(selectAll){
-    const checkBoxes = document.querySelectorAll('input[type="checkbox"]');
-    checkBoxes.forEach((checkbox)=>{
-        checkbox.checked=selectAll.checked;
+    const checkBoxes = document.querySelectorAll('.checkItem');
+    checkBoxes.forEach((checkbox,index)=>{
+        checkbox.checked = selectAll.checked;
+        if(cartItemStatus[index].value=='SOLD_OUT'){
+            checkbox.checked = false
+        }
     })
 }
 /*
     상품 하나씩 삭제
  */
+const originItemId = document.querySelectorAll('.originItemId');
 const deleteCartItems = document.querySelectorAll('.deleteCartItem');
 deleteCartItems.forEach((deleteCartItem, index)=>{
     deleteCartItem.addEventListener('click', ()=>{
-        deleteItem(cartItemId[index].value);
+        deleteItem(originItemId[index].value);
     })
 })
 /*
@@ -172,7 +177,7 @@ const cartForm = document.getElementById('cartForm');
 const selectDelete = document.getElementById('selectDelete');
 if(cartForm){
     selectDelete.addEventListener('click',()=>{
-        const selectedItems = Array.from(document.querySelectorAll('input[name="checkItem"]:checked'))
+        const selectedItems = Array.from(document.querySelectorAll('.checkItem:checked'))
             .map(item => item.value)
             .join(",");
         deleteItem(selectedItems);
@@ -202,12 +207,12 @@ if(payBtn){
         const cartItemId = cartItemCheckboxes.map(item => item.value).join(",");
         const quantity = cartItemCheckboxes.map(checkbox => {
             const quantityText = checkbox.closest('tr.cartItems').querySelector('.quantity_value').textContent;
-            return quantityText.trim(); // Trim to remove leading/trailing spaces
+            return quantityText.trim();
         })
           .join(",");
 
         if(cartItemCheckboxes.length>0){
-            const url = '/order?id='+cartItemId+'&quantity='+quantity;
+            const url = '/order?id='+cartItemId+'&quantity='+quantity+'&orderType='+"cart";
             window.location.href = url;
         }else{
             errorConfirm();

@@ -20,7 +20,7 @@
 jQuery(document).ready(function($)
 {
 	"use strict";
-
+	const stockNum = document.querySelector('.stockNum');
 	/* 
 
 	1. Vars and Inits
@@ -49,7 +49,10 @@ jQuery(document).ready(function($)
 
 	initMenu();
 	// initThumbnail();
-	initQuantity();
+	// const quantitySelector = document.getElementById('quantity_selector');
+	// if(quantitySelector){
+		initQuantity();
+	// }
 	// initStarRating();
 	initFavorite();
 	initTabs();
@@ -177,29 +180,39 @@ jQuery(document).ready(function($)
 	5. Init Quantity
 
 	*/
-	const stockNum = document.querySelector('.stockNum');
+
 	function initQuantity() {
+		const totalCount = document.getElementById('totalCount');
+		const totalPrice = document.getElementById('totalPrice');
+		const originalPrice = document.getElementById('originalPrice');
 		const plusButton = document.querySelector('.plus');
 		const minusButton = document.querySelector('.minus');
 		const valueElement = document.querySelector('.quantity_value')
 
 		let quantity = parseInt(valueElement.textContent); // 현재 수량 가져오기
 		let stockNumber = parseInt(stockNum.value); // 상품 재고 수량
-
+		let resultPrice;
 		plusButton.addEventListener('click', function () {
 			if (valueElement.textContent < stockNumber) {
 				quantity += 1;
 				valueElement.textContent = quantity;
+				totalCount.textContent = quantity;
+				resultPrice = parseInt(originalPrice.value)*quantity;
+				totalPrice.textContent = resultPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원";
 			}
 		});
 		minusButton.addEventListener('click', function () {
 			if (quantity > 1) {
 				quantity -= 1;
 				valueElement.textContent = quantity;
+				totalCount.textContent = quantity;
+				resultPrice = parseInt(originalPrice.value)*quantity;
+				totalPrice.textContent = resultPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원";
 			}
 		});
 
 	}
+
 	/* 
 
 	7. Init Favorite

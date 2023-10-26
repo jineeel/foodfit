@@ -14,4 +14,5 @@ public class AddOrderItemRequest {
     private Long itemId;
     private int orderPrice;
     private int count;
+    private String orderType;
 }

@@ -31,12 +31,21 @@
 
               <tr class="cartItems" th:each="cartItem,index : ${cartItemList}">
                 <div th:each="item: ${itemList}" th:if="${cartItem.itemId==item.itemId}">
-                  <th><input type="checkbox" id="checkItem" name="checkItem" th:value="${item.itemId}"></th>
+                  <input type="hidden" class="cartItemStatus" th:value="${item.itemSellStatus}">
+                  <th><input type="checkbox" class="checkItem" id="checkItem" name="checkItem" th:value="${item.itemId}"
+                       th:disabled="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}"></th>
                   <th>
                     <div class="cart_item_info" th:onclick="|location.href='@{/item/detail/{id}(id=${item.itemId})}'|">
                       <input type="hidden" class="stockNum" th:value="${item.stockNumber}">
-                      <img th:each="regImg: ${regImgList}" th:if="${regImg.itemId==item.itemId}" th:src="@{${regImg.imgUrl}}">
+
+                      <div th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}">
+                        <div class="cartItemSoldOut"></div>
+                        <span th:text="|SOLD OUT|"></span>
+                      </div>
+
+                      <img th:each="repImg: ${repImgList}" th:if="${repImg.itemId==item.itemId}" th:src="@{${repImg.imgUrl}}">
                       <span th:text="${item.itemName}"></span>
+
                     </div>
                   </th>
                   <th>
@@ -51,6 +60,7 @@
                   </div>
                   </th>
                   <th> <input type="hidden" class="originPrice" th:value="${item.price}">
+                    <input type="hidden" class="originItemId" th:value="${item.itemId}">
                     <p class="price" th:text="(${item.price}*${cartItem.count})+'원'"></p></th>
                   <th><p class="shippingFee" th:text="${item.price * cartItem.count >= 40000 ? '무료' : '3500원'}"></p></th>
                   <th><input type="button" class="deleteCartItem" th:value="|상품 삭제|"></th>

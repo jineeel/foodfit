@@ -41,12 +41,14 @@ public class CartApiController {
 
     /** 장바구니 상품 삭제 **/
     @DeleteMapping("/api/cart/{cartItemId}")
-    public ResponseEntity<CartItem> deleteCart(@PathVariable("cartItemId") String cartItemId){
+    public ResponseEntity<CartItem> deleteCart(@PathVariable("cartItemId") String cartItemId, Principal principal){
         String[] itemIds = cartItemId.split(",");
-
+        Cart cart = cartService.findCart(principal);
+        System.out.println("!!"+ cartItemId);
         for (String itemId : itemIds) {
-            Long cartItemIds= Long.parseLong(itemId);
-            cartItemService.delete(cartItemIds);
+            Long resultItemId= Long.parseLong(itemId);
+            CartItem cartItemIds = cartItemService.findCartItemId(cart.getId(), resultItemId);
+            cartItemService.delete(cartItemIds.getId());
         }
         return ResponseEntity.ok().build();
     }

@@ -96,7 +96,7 @@
     /*margin-top: 10px;*/
     margin-left: auto;
     margin-right: auto;
-    border: solid 2px #d3d3d3;
+    border: solid 1px #d3d3d3;
     padding: 10px;
 }
 .order_item_div img{
@@ -117,10 +117,16 @@
     font-weight: 200;
     color: #646464;
     text-align: right;
-    margin: 50px;
+    display: contents
+    /*margin: 50px;*/
 }
 .order_item_div div{
     display: flex;
+}
+.order_item_div div div{
+    width: 200px;
+    justify-content: right;
+    right: 50px;
 }
 /*********************************
 2. 구매자 정보
@@ -133,7 +139,7 @@
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    border: solid 2px #d3d3d3;
+    border: solid 1px #d3d3d3;
     padding: 10px;
 }
 /*********************************
@@ -147,7 +153,7 @@
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    border: solid 2px #d3d3d3;
+    border: solid 1px #d3d3d3;
     padding: 10px;
 }
 .addr_text_div{
@@ -200,7 +206,7 @@
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    border: solid 2px #d3d3d3;
+    border: solid 1px #d3d3d3;
     padding: 10px;
 }
 .order_pay_div select{
@@ -227,7 +233,7 @@
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    border: solid 2px #d3d3d3;
+    border: solid 1px #d3d3d3;
     padding: 10px;
 }
 .order_money_div div{
@@ -256,7 +262,7 @@
 .order_agree_div{
     width: 100%;
     height: 100px;
-    border-top: solid 2px #d3d3d3;
+    border-top: solid 1px #d3d3d3;
     padding: 10px;
     font-family: 'Noto Sans KR', sans-serif;
 }
@@ -290,4 +296,103 @@
 }
 .cancel{
     background: #a0a0a0 !important;
+}
+
+
+
+/*********************************
+6. 주문 완료
+*********************************/
+.order_check_info{
+    display: grid;
+    justify-content: center;
+    margin-top: 50px;
+}
+.order_check_info h5{
+    margin-top: 30px;
+}
+.order_check_info img{
+    width: 100px;
+    display: block;
+    margin: auto;
+    opacity: 70%;
+}
+.order_item_info{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+.order_item_table{
+    width: 600px;
+}
+.order_item_table th{
+    width: 100px;
+    text-align: right;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+}
+.order_item_table th:nth-child(1){
+    width: 400px;
+    text-align: left;
+    /*padding-left: 20px;*/
+}
+.order_total_info{
+    width: 600px;
+    margin: auto;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.order_total_info span{
+    display: flex;
+    justify-content: right;
+}
+.order_total_info div{
+    display: flex;
+    justify-content: right;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.order_total_info div span{
+    margin-left: 30px;
+    font-size: 18px;
+}
+.order_total_info div p{
+    display: contents;
+    font-size: 15px;
+    font-weight: 300;
+    color: #383838;
+}
+.order_user_info{
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.order_user_info span{
+    display: flex;
+    justify-content: left;
+    font-size: 15px;
+    color: #8a8a8a;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px #f1f1f1;
+}
+.order_user_table{
+    width: 600px;
+}
+.order_user_table th{
+    font-weight: 400;
+    text-align: left;
+
+}
+.order_user_table th:nth-child(1){
+    width: 120px;
+}
+.order_user_table tr span{
+    color: #212121;
+    border-bottom: none;
+    margin-bottom: 10px;
+    padding-bottom: 0;
 }

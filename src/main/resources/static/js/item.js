@@ -85,7 +85,8 @@ function itemRequest(method, url, body, success, fail){
     });
 
 }
-
+// const customFileInput = document.querySelector('.custom-file-input');
+const customFileLabel = document.querySelector('.custom-file-label');
 function inputNullCheck(){
     inputStatus = false;
     if(!category2.value){
@@ -98,6 +99,8 @@ function inputNullCheck(){
         resultFail.textContent="수량을 입력해주세요";
     }else if(!itemDetail.value){
         resultFail.textContent="상세정보를 입력해주세요"
+    }else if(!customFileLabel.textContent){
+        resultFail.textContent="대표 상품 이미지를 넣어주세요"
     }else{
         inputStatus = true;
     }
@@ -108,7 +111,7 @@ const purchaseBtn = document.getElementById('purchaseBtn');
 if(purchaseBtn){
     purchaseBtn.addEventListener('click', ()=>{
         const quantity = document.querySelector('.quantity_value').textContent;
-        const url = '/order?id='+itemId.value+'&quantity='+quantity;
+        const url = '/order?id='+itemId.value+'&quantity='+quantity+'&orderType='+"item";
         window.location.href = url;
     })
 }

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class CartItemService {
                 .cart(cart)
                 .item(item)
                 .count(request.getCount())
+                .regTime(LocalDateTime.now())
                 .build();
 
         Cart targetCart = cartRepository.findCartByUserId(cart.getUser().getId());
@@ -47,12 +49,11 @@ public class CartItemService {
     }
 
     public List<CartItem> findCartItem(Cart cart) {
-        return cartItemRepository.findByCartId(cart.getId());
+        return cartItemRepository.findByCartIdOrderByRegTimeDesc(cart.getId());
     }
 
     @Transactional
     public CartItem updateCount(Long cartItemId, int count) {
-        System.out.println("cartItemId=="+cartItemId);
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow();
         cartItem.update(count);
         return cartItem;
@@ -66,7 +67,7 @@ public class CartItemService {
         Cart cart = cartRepository.findCartByUserId(user.getId());
         List<CartItem> cartItem = new ArrayList<>();
         if(cart!=null){
-            cartItem = cartItemRepository.findByCartId(cart.getId());
+            cartItem = cartItemRepository.findByCartIdOrderByRegTimeDesc(cart.getId());
         }
         return cartItem;
     }

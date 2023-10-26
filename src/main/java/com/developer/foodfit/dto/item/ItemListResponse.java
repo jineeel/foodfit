@@ -29,13 +29,4 @@ public class ItemListResponse {
         this.stockNumber = item.getStockNumber();
     }
 
-
-//    public ItemResponse(Item item) {
-//        this.itemId = item.getId();
-//        this.itemName = item.getItemName();
-//        this.price = item.getPrice();
-//        this.itemSellStatus = item.getItemSellStatus();
-//        this.category = item.getCategory().getCategoryName();
-//    }
-//
 }

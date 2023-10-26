@@ -38,7 +38,7 @@
         </div>
         <div class="input-area">
           <label>수량</label>
-          <input type="number" id="stockNumber" name="stockNumber" th:value="${item.stockNumber} == 0 ? '' : ${item.stockNumber}">
+          <input type="number" id="stockNumber" name="stockNumber" th:value="${item.stockNumber} == 0 ? '':${item.stockNumber}">
         </div>
         <div class="input-area text">
           <label>상세정보</label>
@@ -100,8 +100,8 @@
 
         if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
           alert("이미지 파일만 등록이 가능합니다.");
-          // $(".custom-file-input").val('');
-          // $(this).closest(".custom-file").find(".custom-file-label").html('');
+          $(".custom-file-input").val('');
+          $(this).closest(".custom-file").find(".custom-file-label").html('');
           return;
         }
         // 해당 파일 입력 필드에 대한 라벨을 찾아 업데이트

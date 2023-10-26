@@ -492,3 +492,35 @@ input[type='number'] {
   font-size: 15px !important;
   font-family: 'Noto Sans KR', sans-serif;
 }
+
+.soldOut_div {
+  width: 90px;
+  height: 30px;
+  background: #383838;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.soldOut_div span{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  z-index: 10;
+  color: #ffffff;
+}
+
+.soldOut_form {
+  background: #ffffff;
+  width: 240px;
+  height: 350px;
+  position: absolute;
+  opacity: 40%;
+  z-index: 10;
+}
+#itemSoldOut{
+  width: 25%;
+  height: 25%;
+  position: absolute;
+}

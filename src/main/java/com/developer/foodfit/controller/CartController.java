@@ -41,14 +41,14 @@ public class CartController {
                     .map(ItemListResponse::new)
                     .collect(Collectors.toList());
 
-            List<ItemImgResponse> regImgList = itemList.stream()
-                    .map(item -> itemImgService.findRegImgListItemId(item.getItemId()))
+            List<ItemImgResponse> repImgList = itemList.stream()
+                    .map(item -> itemImgService.findRepImgListItemId(item.getItemId()))
                     .flatMap(List::stream)
                     .collect(Collectors.toList());
 
             model.addAttribute("cartItemList", cartItemList);
             model.addAttribute("itemList", itemList);
-            model.addAttribute("regImgList", regImgList);
+            model.addAttribute("repImgList", repImgList);
         }
 
         return "cart/cartForm";

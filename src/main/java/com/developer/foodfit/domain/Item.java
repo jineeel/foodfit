@@ -63,7 +63,6 @@ public class Item {
         this.price = request.getPrice();
         this.stockNumber = request.getStockNumber();
         this.itemDetail = request.getItemDetail();
-        this.itemSellStatus = request.getItemSellStatus();
         this.updateDate = LocalDateTime.now();
         this.category = category;
         this.author = author;
@@ -71,5 +70,11 @@ public class Item {
 
     public void updateStockNumber(int stockNumber){
         this.stockNumber = this.stockNumber-stockNumber;
+    }
+    public void updateItemStatusSoldOut(){
+        this.itemSellStatus = ItemSellStatus.SOLD_OUT;
+    }
+    public void updateItemStatusSell(){
+        this.itemSellStatus = ItemSellStatus.SELL;
     }
 }

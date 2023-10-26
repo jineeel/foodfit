@@ -39,6 +39,7 @@ const payBtn = document.getElementById('payBtn');
 const itemId= document.querySelectorAll('.itemId');
 const orderPrice = document.querySelectorAll('.itemPrice');
 const count = document.querySelectorAll('.count');
+const orderType = document.querySelectorAll('.orderType');
 payBtn.addEventListener("click", (e)=>{
     if(inputNullCheck()){
         let orderItemList = [];
@@ -49,6 +50,7 @@ payBtn.addEventListener("click", (e)=>{
                 "itemId" : itemId[index].value,
                 "orderPrice" : orderPrice[index].textContent,
                 "count" : count[index].textContent,
+                "orderType" : orderType[index].value
             }
             orderItemList.push(orderItemData);
         });
@@ -67,13 +69,14 @@ payBtn.addEventListener("click", (e)=>{
             "orderUserRequest" : orderUserData
         }
 
-        $.ajax({ //주문 저장하는 컨트롤러
+        $.ajax({
             url:"/api/order",
             type:"POST",
             data: JSON.stringify(addOrderRequest),
             contentType: "application/json",
-            success: function (){
-                // location.replace('/')
+            success: function (result){
+                let orderId = result.id;
+                location.replace('/order/'+orderId);
             },error:function (error){
                 console.error("에러",error);
             }
