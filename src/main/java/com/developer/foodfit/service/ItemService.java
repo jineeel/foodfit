@@ -12,6 +12,7 @@ import com.developer.foodfit.repository.ItemImgRepository;
 import com.developer.foodfit.repository.ItemRepository;
 import com.developer.foodfit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,6 @@ public class ItemService {
                 .price(request.getPrice())
                 .stockNumber(request.getStockNumber())
                 .itemDetail(request.getItemDetail())
-//                .itemSellStatus(ItemSellStatus.SELL)
                 .category(category)
                 .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
@@ -74,6 +74,38 @@ public class ItemService {
                 .sorted(Comparator.comparing(ItemListResponse::getItemId).reversed())
                 .collect(Collectors.toList());
     }
+
+    /** 카테고리별 상품 조회 **/
+    public Page<ItemListResponse> findItemPaging(Pageable pageable, List<Category> categories){
+        int page = pageable.getPageNumber()-1;
+        int pageLimit = 16;
+        List<Item> allItems = new ArrayList<>();
+
+        for(Category category : categories){
+            List<Item> itemList = itemRepository.findByCategoryId(category.getId());
+            allItems.addAll(itemList);
+        }
+        allItems.sort(Comparator.comparingLong(Item::getId).reversed());
+
+        int start = (page) * pageLimit;
+        int end = Math.min(start + pageLimit, allItems.size());
+
+        pageable = PageRequest.of(page, pageLimit);
+        Page<Item> itemPage = new PageImpl<>(allItems.subList(start,end), pageable, allItems.size());
+        Page<ItemListResponse> itemListResponses = itemPage.map(ItemListResponse::new);
+        return itemListResponses;
+    }
+
+    /** 전체 상품 조회 **/
+    public Page<ItemListResponse> findAll(Pageable pageable){
+        int page = pageable.getPageNumber() - 1;
+        int pageLimit = 16;
+
+        Page<Item> itemPages =itemRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+        Page<ItemListResponse> itemListResponses = itemPages.map(itemPage-> new ItemListResponse(itemPage));
+        return  itemListResponses;
+    }
+
 
     public Item findById(Long itemId){
         return itemRepository.findById(itemId).orElseThrow(()-> new IllegalArgumentException(""));

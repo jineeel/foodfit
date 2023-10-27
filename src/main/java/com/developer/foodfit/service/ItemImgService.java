@@ -1,11 +1,15 @@
 package com.developer.foodfit.service;
 
+import com.developer.foodfit.domain.Item;
 import com.developer.foodfit.domain.ItemImg;
 import com.developer.foodfit.dto.item.ItemImgResponse;
 import com.developer.foodfit.dto.item.ItemListResponse;
 import com.developer.foodfit.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,13 +49,13 @@ public class ItemImgService {
     }
 
 
-    public List<ItemImg> findAll() {
-        return itemImgRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-    }
-
-    public List<ItemImg> findAllByItemId(Long itemId) {
-        return itemImgRepository.findAllByItemId(itemId);
-    }
+//    public List<ItemImg> findAll() {
+//        return itemImgRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+//    }
+//
+//    public List<ItemImg> findAllByItemId(Long itemId) {
+//        return itemImgRepository.findAllByItemId(itemId);
+//    }
 
     public List<ItemImg> findItemImgView(Long itemId){
         return itemImgRepository.findItemImgByItemId(itemId);
@@ -76,12 +80,27 @@ public class ItemImgService {
                 .map(Collections::singletonList)
                 .orElse(Collections.emptyList());
     }
+
+    public Page<ItemImgResponse> paging(Pageable pageable){
+        int page = pageable.getPageNumber() - 1;
+        int pageLimit = 4;
+
+        Page<ItemImg> itemImgPages =itemImgRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+        Page<ItemImgResponse> itemImgListResponses = itemImgPages.map(itemImgPage-> new ItemImgResponse(itemImgPage));
+        return  itemImgListResponses;
+    }
+    public List<ItemImgResponse> findAllItemImg(){
+        List<ItemImg> itemImg = itemImgRepository.findAll();
+        List<ItemImgResponse> itemListResponses = itemImg.stream().map(m->new ItemImgResponse(m)).collect(Collectors.toList());
+        return itemListResponses;
+    }
+
     public ItemImg findRepImgItemIds(Long itemId) {
         return itemImgRepository.findByItemIdAndRepImgYn(itemId,"Y");
     }
 
     /** 카테고리별 상품 이미지 리스트 **/
-    public List<ItemImgResponse> findItemImgList(List<ItemListResponse> items) {
+    public List<ItemImgResponse> findItemImgList(Page<ItemListResponse> items) {
         return items.stream()
                 .map(ItemListResponse::getItemId)
                 .flatMap(itemId -> itemImgRepository.findItemImgByItemId(itemId).stream())

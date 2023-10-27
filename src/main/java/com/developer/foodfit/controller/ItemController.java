@@ -1,5 +1,6 @@
 package com.developer.foodfit.controller;
 
+import com.developer.foodfit.config.oauth.OAuth2LoginFailureHandler;
 import com.developer.foodfit.domain.Category;
 import com.developer.foodfit.domain.Item;
 import com.developer.foodfit.dto.*;
@@ -10,6 +11,7 @@ import com.developer.foodfit.service.CategoryService;
 import com.developer.foodfit.service.ItemImgService;
 import com.developer.foodfit.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -55,27 +57,51 @@ public class ItemController {
         return "item/itemForm";
     }
 
-    /** 상품 리스트 **/
+    /** 카테고리 상품 조회 **/
     @GetMapping("/item/list/{categoryCode}")
-    public String findItems(@PathVariable("categoryCode")String categoryCode, Model model) throws Exception {
+    public String findItems(@PathVariable("categoryCode")String categoryCode, @PageableDefault(page=1) Pageable pageable, Model model) throws Exception {
+        List<Category> categoryItemList = categoryService.findCategoryItemList(categoryCode);
         String categoryName = categoryService.findCategoryName(categoryCode);
         String parentCode = categoryService.findParentCode(categoryCode);
-        List<Category> itemCategories = categoryService.findCategoryItemList(categoryCode);
 
         //카테고리 리스트
         List<CategoryResponse> categoryResponsesList = categoryService.findCategoryList(categoryCode).stream().map(CategoryResponse::new).toList();
 
         //카테고리별 아이템 리스트
-        List<ItemListResponse> itemResponseList = itemService.findItemList(itemCategories);
+        Page<ItemListResponse> itemResponseList = itemService.findItemPaging(pageable, categoryItemList);
 
         //카테고리별 아이템 이미지 리스트
         List<ItemImgResponse> itemImgResponseList = itemImgService.findItemImgList(itemResponseList);
+
+        int blockLimit = 3;
+        int startPage = (((int) Math.ceil(((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = Math.min((startPage + blockLimit - 1), itemResponseList.getTotalPages());
 
         model.addAttribute("categoryList", categoryResponsesList);
         model.addAttribute("categoryName", categoryName);
         model.addAttribute("parentCode", parentCode);
         model.addAttribute("itemImg", itemImgResponseList);
-        model.addAttribute("item", itemResponseList);
+        model.addAttribute("itemPages", itemResponseList);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        return "item/itemList";
+    }
+    /** 전체 상품 조회 **/
+    @GetMapping("/item/list")
+    public String paging(@PageableDefault(page=1) Pageable pageable, Model model){
+        Page<ItemListResponse> itemResponseList = itemService.findAll(pageable);
+        List<ItemImgResponse> itemImgResponseList = itemImgService.findAllItemImg();
+
+        int blockLimit = 3;
+        int startPage = (((int) Math.ceil(((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = Math.min((startPage + blockLimit - 1), itemResponseList.getTotalPages());
+
+        model.addAttribute("itemPages", itemResponseList);
+        model.addAttribute("itemImg", itemImgResponseList);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("allCategory", true);
 
         return "item/itemList";
     }

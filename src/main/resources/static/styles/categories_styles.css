@@ -106,13 +106,12 @@ COLOR PALETTE
 	font-size: 13px;
 	width: 90px;
 	height: 30px;
-	background: #383838;
+	background: #000000;
 	position: absolute;
-	opacity: 90%;
+	opacity: 95%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 11;
 	color: #ffffff;
 }
 .itemSoldOut{
@@ -121,7 +120,6 @@ COLOR PALETTE
 	height: 100%;
 	position: absolute;
 	opacity: 40%;
-	z-index: 10;
 }
 
 .product_name
@@ -189,4 +187,22 @@ COLOR PALETTE
 	font-size: 16px;
 	color: #464646;
 	font-weight: 200;
+}
+
+.itemPaging_div{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+.itemPaging_div i{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.itemPaging_div span{
+	margin-left: 5px;
+	margin-right: 5px;
+	/*cursor: pointer;*/
 }

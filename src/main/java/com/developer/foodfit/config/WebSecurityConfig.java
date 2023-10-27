@@ -22,26 +22,16 @@ public class WebSecurityConfig {
     private final PrincipalOauthUserService principalOauthUserService;
     private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
 
-
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        // h2-console 사용
-//        return (web) -> web.ignoring()
-//                .requestMatchers(PathRequest.toH2Console())
-//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-//    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
-                .csrf(crsf -> crsf.disable())
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authorize) ->
                         authorize
-//                                .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers(
                                         AntPathRequestMatcher.antMatcher("/item/**"),
-                                        AntPathRequestMatcher.antMatcher("/mypage"), //TODO:추후 삭제
                                         AntPathRequestMatcher.antMatcher("/login"),
-                                        AntPathRequestMatcher.antMatcher("/api/**"),
+//                                        AntPathRequestMatcher.antMatcher("/api/**"),
                                         AntPathRequestMatcher.antMatcher("/"),
                                         AntPathRequestMatcher.antMatcher("/user/**"),
                                         AntPathRequestMatcher.antMatcher("/images/**"),

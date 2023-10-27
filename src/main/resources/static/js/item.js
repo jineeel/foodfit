@@ -19,8 +19,8 @@ if(createBtn){
             location.replace(`/item`);
         }
 
-        function fail() {
-            location.replace(`/item`);
+        function fail(response) {
+            itemErrorConfirm("상품 등록이 실패했습니다", response.url)
         }
 
         itemRequest('POST',`api/item`,formData, success,fail);
@@ -37,7 +37,10 @@ if(updateBtn){
             location.replace(`/item/detail/${id}`);
         }
 
-        function fail() {
+        function fail(response) {
+            itemErrorConfirm("상품 수정이 실패했습니다", response.url)
+        }
+        function fail(){
             location.replace(`/item/detail/${id}`);
         }
 
@@ -54,6 +57,9 @@ if(deleteBtn){
 
         function success(){
             location.replace(`/item/list/${categoryCode}`);
+        }
+        function fail(response) {
+            itemErrorConfirm("상품 삭제가 실패했습니다", response.url)
         }
         function fail(){
             location.replace(`/item/detail/${id}`);
@@ -73,7 +79,11 @@ function itemRequest(method, url, body, success, fail){
         body : body,
     }).then(response=>{
             if (response.status === 200 || response.status === 201) {
-                return success();
+                if(response.redirected){
+                    return fail(response);
+                }else {
+                    return success();
+                }
             }
             if(!response.ok){
                 throw new Error('네트워크 응답이 실패했습니다');
@@ -113,5 +123,23 @@ if(purchaseBtn){
         const quantity = document.querySelector('.quantity_value').textContent;
         const url = '/order?id='+itemId.value+'&quantity='+quantity+'&orderType='+"item";
         window.location.href = url;
+    })
+}
+/*
+    item error Alert
+ */
+function itemErrorConfirm(text,response){
+    Swal.fire({
+        text: text,
+        icon: 'error',
+        showCancelButton: false,
+        confirmButtonColor: '#8a8a8a',
+        confirmButtonText: '확인',
+        width: 400,
+
+    }).then((result) => {
+        if (result.value) {
+            location.replace(response)
+        }
     })
 }

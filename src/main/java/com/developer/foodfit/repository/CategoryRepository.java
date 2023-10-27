@@ -13,5 +13,6 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
     List<Category> findByCategoryCodeAndParentCode(String categoryCode, String parentCode);
     List<Category> findByParentCode(String parentCode);
     List<Category> findByParentCodeAndDepth(String categoryCode, long level);
+    List<Category> findAllByParentCode(String parentCode);
 
 }

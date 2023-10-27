@@ -16,7 +16,8 @@ cartBtns.forEach((cartBtn, index) => {
         function success() {
             successConfirm();
         }
-        function fail() {
+        function fail(response) {
+            cartErrorConfirm(response.url);
         }
         cartRequest('POST', '/api/cart', formData, success, fail);
     });
@@ -35,7 +36,9 @@ if(cartBtn){
         function success() {
             successConfirm();
         }
-        function fail() {}
+        function fail(response) {
+            cartErrorConfirm(response.url);
+        }
 
         cartRequest('POST', '/api/cart', formData, success, fail);
     })
@@ -50,7 +53,11 @@ function cartRequest(method, url, body, success, fail){
         }
     }).then(response=>{
         if (response.status === 200 || response.status === 201) {
-            return success();
+            if(response.redirected){
+                return fail(response);
+            }else {
+                return success();
+            }
         }
         if(!response.ok){
             throw new Error('네트워크 응답이 실패했습니다');
@@ -139,7 +146,9 @@ $(document).ready(function () {
 function totalPay(){
     let resultPrice= 0;
     cartItems.forEach((cartItem, index)=>{
-        resultPrice += parseInt(prices[index].textContent);
+        if(cartItemStatus[index].value!='SOLD_OUT') {
+            resultPrice += parseInt(prices[index].textContent);
+        }
     })
     if(totalAmount){
         let amount = totalAmount.textContent = resultPrice +"원"
@@ -257,6 +266,25 @@ function errorConfirm(){
     }).then((result) => {
         if (result.value) {
             location.replace(`/cart`)
+        }
+    })
+}
+
+/*
+    cart error Alert
+ */
+function cartErrorConfirm(response){
+    Swal.fire({
+        text: '상품을 장바구니에 추가할 수 없습니다',
+        icon: 'error',
+        showCancelButton: false,
+        confirmButtonColor: '#8a8a8a',
+        confirmButtonText: '확인',
+        width: 400,
+
+    }).then((result) => {
+        if (result.value) {
+            location.replace(response)
         }
     })
 }

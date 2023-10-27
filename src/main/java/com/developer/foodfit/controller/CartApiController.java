@@ -11,6 +11,7 @@ import com.developer.foodfit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,9 @@ public class CartApiController {
     /** 장바구니 추가 **/
     @PostMapping("/api/cart")
     public ResponseEntity<Cart> addCart(@RequestBody AddCartRequest request, Principal principal){
+        System.out.println("!!!");
         Cart addCart = cartService.save(request,principal);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(addCart);
     }
 
