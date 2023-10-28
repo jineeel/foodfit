@@ -35,7 +35,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="product-grid" >
                                         <div class="product-item" th:each="item : ${itemPages}" th:onclick="|location.href='/item/detail/${item.itemId}'|">
                                             <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
@@ -79,7 +78,6 @@
                                 <a th:attr="href=${itemPages.last}? '#' : (${allCategory == null ? '/item/list/'+ categoryCode + '?page=' + itemPages.number + 2 : '/item/list?page='+ itemPages.number + 2 })"><i class="fa fa-angle-right"></i></a>
                                 <!-- 마지막 페이지로 이동 -->
                                 <a th:attr="href=${allCategory == null ? '/item/list/'+ categoryCode + '?page=' + itemPages.totalPages : '/item/list?page='+itemPages.totalPages}"><i class="fa fa-angle-double-right"></i></a>
-
                             </div>
                         </div>
                     </div>

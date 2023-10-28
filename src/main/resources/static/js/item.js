@@ -93,7 +93,6 @@ function itemRequest(method, url, body, success, fail){
         console.error("요청 실패 " + error);
         return fail();
     });
-
 }
 // const customFileInput = document.querySelector('.custom-file-input');
 const customFileLabel = document.querySelector('.custom-file-label');

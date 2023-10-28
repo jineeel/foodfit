@@ -29,6 +29,7 @@ public class OrderController {
     private final ItemImgService itemImgService;
     private final UserService userService;
     private final OrderService orderService;
+    private final OrderItemService orderItemService;
 
     /** 주문 **/
     @GetMapping("/order")
@@ -64,24 +65,31 @@ public class OrderController {
     public String orderComplete(@PathVariable(value="orderId") Long orderId, Model model){
         Order order = orderService.findById(orderId);
         List<OrderItem> orderItems = orderService.findByOrderId(orderId);
-//        for(OrderItem orderItem:orderItems){
-//            itemList.add(orderItem)
-//        }
-//        List<Category> categoryList = categoryService.findByDepth(1L);
-//        List<CategoryResponse> categoryResponses = categoryList.stream()
-//                .map(m-> new CategoryResponse(m.getCategoryName(), m.getCategoryCode(), m.getDepth()))
-//                .collect(Collectors.toList());
-//
-
         List<OrderItemListResponse> orderItemList = orderItems.stream()
                 .map(m-> new OrderItemListResponse(m.getItem().getItemName(), m.getOrderPrice(), m.getCount()))
                 .collect(Collectors.toList());
 
-        for(int i=0; i<orderItemList.size();i++){
-            System.out.println(orderItemList.get(i).getOrderItemName());
-        }
         model.addAttribute("orderItem", orderItemList);
         model.addAttribute("order",new OrderViewResponse(order));
         return "/order/orderComplete";
+    }
+
+    @GetMapping("/mypage/order")
+    public String findOrderList(Principal principal,Model model){
+        User user = userService.findByUserId(principal.getName());
+        List<Order> orders = orderService.findByUserId(user.getId());
+        List<OrderItemListResponse> orderItemList = orders.stream()
+                        .flatMap(order->orderItemService.findByOrderId(order.getId()).stream())
+                        .map(m -> new OrderItemListResponse(m.getItem().getItemName(), m.getOrderPrice(), m.getCount()))
+                        .collect(Collectors.toList());
+
+        List<OrderViewResponse> orderList = orders.stream()
+                        .map(OrderViewResponse::new)
+                        .collect(Collectors.toList());;
+
+        model.addAttribute("order", orderList);
+        model.addAttribute("orderItem", orderItemList);
+
+        return "/order/orderList";
     }
 }

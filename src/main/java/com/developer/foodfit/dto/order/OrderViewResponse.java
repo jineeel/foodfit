@@ -25,6 +25,7 @@ public class OrderViewResponse {
 
 
     public OrderViewResponse(Order order) {
+        this.orderId = order.getId();
         this.userId = order.getUser().getId();
         this.orderName = order.getOrderName();
         this.orderPhone = order.getOrderPhone();

@@ -47,7 +47,6 @@ public class CartApiController {
     public ResponseEntity<CartItem> deleteCart(@PathVariable("cartItemId") String cartItemId, Principal principal){
         String[] itemIds = cartItemId.split(",");
         Cart cart = cartService.findCart(principal);
-        System.out.println("!!"+ cartItemId);
         for (String itemId : itemIds) {
             Long resultItemId= Long.parseLong(itemId);
             CartItem cartItemIds = cartItemService.findCartItemId(cart.getId(), resultItemId);

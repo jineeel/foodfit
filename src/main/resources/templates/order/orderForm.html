@@ -22,7 +22,7 @@
                         <input type="hidden" class="orderType" th:value="${orderType}">
                         <input type="hidden" class="itemId" id="itemId" th:value="${item.itemId}">
                         <img th:each="repImg : ${repImg}" th:if="${item.itemId==repImg.itemId}" th:src="@{${repImg.imgUrl}}">
-                        <span th:text="${item.itemName}"></span>
+                        <span class="itemName" th:text="${item.itemName}"></span>
                         <div th:each="orderItem : ${orderItem}" th:if="${item.itemId==orderItem.itemId}">
                             <div>
                             <p id="count" class="count" th:text="${orderItem.itemCount}"></p><p>개</p>
@@ -40,6 +40,7 @@
                     <div class="order_user_div">
                         <div class="div_form">
                             <p>주문자</p>
+                            <input type="hidden" id="buyItemName" th:value="test">
                             <input type="text" id="userName" th:value="${user.getUsername()}" readonly>
                         </div>
                         <div class="div_form">
@@ -110,23 +111,15 @@
                     </div>
                 </div>
 
-                <!-- 결제 정보 (무통장입금) -->
-                <div class="order_form">
-                    <h5 class="h-text"> 결제 정보 [무통장 입금]</h5>
-                    <div class="order_pay_div">
-                        <div class="div_form">
-                            <p>입금은행</p>
-                            <select>
-                                <option th:text="|--선택해 주세요--|"></option>
-                                <option th:text="|카카오뱅크 : 3333-05-7819421 이진희|"></option>
-                            </select>
-                        </div>
-                        <div class="div_form">
-                            <p>입금자명</p>
-                            <input type="text" id="payUser">
+                <!-- 결제 정보 (카카오페이) -->
+                    <div class="order_form">
+                        <h5 class="h-text"> 결제 정보</h5>
+                        <div class="order_pay_div">
+                            <input type="radio" checked>
+                            <img src = '/images/kakaoPay.png'>
+                            <span th:text="카카오페이"></span>
                         </div>
                     </div>
-                </div>
 
                 <!-- 총 금액 -->
                 <div class="order_form">
@@ -166,15 +159,28 @@
                 <div id="resultFail" class="error-msg checkResult"></div>
                 <!-- 결제하기/취소 버튼 -->
                 <div class="order_button_div">
-                    <input type="button" id="payBtn" th:value="결제하기">
+<!--                    <input type="button" id="payBtn" th:value="결제하기">-->
+                    <input type="button" id="payment" th:value="결제하기">
+<!--                    <button name="paymentButton" id="paymentButton" onmousedown="paymentRecord();" onclick="requestPay();" class="w-100 btn btn-warning btn-lg"-->
+<!--                            type="submit">결제하기</button>-->
                     <input type="button" class="cancel" onclick="history.back();" th:value="취소">
                 </div>
                 </form>
 
         </div>
     </div>
+    <!-- 포트원 결제 -->
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <!-- 포트원 결제 -->
+<!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>-->
+<!--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>-->
     <script src="/js/address.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/order.js"></script>
+    <script src="/js/payment.js"></script>
 </div>
 </html>

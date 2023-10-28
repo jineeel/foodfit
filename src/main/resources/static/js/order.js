@@ -34,14 +34,12 @@ selectBox.addEventListener('change',()=>{
 
 })
 const order_item_div = document.querySelectorAll('.order_item_div');
-const payBtn = document.getElementById('payBtn');
-
 const itemId= document.querySelectorAll('.itemId');
 const orderPrice = document.querySelectorAll('.itemPrice');
 const count = document.querySelectorAll('.count');
 const orderType = document.querySelectorAll('.orderType');
-payBtn.addEventListener("click", (e)=>{
-    if(inputNullCheck()){
+
+function paymentSave(){
         let orderItemList = [];
         let orderItemData;
 
@@ -81,13 +79,8 @@ payBtn.addEventListener("click", (e)=>{
                 console.error("에러",error);
             }
         })
-    }else{
-        e.preventDefault();
-    }
-})
+}
 
-
-const payUser = document.getElementById('payUser');
 const checkBox1 = document.getElementById('checkBox1');
 const checkBox2 = document.getElementById('checkBox2');
 function inputNullCheck(){
@@ -97,9 +90,7 @@ function inputNullCheck(){
         resultFail.textContent="주소를 입력해주세요";
     }else if(!phone.value){
         resultFail.textContent="연락처를 입력해주세요";
-    }else if(!payUser.value){
-        resultFail.textContent="입금자명을 입력해주세요";
-    }else if(!checkBox1.checked||!checkBox2.checked){
+    } else if(!checkBox1.checked||!checkBox2.checked){
         resultFail.textContent="주문 동의 사항을 확인 후 체크해주세요"
     }else{
         resultFail.textContent="";
@@ -125,6 +116,7 @@ function totalPay(){
     if(totalAmount){
         let amount = totalAmount.textContent = resultPrice +"원"
         let shippingFee = totalShippingFee.textContent = parseInt(totalAmount.textContent) >= 40000 ? "무료" : "3500원";
-        let payment= totalPayment.textContent = shippingFee =="무료" ? amount : parseInt(amount)+parseInt(shippingFee)+"원";
+        totalPayment.textContent = shippingFee =="무료" ? amount : parseInt(amount)+parseInt(shippingFee)+"원";
+
     }
 }

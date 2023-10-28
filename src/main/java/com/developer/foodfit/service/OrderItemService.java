@@ -41,7 +41,9 @@ public class OrderItemService {
             CartItem cartItemId = cartItemService.findCartItemId(Cart.getId(), itemId.getId());
             cartItemService.delete(cartItemId.getId());
         }
-
         return orderItem;
+    }
+    public List<OrderItem> findByOrderId(Long orderId){
+        return orderItemRepository.findByOrderId(orderId);
     }
 }

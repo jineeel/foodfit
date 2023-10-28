@@ -170,7 +170,7 @@ COLOR PALETTE
 .category-div{
 	margin-top: 40px;
 }
-.category-div a5{
+.category-div div a5{
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 18px;
 	font-weight: 500;
@@ -180,6 +180,7 @@ COLOR PALETTE
 	display: flex;
 	justify-content: center;
 	cursor: pointer;
+	/*margin-bottom: 20px;*/
 }
 
 .category-div p {

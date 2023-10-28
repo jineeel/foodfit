@@ -107,8 +107,8 @@
 .order_item_div span{
     width: 60%;
     text-align: left;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 400;
     margin: 20px;
 }
 
@@ -199,27 +199,26 @@
 4. 결제 정보
 *********************************/
 .order_pay_div{
+    display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     width: 100%;
-    height: 122px;
+    height: 100px;
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
     border: solid 1px #d3d3d3;
-    padding: 10px;
+    padding: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
 }
-.order_pay_div select{
-     font-family: 'Noto Sans KR', sans-serif;
-     font-size: 15px;
-     margin-top: 5px;
-     margin-left: 20px;
-     width: 300px;
-     height: 40px;
-     color: #4d4d4d;
-     border: solid 1px #dadada;
-     padding: 5px;
- }
+
+.order_pay_div img{
+    width: auto;
+    height: 30px;
+    margin: 20px;
+}
+
 
 /*********************************
 5. 총 결제 금액
