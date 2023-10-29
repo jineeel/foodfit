@@ -29,13 +29,12 @@ public class CartApiController {
     /** 장바구니 추가 **/
     @PostMapping("/api/cart")
     public ResponseEntity<Cart> addCart(@RequestBody AddCartRequest request, Principal principal){
-        System.out.println("!!!");
         Cart addCart = cartService.save(request,principal);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(addCart);
     }
 
-    /** 장바구니 수량 수정 **/
+    /** 장바구니 상품 수정 **/
     @PutMapping("/api/cart/{cartItemId}")
     public ResponseEntity<CartItem> updateCount(@PathVariable("cartItemId") Long cartItemId, @RequestParam("count") int count){
         CartItem cartItem = cartItemService.updateCount(cartItemId, count);

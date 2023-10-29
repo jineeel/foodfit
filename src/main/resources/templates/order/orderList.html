@@ -12,12 +12,55 @@
   <th:block layout:fragment="script"></th:block>
 </head>
 <div layout:fragment="content">
-  <div class="main_form">
+  <div class="main_order_form">
     <div class="text-center">
       <h4 class="h-text c">주문 내역</h4>
-
-
     </div>
-  </div>
+    <div class="order_list_div" th:each="order,orderIndex: ${order}" th:if="${#strings.equals(order.orderViewStatus, 'Y')}">
+      <div th:switch="${#strings.toString(order.orderStatus)}">
+        <input type="hidden" id="orderId" th:value="${order.orderId}">
+        <span th:case="ORDER">주문완료</span>
+        <span th:case="SHIPPING">배송중</span>
+        <span th:case="DELIVERED">배송완료</span>
+        <span th:case="CANCEL">주문취소</span>
+      </div>
+
+      <div class="order_list_item"  th:each="orderItem: ${orderItem}" th:if="${order.orderId == orderItem.orderId}">
+          <div th:each="orderItemImg,index : ${orderItemImg}" th:if="${orderItemImg.itemId == orderItem.itemId and orderIndex.index == index.index}">
+            <img th:src="@{${orderItemImg.imgUrl}}">
+          </div>
+          <div class="order_req_item">
+            <p th:text="${#temporals.format(order.regTime, 'yyyy.MM.dd 결제')}"></p>
+            <span th:text="${orderItem.orderItemName}"></span>
+            <span id="totalOrderPrice" th:text="${orderItem.totalOrderPrice} > 40000 ? ${#numbers.formatInteger(orderItem.totalOrderPrice, 3, 'COMMA') + '원'}
+            : ${#numbers.formatInteger(orderItem.totalOrderPrice+3500, 3, 'COMMA') + '원'}"></span>
+          </div>
+          <div class="order_item_btn">
+            <input type="button" id="orderDetailBtn" th:onclick="|location.href='/mypage/orderDetail/${order.orderId}'|" th:value="|주문 상세보기|">
+            <input type="button" id="orderDeleteBtn" th:value="|주문 삭제|">
+          </div>
+        </div>
+      </div>
+    <!--
+    Paging
+    -->
+    <div class="paging_div">
+      <a href="/mypage/order?page=1">
+        <i class="fa fa-angle-double-left"></i>
+      </a>
+      <a th:attr="href=${order.first} ? '#' : ${'/mypage/order?page='+order.number}">
+        <i class="fa fa-angle-left"></i>
+      </a>
+      <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+         <span th:if="${page == order.number + 1}" th:text="${page}"></span>
+         <span th:if="${page != order.number + 1}">
+           <a th:attr="href=${'/mypage/order?page=' + page }" th:text="${page}"></a>
+         </span>
+      </span>
+      <a th:attr="href=${order.last}? '#' : ${'/mypage/order?page='+ (order.number+2)}"><i class="fa fa-angle-right"></i></a>
+      <a th:attr="href=${'/mypage/order?page='+order.totalPages}"><i class="fa fa-angle-double-right"></i></a>
+    </div>
+    </div>
+  <script src="/js/order.js"></script>
 </div>
 </html>

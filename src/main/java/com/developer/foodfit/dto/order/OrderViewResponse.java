@@ -23,7 +23,6 @@ public class OrderViewResponse {
     private LocalDateTime regTime;
     private LocalDateTime updateTime;
 
-
     public OrderViewResponse(Order order) {
         this.orderId = order.getId();
         this.userId = order.getUser().getId();

@@ -395,3 +395,102 @@
     margin-bottom: 10px;
     padding-bottom: 0;
 }
+
+/*********************************
+7. 주문 내역
+*********************************/
+.main_order_form{
+    background: #F5F5F5;
+    height: auto;
+    min-height: 1000px;
+    padding-top: 150px;
+    margin-bottom: 50px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.main_order_form div h4{
+    margin-bottom: 50px !important;
+}
+.order_list_div{
+    width: 700px;
+    height: 170px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 0 0 15px 3px #F1F1F1;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+}
+.order_list_div span{
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 6px;
+}
+.order_list_item {
+    display: flex;
+    justify-items: left;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.order_list_item img{
+    width: 100px;
+    margin-top: 5px;
+    margin-left: 5px;
+    border-radius: 5px;
+}
+.order_req_item {
+    width: 1000px;
+    display: grid;
+    margin-left: 20px;
+}
+
+.order_req_item span{
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+}
+.order_req_item span[id="totalOrderPrice"]{
+    font-size: 16px;
+    font-weight: 500;
+}
+.order_req_item p{
+    display: contents;
+    font-weight: 400;
+}
+.order_item_btn{
+    width: 100%;
+    display: grid;
+    justify-content: right;
+}
+.order_item_btn input[type="button"]{
+    font-size: 15px;
+    color: #212121;
+    width: 130px;
+    height: 30px;
+    margin: 2px;
+    background: #FFFFFF;
+    border-radius: 3px;
+    border: solid 1px #e3e3e3;
+    border-shadow: 0 0 15px 2px #e3e3e3;
+}
+
+.paging_div{
+     width: 100%;
+     display: flex;
+     justify-content: center;
+    bottom: 0;
+     font-family: 'Noto Sans KR', sans-serif;
+     margin-top: 50px;
+     margin-bottom: 30px;
+ }
+.paging_div i{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.paging_div span{
+    margin-left: 5px;
+    margin-right: 5px;
+    /*cursor: pointer;*/
+}

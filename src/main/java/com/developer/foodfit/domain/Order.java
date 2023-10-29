@@ -43,9 +43,10 @@ public class Order {
     private String orderDetailAdr;
     private String orderMessage;
 
+    private String orderViewStatus;
     @Builder
     public Order(Long id, User user, List<OrderItem> orderItems, LocalDateTime orderDate, OrderStatus orderStatus, LocalDateTime regTime, LocalDateTime updateTime,
-                 String orderName, String orderPhone, String orderZipcode, String orderStreetAdr, String orderDetailAdr, String orderMessage) {
+                 String orderName, String orderPhone, String orderZipcode, String orderStreetAdr, String orderDetailAdr, String orderMessage, String orderViewStatus) {
         this.id = id;
         this.user = user;
         this.orderItems = orderItems;
@@ -59,9 +60,13 @@ public class Order {
         this.orderStreetAdr = orderStreetAdr;
         this.orderDetailAdr = orderDetailAdr;
         this.orderMessage =orderMessage;
-
+        this.orderViewStatus = orderViewStatus;
     }
-
+    public void updateOrderViewStatus(String orderViewStatus){
+        System.out.println("orderViewStatus=="+orderViewStatus);
+        this.orderViewStatus = orderViewStatus;
+        System.out.println("orderViewStatu222222s=="+this.orderViewStatus);
+    }
 
 
 

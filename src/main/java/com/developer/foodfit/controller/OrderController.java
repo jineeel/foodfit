@@ -4,12 +4,14 @@ import com.developer.foodfit.domain.*;
 import com.developer.foodfit.dto.CategoryResponse;
 import com.developer.foodfit.dto.item.ItemImgResponse;
 import com.developer.foodfit.dto.item.ItemListResponse;
-import com.developer.foodfit.dto.order.OrderItemListResponse;
-import com.developer.foodfit.dto.order.OrderItemResponse;
-import com.developer.foodfit.dto.order.OrderViewResponse;
+import com.developer.foodfit.dto.item.ItemViewResponse;
+import com.developer.foodfit.dto.order.*;
 import com.developer.foodfit.service.*;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,21 +79,46 @@ public class OrderController {
     }
 
     @GetMapping("/mypage/order")
-    public String findOrderList(Principal principal,Model model){
+    public String findOrderList(@PageableDefault(page=1) Pageable pageable, Principal principal, Model model){
         User user = userService.findByUserId(principal.getName());
-        List<Order> orders = orderService.findByUserId(user.getId());
-        List<OrderItemListResponse> orderItemList = orders.stream()
-                        .flatMap(order->orderItemService.findByOrderId(order.getId()).stream())
-                        .map(m -> new OrderItemListResponse(m.getItem().getItemName(), m.getOrderPrice(), m.getCount()))
-                        .collect(Collectors.toList());
+        Page<OrderListResponse> orderList = orderService.findOrderPaging(pageable, user.getId());
+        List<OrderListResponse> content = orderList.getContent();
 
-        List<OrderViewResponse> orderList = orders.stream()
-                        .map(OrderViewResponse::new)
-                        .collect(Collectors.toList());;
+        List<OrderViewListResponse> orderItemList = new ArrayList<>();
+        List<ItemImgResponse> itemImgList = new ArrayList<>();
+        for (OrderListResponse order  : content) {
+            List<OrderItem> orderItems = orderItemService.findByOrderId(order.getOrderId());
+
+            OrderItem reqItem = orderItems.get(0);
+            OrderViewListResponse orderItemListResponse =
+                    new OrderViewListResponse(reqItem.getOrder().getId(), reqItem.getId(), reqItem.getItem().getId(), reqItem.getItem().getItemName());
+
+            int totalPrice = orderItems.stream().mapToInt(OrderItem::getOrderPrice).sum();
+            orderItemListResponse.updateTotalPrice(totalPrice);
+            orderItemList.add(orderItemListResponse);
+
+            Long itemId = orderItems.get(0).getItem().getId();
+            ItemImg repImgItemIds = itemImgService.findRepImgItemIds(itemId);
+            itemImgList.add(new ItemImgResponse(repImgItemIds));
+        }
+
+        int blockLimit = 3;
+        int startPage = (((int) Math.ceil(((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = Math.min((startPage + blockLimit - 1), orderList.getTotalPages());
 
         model.addAttribute("order", orderList);
         model.addAttribute("orderItem", orderItemList);
+        model.addAttribute("orderItemImg", itemImgList);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "/order/orderList";
     }
+
+    @GetMapping("/mypage/orderDetail/{orderId}")
+    public String findOrderDetail(@PathVariable Long orderId){
+        return "/order/orderDetail";
+    }
+
+
 }

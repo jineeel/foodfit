@@ -46,4 +46,8 @@ public class OrderItemService {
     public List<OrderItem> findByOrderId(Long orderId){
         return orderItemRepository.findByOrderId(orderId);
     }
+
+//    public List<OrderItem> findById(Long id) {
+//        return orderItemRepository.findByIdOrderByRegTimeDesc(id);
+//    }
 }

@@ -24,15 +24,16 @@ $(document).ready(function(){
     });
 });
 const selectBox = document.getElementById('selectBox');
-selectBox.addEventListener('change',()=>{
-    const option = selectBox.options[selectBox.selectedIndex].text;
-    if(option=="직접 입력") {
-        addrText.value="";
-    }else{
-        addrText.value=option;
-    }
-
-})
+if(selectBox){
+    selectBox.addEventListener('change',()=>{
+        const option = selectBox.options[selectBox.selectedIndex].text;
+        if(option=="직접 입력") {
+            addrText.value="";
+        }else{
+            addrText.value=option;
+        }
+    })
+}
 const order_item_div = document.querySelectorAll('.order_item_div');
 const itemId= document.querySelectorAll('.itemId');
 const orderPrice = document.querySelectorAll('.itemPrice');
@@ -119,4 +120,80 @@ function totalPay(){
         totalPayment.textContent = shippingFee =="무료" ? amount : parseInt(amount)+parseInt(shippingFee)+"원";
 
     }
+}
+
+
+/*************************
+ * 주문 내역
+ *************************/
+const orderDeleteBtn = document.getElementById('orderDeleteBtn');
+
+if(orderDeleteBtn){
+    orderDeleteBtn.addEventListener('click', ()=>{
+        const id = document.getElementById('orderId').value;
+
+        function success(){
+          location.reload()
+        }
+        function fail(){
+            errorConfirm('상품을 삭제할 수 없습니다', '/mypage/order');
+
+        }
+        orderRequest('POST', `/api/order/${id}`, null, success, fail);
+    })
+}
+
+function orderRequest(method, url, body, success, fail){
+    fetch(url,{
+        method: method,
+        body : body,
+    }).then(response=>{
+        if (response.status === 200 || response.status === 201) {
+            if(response.redirected){
+                return fail(response);
+            }else {
+                return success();
+            }
+        }
+        if(!response.ok){
+            throw new Error('네트워크 응답이 실패했습니다');
+        }
+        return response.json();
+    }).catch(error => {
+        console.error("요청 실패 " + error);
+        return fail();
+    });
+}
+
+function errorConfirm(text,url){
+
+    Swal.fire({
+        text: text,
+        icon: 'error',
+        showCancelButton: false,
+        confirmButtonColor: '#8a8a8a',
+        confirmButtonText: '확인',
+        width: 400,
+
+    }).then((result) => {
+        if (result.value) {
+            location.replace(url)
+        }
+    })
+}
+
+function warningConfirm(text,confirm,cancel){
+    Swal.fire({
+        text: text,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#66bc39',
+        cancelButtonColor: '#8a8a8a',
+        confirmButtonText: confirm,
+        cancelButtonText: cancel,
+        width: 400,
+    }).then(function(result){
+        if (result.value) {
+        }
+    })
 }
