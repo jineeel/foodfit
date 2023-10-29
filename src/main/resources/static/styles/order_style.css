@@ -494,3 +494,142 @@
     margin-right: 5px;
     /*cursor: pointer;*/
 }
+/*********************************
+7. 주문 상세보기
+*********************************/
+.order_detail_form{
+    display: grid;
+    justify-content: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-top: 40px;
+}
+.order_status_div {
+    display: flex;
+}
+.order_status_div span{
+    font-size: 20px;
+    margin-right: 30px;
+}
+.order_status_div p{
+    display: contents;
+    font-size: 16px;
+    font-weight: 400;
+    color: #8f8f8f;
+}
+.order_detail_div{
+    width: 700px;
+    height: 110px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 10px;
+    box-shadow: 0 0 15px 2px #F1F1F1;
+    padding: 10px;
+
+    display: flex;
+}
+.order_detail_div img{
+    width: 90px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.order_detail_req{
+    display: grid;
+    margin-left: 20px;
+    width: 500px;
+}
+.order_detail_req span{
+    margin: 0 !important;
+}
+
+.order_detail_cart input[type="button"]{
+    font-size: 15px;
+    color: #212121;
+    width: 130px;
+    height: 30px;
+    margin: 2px;
+    background: #FFFFFF;
+    border-radius: 3px;
+    border: solid 1px #e3e3e3;
+    border-shadow: 0 0 15px 2px #e3e3e3;
+}
+.order_detail_user{
+    margin-top: 20px;
+    margin-left: 5px;
+}
+.order_detail_user span{
+    font-weight: 500;
+    font-size: 16px;
+}
+.order_detail_table{
+    width: 600px;
+    margin-top: 10px;
+}
+.order_detail_table th{
+    font-weight: 400;
+    text-align: left;
+}
+.order_detail_table th:nth-child(1){
+    width: 120px;
+}
+.order_detail_table tr span{
+    color: #212121;
+    font-size: 15px;
+    font-weight: 400;
+    border-bottom: none;
+    margin-bottom: 10px;
+    padding-bottom: 0;
+}
+.order_detail_pay{
+     margin-top: 20px;
+    padding-top: 20px;
+    border-top: solid 1px #eeeeee;
+    margin-left: 5px;
+ }
+.order_detail_pay span{
+    font-weight: 500;
+    font-size: 16px;
+}
+.detail_pay_table{
+    width: 700px;
+    margin-top: 10px;
+}
+.detail_pay_table th{
+    font-weight: 400;
+    text-align: left;
+}
+.detail_pay_table th:nth-child(2){
+    width: 120px;
+    text-align: right;
+}
+.detail_pay_table span{
+    font-size: 15px;
+    font-weight: 400;
+}
+.detail_pay_table th:nth-child(2) span{
+    text-align: right;
+    font-weight: 500;
+    font-size: 16px;
+}
+#totalPrice{
+    color: #66bc39;
+}
+
+.order_detail_btn{
+    display: flex;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    justify-content: right;
+}
+
+.order_detail_btn input[type="button"]{
+    font-size: 15px;
+    color: #212121;
+    width: 120px;
+    height: 35px;
+    background: #e7e7e7;
+    border-radius: 3px;
+    border: solid 1px #d9d9d9;
+    border-shadow: 0 0 15px 2px #d9d9d9;
+}

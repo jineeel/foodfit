@@ -29,7 +29,7 @@
           <div th:each="orderItemImg,index : ${orderItemImg}" th:if="${orderItemImg.itemId == orderItem.itemId and orderIndex.index == index.index}">
             <img th:src="@{${orderItemImg.imgUrl}}">
           </div>
-          <div class="order_req_item">
+          <div class="order_req_item" th:onclick="|location.href='/item/detail/${orderItem.itemId}'|">
             <p th:text="${#temporals.format(order.regTime, 'yyyy.MM.dd 결제')}"></p>
             <span th:text="${orderItem.orderItemName}"></span>
             <span id="totalOrderPrice" th:text="${orderItem.totalOrderPrice} > 40000 ? ${#numbers.formatInteger(orderItem.totalOrderPrice, 3, 'COMMA') + '원'}

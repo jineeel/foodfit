@@ -1,10 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>주문</title>
+    <th:block layout:fragment="css">
+        <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
+        <link href="/styles/order_style.css" type="text/css" rel="stylesheet">
+    </th:block>
+    <th:block layout:fragment="script"></th:block>
 </head>
-<body>
+<div layout:fragment="content">
+    <div class="main_form">
+        <div class="text-center">
+            <h4 class="h-text c">주문 상세 내역</h4>
+        </div>
+        <div class="order_detail_form">
+            <div class="order_status_div" th:switch="${#strings.toString(order.orderStatus)}">
+                <input type="hidden" id="orderId" th:value="${order.orderId}">
+                <span th:case="ORDER">주문완료</span>
+                <span th:case="SHIPPING">배송중</span>
+                <span th:case="DELIVERED">배송완료</span>
+                <span th:case="CANCEL">주문취소</span>
+                <p th:text="${#temporals.format(order.regTime, 'yyyy.MM.dd 결제')}"></p>
+            </div>
+            <div class="order_detail_div"  th:each="orderItem: ${orderItem}" th:if="${order.orderId == orderItem.orderId}">
+                <div th:each="orderItemImg : ${orderItemImg}" th:if="${orderItemImg.itemId == orderItem.itemId}">
+                    <img th:src="@{${orderItemImg.imgUrl}}">
+                </div>
+                <div class="order_detail_req" th:onclick="|location.href='/item/detail/${orderItem.itemId}'|">
+                    <span th:text="${orderItem.orderItemName}"></span>
+                    <span th:text="${#numbers.formatInteger(orderItem.orderPrice, 3, 'COMMA') + '원'}"></span>
+                    <span th:text="|${orderItem.orderCount}개|"></span>
+                    <input type="hidden" class="itemId" th:value="${orderItem.itemId}">
+                    <input type="hidden" class="count" th:value="${orderItem.orderCount}">
+                </div>
+                <div class="order_detail_cart">
+                    <input type="button" class="cartBtn" th:value="|장바구니 담기|">
+                </div>
+            </div>
 
-</body>
+            <!-- 배송지 정보 -->
+            <div class="order_detail_user">
+                <span th:text="|배송 정보|"></span>
+                <table class="order_detail_table">
+                    <thead>
+                    <tr>
+                        <th><span th:text="수령인"></span> </th>
+                        <th><span th:text="${order.orderName}"></span></th>
+                    </tr>
+                    <tr>
+                        <th><span th:text="핸드폰번호"></span></th>
+                        <th><span th:text="${order.orderPhone}"></span></th>
+                    </tr>
+                    <tr>
+                        <th><span th:text="배송지"></span></th>
+                        <th><span th:text="|(${order.orderZipcode}) ${order.orderStreetAdr} ${order.orderDetailAdr}|"></span></th>
+                    </tr>
+                    <tr>
+                        <th><span th:text="배송메세지"></span></th>
+                        <th><span th:text="${order.orderMessage}"></span></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- 결제 정보 -->
+            <div class="order_detail_pay" th:with="totalPrice=${#aggregates.sum(orderItem.![orderPrice])}" >
+                <span th:text="|결제 정보|"></span>
+                <table class="detail_pay_table">
+                    <thead>
+                    <tr>
+                        <th><span th:text="상품금액"></span> </th>
+                        <th><span th:text="${#numbers.formatInteger(totalPrice, 3, 'COMMA') + '원'}"></span></th>
+                    </tr>
+                    <tr>
+                        <th><span th:text="배송비"></span></th>
+                        <th><span th:text="${totalPrice >= 40000 ? '무료' : '+ 3500원'}"></span></th>
+                    </tr>
+                    <tr>
+                        <th><span th:text="|총 주문금액|"></span></th>
+                        <th><span id="totalPrice" th:text="${totalPrice >= 40000 ? #numbers.formatInteger(totalPrice, 3, 'COMMA') + '원' : #numbers.formatInteger(totalPrice+3500, 3, 'COMMA') + '원'}"></span></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div  class="order_detail_btn">
+                <input type="button" id="orderCancelBtn" th:value="|주문 취소|">
+            </div>
+
+        </div>
+
+    </div>
+    <script src="/js/cart_request.js"></script>
+    <script src="/js/order.js"></script>
+</div>
 </html>

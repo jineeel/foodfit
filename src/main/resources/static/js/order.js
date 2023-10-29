@@ -136,10 +136,25 @@ if(orderDeleteBtn){
           location.reload()
         }
         function fail(){
-            errorConfirm('상품을 삭제할 수 없습니다', '/mypage/order');
+            errorConfirm('주문을 삭제할 수 없습니다', '/mypage/order');
 
         }
-        orderRequest('POST', `/api/order/${id}`, null, success, fail);
+        warningConfirm("주문을 삭제하시겠습니까?", 'POST', `/api/order/${id}`, null, success, fail);
+    })
+}
+
+const orderCancelBtn = document.getElementById('orderCancelBtn');
+if(orderCancelBtn){
+    orderCancelBtn.addEventListener('click', ()=>{
+        const id = document.getElementById('orderId').value;
+        function success(){
+            location.reload()
+        }
+        function fail(){
+            errorConfirm('주문을 취소할 수 없습니다', location.reload());
+
+        }
+        warningConfirm("주문을 취소하시겠습니까?",'PUT',`/api/order/${id}`,null, success,fail)
     })
 }
 
@@ -182,18 +197,20 @@ function errorConfirm(text,url){
     })
 }
 
-function warningConfirm(text,confirm,cancel){
+function warningConfirm(text,method,url,body,success,fail){
+    console.log("!!")
     Swal.fire({
         text: text,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#66bc39',
         cancelButtonColor: '#8a8a8a',
-        confirmButtonText: confirm,
-        cancelButtonText: cancel,
+        confirmButtonText: "확인",
+        cancelButtonText: "취소",
         width: 400,
     }).then(function(result){
         if (result.value) {
+            orderRequest(method, url, body, success, fail)
         }
     })
 }

@@ -30,10 +30,17 @@ public class OrderApiController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saveOrder);
     }
 
+    /** 주문 삭제 **/
     @PostMapping("/api/order/{id}")
     public ResponseEntity<Order> deleteOrder(@PathVariable(value = "id") Long orderId){
-        System.out.println("???");
         orderService.delete(orderId);
+        return ResponseEntity.ok().build();
+    }
+
+    /** 주문 취소 **/
+    @PutMapping("/api/order/{id}")
+    public ResponseEntity<Order> cancelOrder(@PathVariable(value = "id") Long orderId){
+        orderService.cancel(orderId);
         return ResponseEntity.ok().build();
     }
 }

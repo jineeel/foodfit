@@ -38,7 +38,7 @@
         <div class="order_total_info" th:with="totalPrice=${#aggregates.sum(orderItem.![orderPrice])}" >
           <div>
             <p th:text="|배송비 : ${totalPrice >= 40000 ? '무료' : '3500원'}|"></p>
-            <span th:text="|총 주문 금액 : ${totalPrice >= 40000 ? totalPrice : totalPrice + 3500}|"></span>
+            <span th:text="|총 주문 금액 : ${totalPrice >= 40000 ? #numbers.formatInteger(totalPrice, 3, 'COMMA') + '원' : #numbers.formatInteger(totalPrice+3500, 3, 'COMMA') + '원'}|"></span>
           </div>
           <span th:text="|주문 일시 : ${#temporals.format(order.regTime, 'yyyy.MM.dd HH:mm')}|"></span>
         </div>

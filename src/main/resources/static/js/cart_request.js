@@ -42,26 +42,7 @@ if(cartBtn){
         cartRequest('POST', '/api/cart', formData, success, fail);
     })
 }
-/*
-    주문 내역에서 장바구니 추가
- */
-// const orderCartBtn = document.getElementById('orderCartBtn');
-// if(orderCartBtn){
-//     orderCartBtn.addEventListener('click', (event)=>{
-//         const formData = {
-//             itemId: document.getElementById('itemId').value,
-//             count: 1
-//         }
-//         function success() {
-//             successConfirm();
-//         }
-//         function fail(response) {
-//             cartErrorConfirm(response.url);
-//         }
-//
-//         cartRequest('POST', '/api/cart', formData, success, fail);
-//     })
-// }
+
 function cartRequest(method, url, body, success, fail){
     fetch(url,{
         method: method,

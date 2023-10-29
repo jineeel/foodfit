@@ -116,7 +116,22 @@ public class OrderController {
     }
 
     @GetMapping("/mypage/orderDetail/{orderId}")
-    public String findOrderDetail(@PathVariable Long orderId){
+    public String findOrderDetail(@PathVariable Long orderId, Model model){
+        Order order = orderService.findById(orderId);
+        List<OrderItem> orderItems = orderItemService.findByOrderId(orderId);
+
+        List<OrderItemListResponse> orderItemList = orderItems.stream()
+                        .map(OrderItemListResponse::new)
+                        .collect(Collectors.toList());
+
+        List<ItemImgResponse> itemImgList = orderItems.stream()
+                .map(orderItem -> itemImgService.findRepImgItemIds(orderItem.getItem().getId()))
+                .map(ItemImgResponse::new)
+                .collect(Collectors.toList());
+
+        model.addAttribute("orderItem", orderItemList);
+        model.addAttribute("order",new OrderViewResponse(order));
+        model.addAttribute("orderItemImg", itemImgList);
         return "/order/orderDetail";
     }
 

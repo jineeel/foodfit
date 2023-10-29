@@ -87,4 +87,10 @@ public class OrderService {
         // Order View Status를 N으로 변경하여 사용자에게 보이지 않게 변경
         return order;
     }
+    @Transactional
+    public Order cancel(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        order.updateOrderStatus(OrderStatus.CANCEL);
+        return order;
+    }
 }

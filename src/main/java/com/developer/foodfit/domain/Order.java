@@ -63,11 +63,10 @@ public class Order {
         this.orderViewStatus = orderViewStatus;
     }
     public void updateOrderViewStatus(String orderViewStatus){
-        System.out.println("orderViewStatus=="+orderViewStatus);
         this.orderViewStatus = orderViewStatus;
-        System.out.println("orderViewStatu222222s=="+this.orderViewStatus);
     }
 
-
-
+    public void updateOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 }

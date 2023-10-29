@@ -89,6 +89,7 @@ public class ItemImgService {
         Page<ItemImgResponse> itemImgListResponses = itemImgPages.map(itemImgPage-> new ItemImgResponse(itemImgPage));
         return  itemImgListResponses;
     }
+
     public List<ItemImgResponse> findAllItemImg(){
         List<ItemImg> itemImg = itemImgRepository.findAll();
         List<ItemImgResponse> itemListResponses = itemImg.stream().map(m->new ItemImgResponse(m)).collect(Collectors.toList());
