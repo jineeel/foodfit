@@ -517,7 +517,7 @@
     color: #8f8f8f;
 }
 .order_detail_div{
-    width: 700px;
+    width: 100%;
     height: 110px;
     background: #FFFFFF;
     border-radius: 10px;
@@ -525,7 +525,6 @@
     margin-top: 10px;
     box-shadow: 0 0 15px 2px #F1F1F1;
     padding: 10px;
-
     display: flex;
 }
 .order_detail_div img{
@@ -542,13 +541,12 @@
 .order_detail_req span{
     margin: 0 !important;
 }
-
 .order_detail_cart input[type="button"]{
     font-size: 15px;
     color: #212121;
     width: 130px;
     height: 30px;
-    margin: 2px;
+    margin-right: 10px;
     background: #FFFFFF;
     border-radius: 3px;
     border: solid 1px #e3e3e3;
@@ -556,11 +554,15 @@
 }
 .order_detail_user{
     margin-top: 20px;
-    margin-left: 5px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 0 15px 2px #F1F1F1;
+    padding: 10px;
 }
 .order_detail_user span{
     font-weight: 500;
     font-size: 16px;
+    margin-left: 10px;
 }
 .order_detail_table{
     width: 600px;
@@ -582,17 +584,19 @@
     padding-bottom: 0;
 }
 .order_detail_pay{
-     margin-top: 20px;
-    padding-top: 20px;
-    border-top: solid 1px #eeeeee;
-    margin-left: 5px;
+    margin-top: 20px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 0 15px 2px #F1F1F1;
+    padding: 10px;
  }
 .order_detail_pay span{
     font-weight: 500;
     font-size: 16px;
+    margin-left: 10px;
 }
 .detail_pay_table{
-    width: 700px;
+    width: 100%;
     margin-top: 10px;
 }
 .detail_pay_table th{
@@ -609,13 +613,13 @@
 }
 .detail_pay_table th:nth-child(2) span{
     text-align: right;
+    margin-right: 10px;
     font-weight: 500;
     font-size: 16px;
 }
 #totalPrice{
     color: #66bc39;
 }
-
 .order_detail_btn{
     display: flex;
     margin-top: 50px;
@@ -628,6 +632,7 @@
     color: #212121;
     width: 120px;
     height: 35px;
+    margin: 5px;
     background: #e7e7e7;
     border-radius: 3px;
     border: solid 1px #d9d9d9;
