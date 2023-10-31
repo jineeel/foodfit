@@ -19,19 +19,19 @@
                     <ul>
                         <li>
                             <a>주문 완료</a>
-                            <span>0</span>
+                            <span th:text="${orderCount}"></span>
                         </li>
                         <li>
                             <a>배송 중</a>
-                            <span>0</span>
+                            <span th:text="${shippingCount}"></span>
                         </li>
                         <li>
                             <a>배송 완료</a>
-                            <span>0</span>
+                            <span th:text="${deliveredCount}"></span>
                         </li>
                         <li>
                             <a>주문 취소</a>
-                            <span>0</span>
+                            <span th:text="${cancelCount}"></span>
                         </li>
                     </ul>
 

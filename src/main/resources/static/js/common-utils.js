@@ -1,3 +1,14 @@
+// function formRequest(method, url, body, success, fail){
+//     fetch(url,{
+//         method: method,
+//         body : body,
+//     }).then((response)=> response.text())
+//     .then((result)=>success(result))
+//         .catch(error => {
+//         console.error("요청 실패 " + error);
+//         return fail(error);
+//     });
+// }
 /*
    error Alert
  */
