@@ -97,7 +97,7 @@ public class OrderService {
 
     public Page<OrderViewResponse> findAllPaging(Pageable pageable) {
         int page = pageable.getPageNumber() - 1;
-        int pageLimit = 3;
+        int pageLimit = 10;
 
         Page<Order> orderPages =orderRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
         Page<OrderViewResponse> orderViewResponse = orderPages.map(orderPage-> new OrderViewResponse(orderPage));
@@ -124,11 +124,7 @@ public class OrderService {
         }
     }
 
-    public List<Order> findByUserId(Long userId) {
-        return orderRepository.findByUserIdOrderByRegTimeDesc(userId);
-    }
-
     public Long countByOrderStatus(OrderStatus status, Long userId) {
-        return orderRepository.countByOrderStatusAndUserId(status, userId);
+        return orderRepository.countByOrderStatusAndUserIdAndOrderViewStatus(status, userId, "Y");
     }
 }

@@ -21,7 +21,6 @@ import java.util.List;
 public class OrderApiController {
 
     private final OrderService orderService;
-    private final OrderItemService orderItemService;
 
     /** 주문 등록 **/
     @PostMapping("/api/order")

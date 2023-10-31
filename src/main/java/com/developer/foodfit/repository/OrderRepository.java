@@ -10,6 +10,5 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findByUserIdOrderByRegTimeDesc(Long userId, PageRequest id);
-    List<Order> findByUserIdOrderByRegTimeDesc(Long userId);
-    Long countByOrderStatusAndUserId(OrderStatus status, Long userId);
+    Long countByOrderStatusAndUserIdAndOrderViewStatus(OrderStatus status, Long userId, String viewStatus);
 }

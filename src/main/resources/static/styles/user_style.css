@@ -290,12 +290,12 @@ body {
 .form-page{
   display: flex;
   justify-content: center;
-  width:100%;
+  width:60%;
   height: 400px;
   background: #fdfdfe;
   padding-top: 20px;
-  margin-top: 20px;
-  margin-bottom: 50px;
+  margin: 0 auto;
+  border-radius: 20px;
 }
 
 .form-page.n{
@@ -327,12 +327,14 @@ body {
 .content-ver{
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 .content-ver.line{
   border-bottom: 1px solid #828586;
   border-top: 1px solid #828586;
   background: none;
-  width: 80%;
+  width: 60%;
   height: 90px;
 }
 .content-ver.line ul{
@@ -343,8 +345,8 @@ body {
 .content-ver.line li{
   margin-top: 20px;
   font-size: 15px;
-  margin-right: 120px;
-  margin-left: 120px;
+  margin-right: 50px;
+  margin-left: 50px;
 }
 .content-ver.line a{
   font-size: 15px;
