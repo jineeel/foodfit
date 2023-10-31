@@ -102,7 +102,6 @@ COLOR PALETTE
 }
 
 .product_image span{
-	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 13px;
 	width: 90px;
 	height: 30px;
@@ -171,7 +170,6 @@ COLOR PALETTE
 	margin-top: 40px;
 }
 .category-div div a5{
-	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 18px;
 	font-weight: 500;
 	color: #1f1f1f;
@@ -194,7 +192,6 @@ COLOR PALETTE
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	font-family: 'Noto Sans KR', sans-serif;
 	margin-top: 50px;
 	margin-bottom: 30px;
 }

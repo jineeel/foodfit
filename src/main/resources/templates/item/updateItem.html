@@ -1,0 +1,18 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>상품 수정</title>
+  <th:block layout:fragment="css">
+    <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
+  </th:block>
+</head>
+<div layout:fragment="content" class="main_center gray">
+  <h4>상품 수정</h4>
+  <div th:replace="~{item/itemForm :: itemForm}"></div>
+  <script src="/js/item.js"></script>
+  <script src="/js/item_category.js"></script>
+</div>
+</html>

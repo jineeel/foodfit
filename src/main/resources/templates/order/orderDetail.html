@@ -86,7 +86,7 @@
                 </table>
             </div>
             <div  class="order_detail_btn">
-                <input type="button" id="orderCancelBtn" th:value="|주문 취소|">
+                <input type="button" id="orderCancelBtn" th:unless="${#strings.equals(order.orderStatus, 'CANCEL')}" th:value="|주문 취소|">
             </div>
 
         </div>

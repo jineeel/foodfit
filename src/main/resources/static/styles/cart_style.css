@@ -20,7 +20,6 @@
     border: solid 1px #e8e8e8;
     width: 1250px;
     margin: auto;
-    font-family: 'Noto Sans KR', sans-serif;
     font-size: 16px;
     color: #383838;
 }
@@ -94,7 +93,6 @@ input[type="button"]{
 }
 
 .cart_item_info div span{
-    font-family: 'Noto Sans KR', sans-serif;
     text-shadow: 1px 1px 1px gray;
     font-weight: 500;
     color: #ffffff;
@@ -127,7 +125,6 @@ input[type="button"]{
 {
     font-weight: 300;
     color: #606060;
-    font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
     margin: 10px;
 }
@@ -191,7 +188,6 @@ input[type="button"]{
     font-size: 15px;
 }
 .cart_money_div span{
-    font-family: 'Noto Sans KR', sans-serif;
     font-size: 26px;
     font-weight: 400;
     color: #383838;
@@ -208,7 +204,6 @@ input[type="button"]{
     margin: auto;
     display: flex;
     justify-content: center;
-    font-family: 'Noto Sans KR', sans-serif;
 }
 .cart_button_div input[type="button"]{
     width: 200px;

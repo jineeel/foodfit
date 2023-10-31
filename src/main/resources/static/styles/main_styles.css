@@ -487,6 +487,13 @@ section
 	-o-transition: color 0.3s ease;
 	transition: color 0.3s ease;
 }
+#admin a{
+	width: 120px;
+	margin-right: 40px;
+	margin-top: 1px;
+	font-weight: 500;
+	font-size: 15px;
+}
 .navbar_user li a:hover
 {
 	color: #67be38;
@@ -1510,6 +1517,7 @@ section
 *********************************/
 .footer_div{
 	background: #ffffff;
+	margin-top: 100px;
 }
 .footer_nav_container
 {

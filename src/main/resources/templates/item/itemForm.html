@@ -1,23 +1,10 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
-<head>
-  <meta charset="UTF-8">
-  <title>상품 등록</title>
-  <th:block layout:fragment="css">
-    <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
-  </th:block>
-  <th:block layout:fragment="script"></th:block>
-</head>
-<div layout:fragment="content" class="main_center gray">
+<div class="item_container gray" th:fragment="itemForm">
   <div class="text-center">
-    <h4 class="h-text"> 상품 등록 </h4>
     <form id="itemForm" enctype="multipart/form-data">
       <div class="inner-div">
         <div class="input-area">
           <label>상품 카테고리</label>
-          <select type="text" id="category1" name="category1" th:onchange="categoryDetail()">
+          <select type="text" id="category1" name="category1" onchange="categoryDetail()">
             <option>카테고리 선택</option>
             <option th:each="category : ${categories}" th:value="${category.getCategoryName()}" th:text="${category.getCategoryName()}" ></option>
           </select>
@@ -81,72 +68,6 @@
       </div>
     </form>
   </div>
-
-  <script>
-    $(document).ready(function () {
-      const categoryValue1 = document.getElementById('categoryValue1').value;
-      const categoryValue2 = document.getElementById('categoryValue2').value;
-
-      if(categoryValue1){
-        document.getElementById('category1').value = categoryValue1;
-        categoryDetail(categoryValue2);
-      }
-    });
-    function bindDomEvent(){
-      $(".custom-file-input").on("change", function() {
-        const fileName = $(this).val().split("\\").pop();  //이미지 파일명
-        let fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
-        fileExt = fileExt.toLowerCase(); //소문자 변환
-
-        if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
-          alert("이미지 파일만 등록이 가능합니다.");
-          $(".custom-file-input").val('');
-          $(this).closest(".custom-file").find(".custom-file-label").html('');
-          return;
-        }
-        // 해당 파일 입력 필드에 대한 라벨을 찾아 업데이트
-        $(this).closest(".custom-file").find(".custom-file-label").html(fileName);
-      });
-    }
-
-    function selectFile(index){
-      document.getElementById('file'+index).click();
-    }
-  </script>
-  <script>
-    const resultFail = document.getElementById('resultFail');
-    const category1 = document.getElementById('category1');
-
-    function categoryDetail(categoryValue2){
-      const selectValue= category1.value;
-      console.log(selectValue);
-      $.ajax({
-        url: "/item/findDetailCategory",
-        type: "POST",
-        data : { selectValue : selectValue },
-        success: function (response){
-          const categoty2 = document.getElementById('category2');
-          console.log(response);
-          categoty2.innerHTML = '';
-
-          response.forEach(function (category) {
-            const option = document.createElement('option');
-            option.value = category.categoryCode;
-            option.text = category.categoryName;
-            category2.appendChild(option);
-          });
-
-          if(categoryValue2){
-            category2.value = categoryValue2;
-          }
-        },
-        error: function (error){
-          console.error("요청실패 "+error);
-        }
-      });
-    }
-  </script>
-  <script src="/js/item.js"></script>
 </div>
-
-</html>
+<script src="/js/item.js"></script>
+<script src="/js/item_category.js"></script>

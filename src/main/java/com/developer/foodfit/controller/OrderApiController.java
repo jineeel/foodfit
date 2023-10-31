@@ -17,7 +17,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class OrderApiController {
 
     private final OrderService orderService;
@@ -41,6 +41,13 @@ public class OrderApiController {
     @PutMapping("/api/order/{id}")
     public ResponseEntity<Order> cancelOrder(@PathVariable(value = "id") Long orderId){
         orderService.cancel(orderId);
+        return ResponseEntity.ok().build();
+    }
+
+    /** 주문 상태 변경 **/
+    @PutMapping("/order/updateStatus/{orderId}")
+    public ResponseEntity<Order> updateOrder(@PathVariable(value = "orderId") String orderId, @RequestBody String status){
+        orderService.updateOrderStatus(orderId,status);
         return ResponseEntity.ok().build();
     }
 }

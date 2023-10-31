@@ -43,6 +43,9 @@ public class ItemController {
 
         if(id==null){   //상품 등록
             model.addAttribute("item", new ItemViewResponse());
+            model.addAttribute("categories", categoryResponses);
+            return "item/itemForm";
+
         }else{  //상품 수정
             Item item = itemService.findById(id);
             itemViewResponse = new ItemViewResponse(item);
@@ -51,10 +54,10 @@ public class ItemController {
             model.addAttribute("itemImg",itemImg);
             model.addAttribute("item", itemViewResponse);
             model.addAttribute("parentName", categoryService.findParentName(itemViewResponse.getCategory()));
+            model.addAttribute("categories", categoryResponses);
+            return "item/updateItem";
         }
 
-        model.addAttribute("categories", categoryResponses);
-        return "item/itemForm";
     }
 
     /** 카테고리 상품 조회 **/

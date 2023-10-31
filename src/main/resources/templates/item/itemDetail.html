@@ -86,7 +86,7 @@
                                 <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                             </div>
                         </div>
-                        <!-- TODO: 총 상품 금액 -->
+                        <!-- 총 상품 금액 -->
                         <div class="product_totalPay_div">
                             <span th:text="|총 상품 금액|"></span>
                             <div>
@@ -107,7 +107,7 @@
                             <span th:text="|이 상품은 현재 구매할 수 없는 상품입니다|"></span>
                         </div>
                         <!-- 관리자 상품 수정/삭제 -->
-                        <div class="product_admin_div" sec:authorize="hasAnyAuthority('GUEST')">
+                        <div class="product_admin_div" sec:authorize="hasAnyAuthority('ADMIN')">
                             <input type="button" id="updateButton"  th:onclick="|location.href='@{/item?id={id}(id=${item.itemId})}'|" th:value="|상품 수정|">
                             <input type="button" id="deleteBtn" class="product_delete" th:value="|상품 삭제|">
                         </div>

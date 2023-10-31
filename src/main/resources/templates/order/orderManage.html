@@ -1,0 +1,55 @@
+<html>
+<div class="order_contents">
+    <div>
+        <input type="button" class="orderStatusBtn" th:value="|배송 처리|" th:data-value="SHIPPING">
+        <input type="button" class="orderStatusBtn" th:value="|배송 완료 처리|" th:data-value="DELIVERED">
+        <input type="button" class="orderStatusBtn" th:value="|주문 취소 처리|" th:data-value="CANCEL">
+    </div>
+    <table class="order_list_table">
+        <thead>
+            <tr>
+                <th><input type="checkbox" onclick="selectAll(this)"></th>
+                <th>주문번호</th>
+                <th>주문일시</th>
+                <th>상품명</th>
+                <th>주문상태</th>
+                <th>주문금액</th>
+                <th>주문자</th>
+            </tr>
+            <tr th:each="order : ${order}">
+                <div th:each="orderItem : ${orderItem}" th:if="${order.orderId==orderItem.orderId}">
+                    <input type="hidden" class="adminOrderStatus" th:value="${order.orderStatus}">
+                <th><input class="checkOrder" id="checkOrder" type="checkbox"  th:value="${order.orderId}"></th>
+                <th th:text="${order.orderId}"></th>
+                <th th:text="${#temporals.format(order.regTime, 'yyyy.MM.dd HH:ss')}"></th>
+                <th th:onclick="|location.href='/order/orderDetail/${order.orderId}'|" th:text="${orderItem.orderItemName}"></th>
+                <div th:switch="${#strings.toString(order.orderStatus)}">
+                    <th th:case="ORDER">주문완료</th>
+                    <th th:case="SHIPPING">배송중</th>
+                    <th th:case="DELIVERED">배송완료</th>
+                    <th th:case="CANCEL">주문취소</th>
+                </div>
+                <th th:text="${orderItem.totalOrderPrice}>40000?${#numbers.formatInteger(orderItem.totalOrderPrice, 3, 'COMMA') + '원'} :
+                 ${#numbers.formatInteger(orderItem.totalOrderPrice+3500, 3, 'COMMA') + '원'}"></th>
+                <th th:text="${order.orderName}"></th>
+                </div>
+            </tr>
+        </thead>
+    </table>
+        <!--
+        Paging
+        -->
+    <div class="paging_div">
+        <a class="paging" data-value="/order/list?page=1"><i class="fa fa-angle-double-left"></i></a>
+        <a class="paging" th:data-value="${order.first} ? '#' : ${'/order/list?page='+order.number}"><i class="fa fa-angle-left"></i></a>
+        <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+            <span th:if="${page == order.number + 1}" th:text="${page}"></span>
+            <span th:if="${page != order.number + 1}"><a class="paging" th:data-value="${'/order/list?page=' + page }" th:text="${page}"></a></span>
+        </span>
+        <a class="paging" th:data-value="${order.last}? '#' : ${'/order/list?page='+ (order.number+2)}"><i class="fa fa-angle-right"></i></a>
+        <a class="paging" th:data-value="${'/order/list?page='+order.totalPages}"><i class="fa fa-angle-double-right"></i></a>
+    </div>
+</div>
+<script src="/js/admin_order.js"></script>
+</div>
+</html>

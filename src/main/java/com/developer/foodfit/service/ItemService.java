@@ -167,7 +167,7 @@ public class ItemService {
     private void authorizeItemRole(){
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         String userRole = userRepository.findByUserId(userName).orElseThrow(()-> new IllegalArgumentException("")).getRole().getKey();
-        if(!(userRole=="ROLE_GUEST")){
+        if(!(userRole=="ROLE_ADMIN")){
             throw new IllegalArgumentException("not authorized");
         }
     }

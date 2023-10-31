@@ -7,8 +7,8 @@ const stockNumber = document.getElementById('stockNumber');
 const itemDetail = document.getElementById('itemDetail');
 const category2 = document.getElementById('category2');
 const itemForm = document.getElementById('itemForm')
-
 const createBtn = document.getElementById('createBtn');
+const FileLabel = document.querySelectorAll('.custom-file-label');
 if(createBtn){
     createBtn.addEventListener('click', (event)=>{
         event.preventDefault(); // 폼 제출 동작 막기
@@ -16,7 +16,11 @@ if(createBtn){
         const formData = new FormData(itemForm);
 
         function success() {
-            location.replace(`/item`);
+            itemForm.reset();
+            category2.textContent="";
+            FileLabel.forEach((label, index)=>{
+                FileLabel[index].textContent="";
+            })
         }
 
         function fail(response) {
@@ -94,7 +98,6 @@ function itemRequest(method, url, body, success, fail){
         return fail();
     });
 }
-// const customFileInput = document.querySelector('.custom-file-input');
 const customFileLabel = document.querySelector('.custom-file-label');
 function inputNullCheck(){
     inputStatus = false;
@@ -124,6 +127,29 @@ if(purchaseBtn){
         window.location.href = url;
     })
 }
+
+function bindDomEvent(){
+    $(".custom-file-input").on("change", function() {
+        const fileName = $(this).val().split("\\").pop();  //이미지 파일명
+        let fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
+        fileExt = fileExt.toLowerCase(); //소문자 변환
+
+        if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
+            alert("이미지 파일만 등록이 가능합니다.");
+            $(".custom-file-input").val('');
+            $(this).closest(".custom-file").find(".custom-file-label").html('');
+            return;
+        }
+        // 해당 파일 입력 필드에 대한 라벨을 찾아 업데이트
+        $(this).closest(".custom-file").find(".custom-file-label").html(fileName);
+    });
+}
+
+function selectFile(index){
+    document.getElementById('file'+index).click();
+}
+
+
 /*
     item error Alert
  */
