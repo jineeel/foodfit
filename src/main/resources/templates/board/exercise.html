@@ -1,0 +1,55 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>홈트레이닝</title>
+    <th:block layout:fragment="css">
+        <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
+        <link href="/styles/board_style.css" type="text/css" rel="stylesheet">
+    </th:block>
+    <th:block layout:fragment="script"></th:block>
+</head>
+<div layout:fragment="content">
+    <div class="super_container">
+        <div class="container product_section_container">
+            <div class="row">
+                <div class="col product_section clearfix">
+                    <!-- Main Content -->
+                    <div class="player_div">
+                        <div class="player_label">
+                            <a5 th:text="|홈트레이닝|"></a5>
+                            <a4 th:text="|맛있게 먹고 건강하게 빼자! 추천 홈트레이닝 영상🙆‍♀️|"></a4>
+                        </div>
+                        <div class="player" id="player"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&channelId=UCfDkQiPchwM0F2SkHWl5JYQ&type=video&key=AIzaSyBJIZgbKO4KjO2xw97WxU0qM8bNImSyB2Y",
+                contentType : "application/json",
+                success : function(data) {
+                    data.items.forEach(function(element, index) {
+                        let videoUrl = element.id.videoId;
+                        $('#player').append('<iframe width="330" height="180" src="https://www.youtube.com/embed/'+videoUrl+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+                    });
+                },
+                complete : function(data) {
+                },
+                error : function(xhr, status, error) {
+                    console.log("유튜브 요청 에러: "+error);
+                }
+            });
+        });
+    </script>
+</div>
+</html>

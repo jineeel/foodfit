@@ -19,6 +19,7 @@ public class ItemViewResponse {
     private String category;
     private String categoryName;
     private String itemDetail;
+    private int calorie;
 
 
     public ItemViewResponse(Item item) {
@@ -30,6 +31,7 @@ public class ItemViewResponse {
         this.categoryName = item.getCategory().getCategoryName();
         this.itemDetail = item.getItemDetail();
         this.stockNumber = item.getStockNumber();
+        this.calorie = item.getCalorie();
     }
 }
 

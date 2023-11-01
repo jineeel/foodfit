@@ -70,10 +70,10 @@ public class User {
         this.detailAdr = detailAdr;
     }
 
-    public void update(UpdateUserRequest request) {
+    public void update(UpdateUserRequest request, String password) {
         this.email = request.getEmail();
         this.phone = request.getPhone();
-        this.password = request.getPassword();
+        this.password = password;
         this.username = request.getUsername();
         this.zipcode = request.getZipcode();
         this.streetAdr = request.getStreetAdr();

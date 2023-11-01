@@ -40,13 +40,16 @@ COLOR PALETTE
 /*********************************
 7. Main Content
 *********************************/
-
+body{
+	background: #ffffff;
+}
 .main_content
 {
-	margin-top: 100px;
-	float: left;
+	/*float: left;*/
 	width: calc(100% - 200px);
-	padding-left: 34px;
+	text-align: center;
+	/*padding-left: 34px;*/
+	margin: 0 auto;
 }
 
 .product-grid
@@ -87,6 +90,13 @@ COLOR PALETTE
 	padding-left: 20px;
 	padding-right: 10px;
 
+}
+.product_info p{
+	font-weight: 400;
+	font-size: 13px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	color: #549432;
 }
 
 .soldOut_div {
@@ -138,7 +148,7 @@ COLOR PALETTE
 }
 .product_price
 {
-	margin-top: 20px;
+	margin-top: 10px;
 	font-size: 17px;
 	color: #000000;
 	font-weight: 600;
@@ -182,7 +192,10 @@ COLOR PALETTE
 }
 
 .category-div p {
-	margin: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 30px;
+	margin-right: 30px;
 	font-size: 16px;
 	color: #464646;
 	font-weight: 200;
@@ -202,4 +215,11 @@ COLOR PALETTE
 .itemPaging_div span{
 	margin-left: 5px;
 	margin-right: 5px;
+}
+
+.item_list_code{
+	margin:10px;
+}
+.item_list_code a6{
+	font-size: 17px;
 }

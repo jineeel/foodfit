@@ -23,5 +23,6 @@ public class AddItemRequest {
     private String category;
     private LocalDateTime createDate;
     private String author;
+    private int calorie;
 
 }

@@ -1,0 +1,26 @@
+body{
+    background: #ffffff;
+}
+
+.player{
+    /*width: 100%;*/
+    margin-top: 30px;
+}
+.player_div{
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+}
+.player_label{
+    display: grid;
+}
+.player_div a5{
+    font-size: 18px;
+    font-weight: 500;
+    color: #1f1f1f;
+}
+.player_div a4{
+    font-size: 17px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}

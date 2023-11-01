@@ -32,6 +32,7 @@ public class WebSecurityConfig {
                                         AntPathRequestMatcher.antMatcher("/item/**"),
                                         AntPathRequestMatcher.antMatcher("/login"),
                                         AntPathRequestMatcher.antMatcher("/api/signup"),
+                                        AntPathRequestMatcher.antMatcher("/board/**"),
                                         AntPathRequestMatcher.antMatcher("/"),
                                         AntPathRequestMatcher.antMatcher("/user/**"),
                                         AntPathRequestMatcher.antMatcher("/images/**"),

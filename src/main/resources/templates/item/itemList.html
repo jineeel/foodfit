@@ -4,7 +4,6 @@
       layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
     <th:block layout:fragment="css">
         <link href="/styles/user_style.css" type="text/css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
@@ -26,12 +25,23 @@
                                 <div class="col">
                                     <!-- 카테고리 -->
                                     <div class="category-div">
-                                        <div>
-                                            <a th:href="@{/item/list/{parentCode}(parentCode = ${parentCode})}"><a5 th:text="${allCategory}==null? ${categoryName} : '전체 상품'"></a5></a>
+                                        <div th:switch="${#strings.toString(itemCode)}">
+                                            <a th:href="@{/item/category/{parentCode}(parentCode = ${parentCode})}"><a5 th:case="null" th:text="${categoryName}"></a5></a>
+                                            <a5 th:case="all" th:text="|전체 상품|"></a5>
+                                            <a5 th:case="new" th:text="신상품"></a5>
+                                            <a5 th:case="best" th:text="|베스트 상품|"></a5>
+                                            <a5 th:case="calorie" th:text="|저칼로리 상품|"></a5>
                                         </div>
+
+                                        <div class="item_list_code" >
+                                            <a6 th:if="${#strings.equals(itemCode, 'new')}" th:text="|최근 입고된 신상품 🌟|"></a6>
+                                            <a6 th:if="${#strings.equals(itemCode, 'best')}" th:text="|많이 찾는 Best 상품 💘|"></a6>
+                                            <a6 th:if="${#strings.equals(itemCode, 'calorie')}" th:text="|맛있게 살빼는 저칼로리 상품 ☘️|"></a6>
+                                        </div>
+
                                         <div>
                                             <div th:each="categoryList:${categoryList}">
-                                                <a th:href="@{/item/list/{categoryCode}(categoryCode = ${categoryList.categoryCode})}"> <p th:text="${categoryList.categoryName}"></p></a>
+                                                <a th:href="@{/item/category/{categoryCode}(categoryCode = ${categoryList.categoryCode})}"><p th:text="${categoryList.categoryName}"></p></a>
                                             </div>
                                         </div>
                                     </div>
@@ -47,6 +57,8 @@
                                             <div class="product_info">
                                                 <h6 class="product_name" th:text="${item.itemName}"></h6>
                                                 <div class="product_price" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></div>
+                                                <p th:if="${#strings.equals(itemCode, 'calorie')}" th:text="|${item.calorie} kcal|"></p>
+                                                <p th:if="${#strings.equals(itemCode, 'best')}" th:text="|${item.itemSellCount} 개 구매중|"></p>
                                             </div>
                                             <input type="hidden" class="count" th:value="1">
                                             <input type="hidden" class="itemId" th:value="${item.itemId}">
@@ -57,12 +69,13 @@
                             <!--
                             Paging
                             -->
+                            <div th:with="itemCode=${itemCode}" th:unless="${#strings.equals(itemCode, 'new')} or ${#strings.equals(itemCode, 'best')} or ${#strings.equals(itemCode, 'calorie')}" >
                             <div class="paging_div" th:with="categoryCode=${categoryCode}">
-                                <a th:attr="href=${allCategory == null ? '/item/list/' + categoryCode + '?page=1' : '/item/list?page=1'}">
+                                <a th:attr="href=${itemCode == null ? '/item/category/' + categoryCode + '?page=1' : '/item/list?page=1'}">
                                     <i class="fa fa-angle-double-left"></i>
                                 </a>
                                 <!-- 이전 링크 활성화 비활성화 -->
-                                <a th:attr="href=${itemPages.first} ? '#' : (${allCategory == null ? '/item/list/' + categoryCode + '?page=' + itemPages.number : '/item/list?page=' + itemPages.number})">
+                                <a th:attr="href=${itemPages.first} ? '#' : (${itemCode == null ? '/item/category/' + categoryCode + '?page=' + itemPages.number : '/item/list/' + itemCode+ '?page=' + itemPages.number})">
                                     <i class="fa fa-angle-left"></i>
                                 </a>
                                 <!-- 페이지 번호 링크(현재 페이지는 숫자만) -->
@@ -71,13 +84,14 @@
                                     <span th:if="${page == itemPages.number + 1}" th:text="${page}"></span>
                                     <!-- 현재페이지 링크 X, 다른 페이지번호에는 링크를 보여준다 -->
                                     <span th:if="${page != itemPages.number + 1}">
-                                      <a th:attr="href=${allCategory == null ? '/item/list/' + categoryCode + '?page=' + page : '/item/list?page=' + page }" th:text="${page}"></a>
+                                      <a th:attr="href=${itemCode == null ? '/item/category/' + categoryCode + '?page=' + page : '/item/list/'+ itemCode + '?page=' + page }" th:if="${page}>0" th:text="${page}"></a>
                                     </span>
                                 </span>
                                 <!-- 다음 링크 활성화 비활성화 -->
-                                <a th:attr="href=${itemPages.last}? '#' : (${allCategory == null ? '/item/list/'+ categoryCode + '?page=' + itemPages.number + 2 : '/item/list?page='+ itemPages.number + 2 })"><i class="fa fa-angle-right"></i></a>
+                                <a th:attr="href=${itemPages.last}? '#' : (${itemCode == null ? '/item/category/'+ categoryCode + '?page=' + itemPages.number + 2 : '/item/list/'+ itemCode+'?page='+ itemPages.number + 2 })"><i class="fa fa-angle-right"></i></a>
                                 <!-- 마지막 페이지로 이동 -->
-                                <a th:attr="href=${allCategory == null ? '/item/list/'+ categoryCode + '?page=' + itemPages.totalPages : '/item/list?page='+itemPages.totalPages}"><i class="fa fa-angle-double-right"></i></a>
+                                <a th:attr="href=${itemCode == null ? '/item/category/'+ categoryCode + '?page=' + itemPages.totalPages : '/item/list/'+ itemCode+'?page='+itemPages.totalPages}"><i class="fa fa-angle-double-right"></i></a>
+                            </div>
                             </div>
                         </div>
                     </div>

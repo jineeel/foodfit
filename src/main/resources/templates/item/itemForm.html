@@ -27,6 +27,10 @@
           <label>수량</label>
           <input type="number" id="stockNumber" name="stockNumber" th:value="${item.stockNumber} == 0 ? '':${item.stockNumber}">
         </div>
+        <div class="input-area">
+          <label>칼로리</label>
+          <input type="number" id="calorie" name="calorie" th:value="${item.calorie} == 0 ? '':${item.calorie}">
+        </div>
         <div class="input-area text">
           <label>상세정보</label>
           <textarea id="itemDetail" name="itemDetail" th:text="${item.itemDetail}"></textarea>

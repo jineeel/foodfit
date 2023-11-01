@@ -4,6 +4,7 @@ const itemId = document.getElementById('id');
 const itemName = document.getElementById('itemName');
 const price = document.getElementById('price');
 const stockNumber = document.getElementById('stockNumber');
+const calorie = document.getElementById('calorie');
 const itemDetail = document.getElementById('itemDetail');
 const category2 = document.getElementById('category2');
 const itemForm = document.getElementById('itemForm')
@@ -109,6 +110,8 @@ function inputNullCheck(){
         resultFail.textContent="가격을 입력해주세요";
     }else if(!stockNumber.value){
         resultFail.textContent="수량을 입력해주세요";
+    }else if(!calorie.value){
+        resultFail.textContent="칼로리를 입력해주세요"
     }else if(!itemDetail.value){
         resultFail.textContent="상세정보를 입력해주세요"
     }else if(!customFileLabel.textContent){

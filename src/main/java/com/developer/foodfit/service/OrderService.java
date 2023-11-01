@@ -58,6 +58,7 @@ public class OrderService {
 
         for(int i=0; i<orderItemRequest.size(); i++){
             Item Item = itemRepository.findById(orderItemRequest.get(i).getItemId()).orElseThrow();
+            Item.updateItemSellCount(orderItemRequest.get(i).getCount());
             orderItemService.save(orderItemRequest.get(i),order,Item);
         }
 

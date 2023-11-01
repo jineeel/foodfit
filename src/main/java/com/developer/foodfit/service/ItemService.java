@@ -39,6 +39,7 @@ public class ItemService {
                 .itemName(request.getItemName())
                 .price(request.getPrice())
                 .stockNumber(request.getStockNumber())
+                .calorie(request.getCalorie())
                 .itemDetail(request.getItemDetail())
                 .category(category)
                 .createDate(LocalDateTime.now())
@@ -178,5 +179,20 @@ public class ItemService {
         }else{
             item.updateItemStatusSoldOut();
         }
+    }
+
+    public List<ItemListResponse> findTop20Items(String itemCode){
+        List<Item> itemList = new ArrayList<>();
+        if(itemCode.equals("new")){
+            itemList = itemRepository.findTop20ByOrderByIdDesc();
+        }else if(itemCode.equals("best")) {
+            itemList = itemRepository.findTop20ByOrderByItemSellCountDesc();
+        }else if(itemCode.equals("calorie")){
+            itemList = itemRepository.findTop20ByOrderByCalorieAsc();
+        }
+        List<ItemListResponse> itemListResponses = itemList.stream()
+                .map(ItemListResponse::new)
+                .collect(Collectors.toList());
+        return itemListResponses;
     }
 }
