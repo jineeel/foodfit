@@ -48,15 +48,6 @@ public class ItemImgService {
         itemImgRepository.save(itemImg);
     }
 
-
-//    public List<ItemImg> findAll() {
-//        return itemImgRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-//    }
-//
-//    public List<ItemImg> findAllByItemId(Long itemId) {
-//        return itemImgRepository.findAllByItemId(itemId);
-//    }
-
     public List<ItemImg> findItemImgView(Long itemId){
         return itemImgRepository.findItemImgByItemId(itemId);
     }
@@ -92,6 +83,12 @@ public class ItemImgService {
 
     public List<ItemImgResponse> findAllItemImg(){
         List<ItemImg> itemImg = itemImgRepository.findAll();
+        List<ItemImgResponse> itemListResponses = itemImg.stream().map(m->new ItemImgResponse(m)).collect(Collectors.toList());
+        return itemListResponses;
+    }
+
+    public List<ItemImgResponse> findAllItemReqImg(){
+        List<ItemImg> itemImg = itemImgRepository.findByRepImgYn("Y");
         List<ItemImgResponse> itemListResponses = itemImg.stream().map(m->new ItemImgResponse(m)).collect(Collectors.toList());
         return itemListResponses;
     }

@@ -1,4 +1,6 @@
-
+body{
+	background: #ffffff;
+}
 /*********************************
 4. Breadcrumbs
 *********************************/
@@ -12,7 +14,6 @@
 }
 .breadcrumbs ul li
 {
-	font-family: 'Noto Sans KR', sans-serif;
 	display: inline-block;
 	margin-right: 5px;
 	margin-left: 5px;
@@ -78,14 +79,30 @@
 	font-weight: 500px;
 	line-height: 30px;
 }
-.original_price
+.price_calorie
+{
+	display: flex;
+	justify-content: space-between;
+}
+.price_calorie div
+{
+	display: flex;
+}
+.price_calorie span
 {
 	font-weight: 500;
 	color: #212121;
 	font-size: 25px;
-	/*text-decoration: line-through;*/
 	line-height: 30px;
 	margin-top: 21px;
+}
+.price_calorie p{
+	font-weight: 500;
+	color: #646464;
+	font-size: 18px;
+	line-height: 30px;
+	margin-top: 22px;
+	margin-left: 5px;
 }
 .product_purchase_div{
 	display: flex;
@@ -102,7 +119,6 @@
 	margin-left: 10px;
 }
 .product_purchase_div .cartBtnDetail{
-	font-family: 'Noto Sans KR', sans-serif;
 	background: #ffffff;
 	border: solid 1px #cccccc;
 	border-radius: 4px;
@@ -119,7 +135,6 @@
 
 }
 .product_admin_div input[type="button"]{
-	font-family: 'Noto Sans KR', sans-serif;
 	width: 25%;
 	height: 45px;
 	background: #dcdcdc;
@@ -171,7 +186,6 @@
 .product_shipping_div div{
 	display: flex;
 	margin-top: 20px;
-	font-family: 'Noto Sans KR', sans-serif;
 }
 .product_shipping_div span{
 	margin-right : 20px;
@@ -183,7 +197,6 @@
 .product_totalPay_div{
 	display: flex;
 	margin-top: 30px;
-	font-family: 'Noto Sans KR', sans-serif;
 	align-items: center;
 	padding-bottom: 10px;
 	padding-top: 10px;
@@ -217,7 +230,6 @@
 }
 .product_itemStatus_div {
 	width: 100%;
-	font-family: 'Noto Sans KR', sans-serif;
 	display: grid;
 	justify-items: center;
 	text-align: center;
@@ -239,7 +251,6 @@
 
 .tabs_section_container
 {
-	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	padding-bottom: 80px;
 	border-bottom: solid 1px #ebebeb;
@@ -310,7 +321,6 @@
 }
 .tab_text_block
 {
-	font-family: 'Noto Sans KR', sans-serif;
 	margin-bottom: 50px;
 }
 .tab_text_block p

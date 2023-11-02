@@ -1,7 +1,7 @@
 package com.developer.foodfit.controller;
 
 import com.developer.foodfit.domain.Category;
-import com.developer.foodfit.dto.CategoryResponse;
+import com.developer.foodfit.dto.item.CategoryResponse;
 import com.developer.foodfit.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

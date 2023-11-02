@@ -1,9 +1,8 @@
 package com.developer.foodfit.controller;
 
-import com.developer.foodfit.config.oauth.OAuth2LoginFailureHandler;
 import com.developer.foodfit.domain.Category;
 import com.developer.foodfit.domain.Item;
-import com.developer.foodfit.dto.*;
+import com.developer.foodfit.dto.item.CategoryResponse;
 import com.developer.foodfit.dto.item.ItemImgResponse;
 import com.developer.foodfit.dto.item.ItemListResponse;
 import com.developer.foodfit.dto.item.ItemViewResponse;
@@ -13,7 +12,6 @@ import com.developer.foodfit.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +41,9 @@ public class ItemController {
 
         if(id==null){   //상품 등록
             model.addAttribute("item", new ItemViewResponse());
+            model.addAttribute("categories", categoryResponses);
+            return "item/itemForm";
+
         }else{  //상품 수정
             Item item = itemService.findById(id);
             itemViewResponse = new ItemViewResponse(item);
@@ -51,14 +52,14 @@ public class ItemController {
             model.addAttribute("itemImg",itemImg);
             model.addAttribute("item", itemViewResponse);
             model.addAttribute("parentName", categoryService.findParentName(itemViewResponse.getCategory()));
+            model.addAttribute("categories", categoryResponses);
+            return "item/updateItem";
         }
 
-        model.addAttribute("categories", categoryResponses);
-        return "item/itemForm";
     }
 
     /** 카테고리 상품 조회 **/
-    @GetMapping("/item/list/{categoryCode}")
+    @GetMapping("/item/category/{categoryCode}")
     public String findItems(@PathVariable("categoryCode")String categoryCode, @PageableDefault(page=1) Pageable pageable, Model model) throws Exception {
         List<Category> categoryItemList = categoryService.findCategoryItemList(categoryCode);
         String categoryName = categoryService.findCategoryName(categoryCode);
@@ -88,20 +89,25 @@ public class ItemController {
         return "item/itemList";
     }
     /** 전체 상품 조회 **/
-    @GetMapping("/item/list")
-    public String paging(@PageableDefault(page=1) Pageable pageable, Model model){
-        Page<ItemListResponse> itemResponseList = itemService.findAll(pageable);
+    @GetMapping("/item/list/{itemCode}")
+    public String findAllItems(@PathVariable(required = false) String itemCode, @PageableDefault(page=1) Pageable pageable, Model model){
+        if(itemCode.equals("all")){
+            Page<ItemListResponse> itemResponseList = itemService.findAll(pageable);
+            int blockLimit = 3;
+            int startPage = (((int) Math.ceil(((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+            int endPage = Math.min((startPage + blockLimit - 1), itemResponseList.getTotalPages());
+
+            model.addAttribute("itemPages", itemResponseList); //Paging
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
+        }else{
+            List<ItemListResponse> itemListResponses = itemService.findTopItems(itemCode);
+            model.addAttribute("itemPages", itemListResponses); //Paging
+        }
         List<ItemImgResponse> itemImgResponseList = itemImgService.findAllItemImg();
 
-        int blockLimit = 3;
-        int startPage = (((int) Math.ceil(((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
-        int endPage = Math.min((startPage + blockLimit - 1), itemResponseList.getTotalPages());
-
-        model.addAttribute("itemPages", itemResponseList);
         model.addAttribute("itemImg", itemImgResponseList);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        model.addAttribute("allCategory", true);
+        model.addAttribute("itemCode", itemCode);
 
         return "item/itemList";
     }

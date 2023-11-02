@@ -17,6 +17,7 @@
           <div class="col-md-6 text-right">
             <div class="top_nav_right">
                 <ul class="navbar_user">
+                    <li id="admin" sec:authorize="hasAnyAuthority('ADMIN')"><a href="/admin"> 관리자 페이지 </a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/logout"> 로그아웃 </a></li>
                     <li sec:authorize="isAnonymous()"><a href="/login"> 로그인 </a></li>
                     <li><a href="/mypage"><i class="fa fa-user" aria-hidden="true"></i></a></li>
@@ -43,7 +44,7 @@
             <nav class="navbar">
                 <ul class="navbar_menu_all">
                     <li class="menu_all">
-                    <a th:href="@{/item/list}"> <i class="fa fa-bars" aria-hidden="true"></i> 전체 카테고리</a></li>
+                    <a th:href="@{/item/list/{itemCode}(itemCode= 'all')}"> <i class="fa fa-bars" aria-hidden="true"></i> 전체 카테고리</a></li>
                     <li class="navbar_menu_all_selection">
                         <ul id="categoryMenu">
                         </ul>
@@ -52,13 +53,12 @@
             </nav>
               <nav class="navbar">
                 <ul class="navbar_menu">
-                    <li><a href="#">신상품</a></li>
-                    <li><a href="#">베스트</a></li>
-                    <li><a href="#">무료배송</a></li>
-                    <li><a href="#">이벤트</a></li>
-                    <li><a href="/test">공지사항</a></li>
-<!--                    <li sec:authorize="hasAnyAuthority('ADMIN')"><a href="/item">상품등록</a></li>-->
-                    <li><a href="/item">상품등록</a></li>
+                    <li><a th:href="@{/item/list/{itemCode}(itemCode= 'new')}">신상품</a></li>
+                    <li><a th:href="@{/item/list/{itemCode}(itemCode= 'best')}">베스트</a></li>
+                    <li><a th:href="@{/item/list/{itemCode}(itemCode= 'calorie')}">저칼로리상품</a></li>
+                    <li><a th:href="@{/board/exercise}">홈트레이닝</a></li>
+<!--                    <li><a th:href="@{/board/notice}">공지사항</a></li>-->
+
                 </ul>
 
 <!--                        <ul class="navbar_menu">-->

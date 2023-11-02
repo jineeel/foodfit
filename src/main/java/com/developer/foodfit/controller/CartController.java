@@ -1,9 +1,6 @@
 package com.developer.foodfit.controller;
 
 import com.developer.foodfit.domain.Cart;
-import com.developer.foodfit.domain.CartItem;
-import com.developer.foodfit.domain.Item;
-import com.developer.foodfit.dto.CategoryResponse;
 import com.developer.foodfit.dto.cart.CartItemListResponse;
 import com.developer.foodfit.dto.item.ItemImgResponse;
 import com.developer.foodfit.dto.item.ItemListResponse;

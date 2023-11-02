@@ -1,7 +1,10 @@
 package com.developer.foodfit.controller;
 
+import com.developer.foodfit.constant.OrderStatus;
+import com.developer.foodfit.domain.Order;
 import com.developer.foodfit.domain.User;
 import com.developer.foodfit.dto.user.ViewUserResponse;
+import com.developer.foodfit.service.OrderService;
 import com.developer.foodfit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,12 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
 public class UserController {
 
     private final UserService userService;
+    private final OrderService orderService;
 
     @GetMapping("/login")
     public String login(){
@@ -28,7 +33,18 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(){
+    public String mypage(Principal principal, Model model){
+        User user = userService.findByUserId(principal.getName());
+
+        Long orderCount = orderService.countByOrderStatus(OrderStatus.ORDER, user.getId());
+        Long shippingCount = orderService.countByOrderStatus(OrderStatus.SHIPPING, user.getId());
+        Long deliveredCount = orderService.countByOrderStatus(OrderStatus.DELIVERED, user.getId());
+        Long cancelCount = orderService.countByOrderStatus(OrderStatus.CANCEL, user.getId());
+
+        model.addAttribute("orderCount",orderCount);
+        model.addAttribute("shippingCount",shippingCount);
+        model.addAttribute("deliveredCount",deliveredCount);
+        model.addAttribute("cancelCount",cancelCount);
         return "user/mypage";
     }
 

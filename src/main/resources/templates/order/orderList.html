@@ -36,7 +36,7 @@
             : ${#numbers.formatInteger(orderItem.totalOrderPrice+3500, 3, 'COMMA') + '원'}"></span>
           </div>
           <div class="order_item_btn">
-            <input type="button" id="orderDetailBtn" th:onclick="|location.href='/mypage/orderDetail/${order.orderId}'|" th:value="|주문 상세보기|">
+            <input type="button" id="orderDetailBtn" th:onclick="|location.href='/order/orderDetail/${order.orderId}'|" th:value="|주문 상세보기|">
             <input type="button" id="orderDeleteBtn" th:value="|주문 삭제|">
           </div>
         </div>

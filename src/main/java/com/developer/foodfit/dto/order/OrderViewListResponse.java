@@ -1,5 +1,6 @@
 package com.developer.foodfit.dto.order;
 
+import com.developer.foodfit.constant.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,14 +15,15 @@ public class OrderViewListResponse {
     private int totalOrderPrice;
     private int totalOrderCount;
     private LocalDateTime regTime;
+    private OrderStatus orderStatus;
 
 
-    public OrderViewListResponse(Long orderId, Long orderItemId, Long itemId, String orderItemName) {
+    public OrderViewListResponse(Long orderId, Long orderItemId, Long itemId, String orderItemName, OrderStatus orderStatus) {
         this.orderId = orderId;
         this.orderItemId = orderItemId;
         this.itemId = itemId;
         this.orderItemName = orderItemName;
-
+        this.orderStatus = orderStatus;
     }
     public void updateTotalPrice(int totalOrderPrice){
         this.totalOrderPrice += totalOrderPrice;

@@ -9,6 +9,7 @@ import com.developer.foodfit.dto.item.ItemListResponse;
 import com.developer.foodfit.dto.order.AddOrderItemRequest;
 import com.developer.foodfit.dto.order.AddOrderUserRequest;
 import com.developer.foodfit.dto.order.OrderListResponse;
+import com.developer.foodfit.dto.order.OrderViewResponse;
 import com.developer.foodfit.repository.ItemRepository;
 import com.developer.foodfit.repository.OrderItemRepository;
 import com.developer.foodfit.repository.OrderRepository;
@@ -57,6 +58,7 @@ public class OrderService {
 
         for(int i=0; i<orderItemRequest.size(); i++){
             Item Item = itemRepository.findById(orderItemRequest.get(i).getItemId()).orElseThrow();
+            Item.updateItemSellCount(orderItemRequest.get(i).getCount());
             orderItemService.save(orderItemRequest.get(i),order,Item);
         }
 
@@ -92,5 +94,38 @@ public class OrderService {
         Order order = orderRepository.findById(orderId).orElseThrow();
         order.updateOrderStatus(OrderStatus.CANCEL);
         return order;
+    }
+
+    public Page<OrderViewResponse> findAllPaging(Pageable pageable) {
+        int page = pageable.getPageNumber() - 1;
+        int pageLimit = 10;
+
+        Page<Order> orderPages =orderRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+        Page<OrderViewResponse> orderViewResponse = orderPages.map(orderPage-> new OrderViewResponse(orderPage));
+        return  orderViewResponse;
+    }
+
+    @Transactional
+    public void updateOrderStatus(String id, String status) {
+        String[] orderIds = id.split(",");
+        OrderStatus orderStatus=OrderStatus.ORDER;
+        if(status.equals("SHIPPING")){
+            orderStatus = OrderStatus.SHIPPING;
+        }else if(status.equals("DELIVERED")){
+            orderStatus = OrderStatus.DELIVERED;
+        }else if(status.equals("CANCEL")){
+            orderStatus = OrderStatus.CANCEL;
+        }
+
+        for(String orderId : orderIds){
+            Long resultOrderId = Long.parseLong(orderId);
+            Order order = orderRepository.findById(resultOrderId).orElseThrow();
+
+            order.updateOrderStatus(orderStatus);
+        }
+    }
+
+    public Long countByOrderStatus(OrderStatus status, Long userId) {
+        return orderRepository.countByOrderStatusAndUserIdAndOrderViewStatus(status, userId, "Y");
     }
 }

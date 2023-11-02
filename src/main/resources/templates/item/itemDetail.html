@@ -16,7 +16,7 @@
 </head>
 <div layout:fragment="content">
 
-    <div class="super_container">
+    <div class="item_super_container">
         <div class="container single_product_container">
             <div class="row">
                 <div class="col">
@@ -26,10 +26,10 @@
                             <a href="/">
                                 <li th:text="Home"></li></a>
                             <i class="fa fa-angle-right"></i>
-                            <a th:href="@{/item/list/{parentCode}(parentCode = ${category.parentCode})}">
+                            <a th:href="@{/item/category/{parentCode}(parentCode = ${category.parentCode})}">
                                 <li th:text="${parentName}"></li></a>
                             <i class="fa fa-angle-right"></i>
-                            <a th:href="@{/item/list/{categoryCode}(categoryCode = ${category.categoryCode})}">
+                            <a th:href="@{/item/category/{categoryCode}(categoryCode = ${category.categoryCode})}">
                                 <li class="active" th:text="${category.categoryName}"></li></a>
                         </ul>
                     </div>
@@ -68,8 +68,14 @@
                         </div>
                         <!-- 상품 가격 -->
                         <input type="hidden" id="originalPrice" th:value="${item.price}">
-                        <div class="original_price" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></div>
-                        <!-- TODO: 배송비 -->
+                        <div class="price_calorie">
+                            <span th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></span>
+                            <div>
+                                <span th:text="${item.calorie}"></span>
+                                <p th:text="| kcal|"></p>
+                            </div>
+                        </div>
+                        <!-- 배송비 -->
                         <div class="product_shipping_div">
                             <div>
                                     <span th:text="배송비"></span>
@@ -85,8 +91,9 @@
                                 <span class="quantity_value">1</span>
                                 <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                             </div>
+
                         </div>
-                        <!-- TODO: 총 상품 금액 -->
+                        <!-- 총 상품 금액 -->
                         <div class="product_totalPay_div">
                             <span th:text="|총 상품 금액|"></span>
                             <div>
@@ -107,7 +114,7 @@
                             <span th:text="|이 상품은 현재 구매할 수 없는 상품입니다|"></span>
                         </div>
                         <!-- 관리자 상품 수정/삭제 -->
-                        <div class="product_admin_div" sec:authorize="hasAnyAuthority('GUEST')">
+                        <div class="product_admin_div" sec:authorize="hasAnyAuthority('ADMIN')">
                             <input type="button" id="updateButton"  th:onclick="|location.href='@{/item?id={id}(id=${item.itemId})}'|" th:value="|상품 수정|">
                             <input type="button" id="deleteBtn" class="product_delete" th:value="|상품 삭제|">
                         </div>

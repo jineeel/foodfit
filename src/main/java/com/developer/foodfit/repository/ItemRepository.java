@@ -10,8 +10,10 @@ import java.util.List;
 
 
 public interface ItemRepository extends JpaRepository<Item,Long> {
-//    Page<Item> findByCategoryId(Long categoryId, PageRequest id);
     List<Item> findByCategoryId(Long categoryId);
-//    List<Item> findByIdOrderByIdDesc(Long itemId);
-////    Page<Item> findById(Long itemId, PageRequest id);
+    List<Item> findTop20ByOrderByIdDesc();
+    List<Item> findTop20ByOrderByItemSellCountDesc();
+    List<Item> findTop20ByOrderByCalorieAsc();
+    List<Item> findTop10ByOrderByIdDesc();
+    List<Item> findTop10ByOrderByItemSellCountDesc();
 }

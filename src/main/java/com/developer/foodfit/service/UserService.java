@@ -52,7 +52,7 @@ public class UserService {
         if(target.getProviderId()==null){
             encPassword = bCryptPasswordEncoder.encode(rawPassword);
         }
-        target.update(request);
+        target.update(request,encPassword);
         return target;
     }
 

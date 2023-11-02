@@ -43,9 +43,12 @@ public class Item {
 
     private String author;
 
+    private int itemSellCount;
+    private int calorie;
+
     @Builder
     public Item(Long id, String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Category category,
-                 LocalDateTime createDate, LocalDateTime updateDate, String author, String author1) {
+                 LocalDateTime createDate, LocalDateTime updateDate, String author, int calorie) {
         this.id = id;
         this.itemName = itemName;
         this.price = price;
@@ -56,6 +59,7 @@ public class Item {
         this.createDate = createDate;
         this.updateDate = updateDate;
         this.author = author;
+        this.calorie = calorie;
     }
 
     public void update(String author, UpdateItemRequest request, Category category) {
@@ -66,6 +70,7 @@ public class Item {
         this.updateDate = LocalDateTime.now();
         this.category = category;
         this.author = author;
+        this.calorie = request.getCalorie();
     }
 
     public void updateStockNumber(int stockNumber){
@@ -76,5 +81,8 @@ public class Item {
     }
     public void updateItemStatusSell(){
         this.itemSellStatus = ItemSellStatus.SELL;
+    }
+    public void updateItemSellCount(int itemSellCount){
+        this.itemSellCount += itemSellCount;
     }
 }

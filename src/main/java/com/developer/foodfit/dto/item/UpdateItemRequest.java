@@ -22,4 +22,5 @@ public class UpdateItemRequest {
     private String category;
     private LocalDateTime updateDate;
     private String author;
+    private int calorie;
 }

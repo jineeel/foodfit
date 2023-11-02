@@ -39,6 +39,7 @@ public class ItemService {
                 .itemName(request.getItemName())
                 .price(request.getPrice())
                 .stockNumber(request.getStockNumber())
+                .calorie(request.getCalorie())
                 .itemDetail(request.getItemDetail())
                 .category(category)
                 .createDate(LocalDateTime.now())
@@ -167,7 +168,7 @@ public class ItemService {
     private void authorizeItemRole(){
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         String userRole = userRepository.findByUserId(userName).orElseThrow(()-> new IllegalArgumentException("")).getRole().getKey();
-        if(!(userRole=="ROLE_GUEST")){
+        if(!(userRole=="ROLE_ADMIN")){
             throw new IllegalArgumentException("not authorized");
         }
     }
@@ -179,4 +180,27 @@ public class ItemService {
             item.updateItemStatusSoldOut();
         }
     }
+
+    public List<ItemListResponse> findTopItems(String itemCode){
+        List<Item> itemList = new ArrayList<>();
+        if(itemCode.equals("new")){
+            itemList = itemRepository.findTop20ByOrderByIdDesc();
+        }else if(itemCode.equals("best")) {
+            itemList = itemRepository.findTop20ByOrderByItemSellCountDesc();
+        }else if(itemCode.equals("calorie")){
+            itemList = itemRepository.findTop20ByOrderByCalorieAsc();
+        }
+        List<ItemListResponse> itemListResponses = itemList.stream()
+                .map(ItemListResponse::new)
+                .collect(Collectors.toList());
+        return itemListResponses;
+    }
+
+    public List<ItemListResponse> findNewItems(){
+        return itemRepository.findTop10ByOrderByIdDesc().stream().map(ItemListResponse::new).collect(Collectors.toList());
+    }
+    public List<ItemListResponse> findBestItems(){
+        return itemRepository.findTop10ByOrderByItemSellCountDesc().stream().map(ItemListResponse::new).collect(Collectors.toList());
+    }
+
 }

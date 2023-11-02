@@ -181,7 +181,6 @@ function orderRequest(method, url, body, success, fail){
 }
 
 function errorConfirm(text,url){
-
     Swal.fire({
         text: text,
         icon: 'error',
@@ -198,7 +197,6 @@ function errorConfirm(text,url){
 }
 
 function warningConfirm(text,method,url,body,success,fail){
-    console.log("!!")
     Swal.fire({
         text: text,
         icon: 'warning',

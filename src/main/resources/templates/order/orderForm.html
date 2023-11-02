@@ -159,25 +159,16 @@
                 <div id="resultFail" class="error-msg checkResult"></div>
                 <!-- 결제하기/취소 버튼 -->
                 <div class="order_button_div">
-<!--                    <input type="button" id="payBtn" th:value="결제하기">-->
                     <input type="button" id="payment" th:value="결제하기">
-<!--                    <button name="paymentButton" id="paymentButton" onmousedown="paymentRecord();" onclick="requestPay();" class="w-100 btn btn-warning btn-lg"-->
-<!--                            type="submit">결제하기</button>-->
                     <input type="button" class="cancel" onclick="history.back();" th:value="취소">
                 </div>
                 </form>
 
         </div>
     </div>
-    <!-- 포트원 결제 -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-    <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-    <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-    <!-- 포트원 결제 -->
-<!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>-->
-<!--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>-->
     <script src="/js/address.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/order.js"></script>

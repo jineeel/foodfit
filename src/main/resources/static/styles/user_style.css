@@ -2,19 +2,27 @@ html,
 body {
   /*height: 100%;*/
 }
-
+.main_form{
+  background: #FFFFFF;
+  min-height: 2000px;
+  padding-top: 150px;
+}
 body {
   width: 100%;
   align-items: center;
   padding-top: 60px;
   background-color: #f5f5f5;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 .main_center {
   padding-top: 150px;
   padding-bottom: 20px;
   margin-bottom: 40px;
   width: 100%;
-  /*height: 700px;*/
+  text-align: center;
+}
+.main_center h4{
+  margin-bottom: 30px;
 }
 .form-signin {
   width: 100%;
@@ -73,7 +81,6 @@ body {
 
 .green_button
 {
-  font-family: 'Noto Sans KR', sans-serif;
   display: -moz-inline-box;
   display: -ms-inline-flexbox;
   display: -webkit-inline-flex;
@@ -144,7 +151,6 @@ body {
 }
 .sns_login a{
   font-size: 12px;
-  font-family: 'Noto Sans KR', sans-serif;
   color: #d9d9d9;
 }
 
@@ -161,7 +167,6 @@ body {
 
 .signV a{
   font-size: 14px;
-  font-family: 'Noto Sans KR', sans-serif;
   color: #656565;
   margin: 5px;
   /*text-decoration: none;*/
@@ -175,24 +180,20 @@ body {
 .sign_check{
   text-align: left;
   font-size: 15px;
-  font-family: 'Noto Sans KR', sans-serif;
   color: #424242;
 }
 .signVaild {
   font-size: 14px;
-  font-family: 'Noto Sans KR', sans-serif;
   color: #e10707;
 }
 .resultVaild {
   margin-top: 10px;
   font-size: 15px;
-  font-family: 'Noto Sans KR', sans-serif;
   color: #e10707;
 }
 .checkResult {
   margin: 20px;
   font-size: 18px;
-  font-family: 'Noto Sans KR', sans-serif;
   color: #e10707;
 }
 .form-floating.btn{
@@ -202,7 +203,6 @@ body {
   color: #828586;
   position: absolute;
   top: 0;
-  /*font-size: 13px;*/
   left: 0;
   height: 100%;
   padding: 1rem 0.75rem;
@@ -215,11 +215,9 @@ body {
   display: flex;
 }
 .form-floating.phone label{
-  /*color: #828586;*/
   position: absolute;
   margin-top: 10px;
   top: 0;
-  /*font-size: 13px;*/
   left: 0;
   height: 100%;
   padding: 1rem 0.75rem;
@@ -240,7 +238,6 @@ body {
   right: 0;
 }
 .form-floating.phone input[type="button"]{
-    font-family: 'Noto Sans KR', sans-serif;
     font-size: 14px;
     padding: 10px;
     border: none;
@@ -265,12 +262,10 @@ body {
 }
 .checks label{
   margin:10px;
-  font-family: 'Noto Sans KR', sans-serif;
   color: #383838;
 }
 .resultId{
   margin-bottom: 30px;
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 1.3rem;
   color: #212121;
 }
@@ -279,7 +274,6 @@ body {
   /*margin: 20px;*/
 }
 .form-floating.btns input[type="button"]{
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   margin: 2px;
   padding: 10px;
@@ -296,12 +290,12 @@ body {
 .form-page{
   display: flex;
   justify-content: center;
-  width:100%;
+  width:60%;
   height: 400px;
   background: #fdfdfe;
   padding-top: 20px;
-  margin-top: 20px;
-  margin-bottom: 50px;
+  margin: 0 auto;
+  border-radius: 20px;
 }
 
 .form-page.n{
@@ -317,7 +311,6 @@ body {
 }
 
 .form-page.n a{
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 17px;
   font-weight: 500;
   padding-bottom: 20px;
@@ -334,12 +327,14 @@ body {
 .content-ver{
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 .content-ver.line{
   border-bottom: 1px solid #828586;
   border-top: 1px solid #828586;
   background: none;
-  width: 80%;
+  width: 60%;
   height: 90px;
 }
 .content-ver.line ul{
@@ -350,12 +345,11 @@ body {
 .content-ver.line li{
   margin-top: 20px;
   font-size: 15px;
-  margin-right: 120px;
-  margin-left: 120px;
+  margin-right: 50px;
+  margin-left: 50px;
 }
 .content-ver.line a{
   font-size: 15px;
-  font-family: 'Noto Sans KR', sans-serif;
   display: block;
 }
 .content-ver.line span{
@@ -377,13 +371,15 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
-
+.item_container{
+  display: flex;
+  justify-content: center;
+}
 .inner-div {
   display: inline-block;
-  justify-content: center;
-  width:60%;
-  height: 700px;
-  margin:auto;
+  width:90%;
+  height: 800px;
+  margin:0 auto;
   background: #FFFFFF;
   border-radius: 50px;
   padding: 40px;
@@ -391,15 +387,15 @@ input[type='number'] {
 
 .inner-div button{
   width: 400px;
-  width: 400px;
+  margin-top: 20px;
 }
 .main_center.gray{
   background: #f5f5f5;
   height: 1000px;
+  text-align: center;
 }
 
 .input-area{
-  font-family: 'Noto Sans KR', sans-serif;
   height: 50px;
   display: flex;
   align-items: center;
@@ -408,6 +404,8 @@ input[type='number'] {
 
 .input-area label{
   width: 200px;
+  flex-shrink: 0;
+  text-align: left;
 }
 
 .input-area input{
@@ -433,6 +431,11 @@ input[type='number'] {
 .super_container{
   background: #ffffff;
   min-height: 1000px;
+  margin-top: 100px;
+}
+.item_super_container{
+  background: #ffffff;
+  min-height: 1000px;
 }
 
 .custom-file{
@@ -449,7 +452,7 @@ input[type='number'] {
 }
 .custom-file input[type='button']{
   justify-content: center;
-  width: 120px;
+  width: 200px;
   height: 40px;
   border-radius: 3px;
   border: solid 1px #d3d3d3;
@@ -457,16 +460,17 @@ input[type='number'] {
 
 .swal2-popup {
   font-size: 15px !important;
-  font-family: 'Noto Sans KR', sans-serif;
 }
+
 
 .paging_div{
   width: 100%;
   display: flex;
   justify-content: center;
-  font-family: 'Noto Sans KR', sans-serif;
   margin-top: 50px;
   margin-bottom: 30px;
+  /*position: absolute;*/
+  bottom: 0;
 }
 .paging_div i{
   margin-left: 10px;
@@ -475,5 +479,219 @@ input[type='number'] {
 .paging_div span{
   margin-left: 5px;
   margin-right: 5px;
-  /*cursor: pointer;*/
+  cursor: pointer;
+}
+
+
+/*****************************
+ 주문 관리 폼
+***************************/
+.order_contents{
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+.order_contents div input[type="button"]{
+  width: 120px;
+  height: 30px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  border: solid 1px #ececec;
+  background: #ffffff;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.order_list_table{
+  border: solid 1px #e8e8e8;
+  width: 100%;
+  margin: auto;
+  font-size: 15px;
+  color: #383838;
+  font-weight: 400;
+  text-align: center;
+}
+.order_list_table tr{
+  border: solid 1px #e8e8e8;
+  padding: 10px;
+  height: 40px;
+}
+.order_list_table th{
+  border: solid 1px #e8e8e8;
+  width: 150px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: 400;
+}
+.order_list_table th:nth-child(1){
+  width: 30px;
+}
+
+.order_list_table th:nth-child(3),
+.order_list_table th:nth-child(6)
+{
+  width: 170px;
+}
+.order_list_table th:nth-child(4){
+  width: auto;
+  cursor: pointer;
+}
+.order_list_table th:nth-child(5){
+  width: 150px;
+}
+.order_list_table th:nth-child(2),
+.order_list_table th:nth-child(7){
+  width: 120px;
+}
+
+
+/*****************************
+ 메인 페이지 카테고리 버튼 이미지
+***************************/
+.index_category_div{
+  margin-top: 60px;
+}
+.index_category_div ul{
+  display: flex;
+  justify-content: center;
+
+}
+.index_category_div li{
+  text-align: center;
+}
+.index_category_div li img{
+  width: 120px;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+.index_category_div li p{
+  font-weight: 400;
+  color: #606060;
+}
+/*****************************
+ 메인 페이지 상품
+***************************/
+.product-grid
+{
+  width: 100%;
+  margin-top: 40px;
+}
+.product-item
+{
+  /*width: 16%;*/
+  height: 350px;
+  cursor: pointer;
+  position :relative;
+}
+.product
+{
+  width: 100%;
+  height: 340px;
+  border-right: none
+}
+.product_image
+{
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+.product_image img
+{
+  border-radius: 10px;
+  width: 100%;
+}
+.product_info
+{
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 10px;
+
+}
+.product_info p{
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #549432;
+}
+
+.soldOut_div {
+  width: 90px;
+  height: 30px;
+  background: #383838;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+}
+
+.product_image span{
+  font-size: 13px;
+  width: 90px;
+  height: 30px;
+  background: #000000;
+  position: absolute;
+  opacity: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+.itemSoldOut{
+  background: #ffffff;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 40%;
+}
+
+.product_name
+{
+  margin-top: 10px;
+  height: 30px;
+}
+.product_name a
+{
+  color: #262626;
+  /*line-height: 20px;*/
+  /*margin-bottom: 10px;*/
+}
+.discount .product_info .product_price
+{
+  font-size: 14px;
+}
+.product_price
+{
+  margin-top: 10px;
+  font-size: 17px;
+  color: #000000;
+  font-weight: 600;
+}
+.product_price span
+{
+  font-size: 12px;
+  margin-left: 10px;
+  color: #b5aec4;
+  text-decoration: line-through;
+}
+
+.product-item:hover .add_to_cart_button
+{
+  visibility: visible;
+  opacity: 1;
+}
+
+.cart-img img{
+  width: 40px;
+  height: auto;
+  position:absolute;
+  bottom: 15px;
+  right: 15px;
+  /*visibility: hidden;*/
+  opacity: 80%;
 }
