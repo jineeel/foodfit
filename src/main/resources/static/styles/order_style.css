@@ -1,8 +1,6 @@
-/*.main_form{*/
-/*    background: #FFFFFF;*/
-/*    min-height: 2000px;*/
-/*    padding-top: 150px;*/
-/*}*/
+body{
+    background: #ffffff;
+}
 .order_form{
     width: 1250px;
     margin: auto;

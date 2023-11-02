@@ -433,6 +433,10 @@ input[type='number'] {
   min-height: 1000px;
   margin-top: 100px;
 }
+.item_super_container{
+  background: #ffffff;
+  min-height: 1000px;
+}
 
 .custom-file{
   margin-top: 5px;
