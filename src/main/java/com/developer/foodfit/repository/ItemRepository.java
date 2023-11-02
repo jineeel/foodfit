@@ -4,6 +4,7 @@ package com.developer.foodfit.repository;
 import com.developer.foodfit.domain.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

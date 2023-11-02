@@ -75,7 +75,11 @@
                         <!-- Product 1 -->
                         <div class="product-grid" >
                             <div class="product-item" th:each="item : ${newItem}" th:onclick="|location.href='/item/detail/${item.itemId}'|">
+<<<<<<< HEAD
                                 <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId}">
+=======
+                                <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
+>>>>>>> 150101a4079d8781ff4e2a4b21b3cbc62cb4f663
                                     <span class="itemSellStatus" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}" th:text="|SOLD OUT|"></span>
                                     <div class="itemSoldOut" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}"></div>
                                     <img th:src="@{${itemImg.imgUrl}}">
@@ -108,7 +112,11 @@
                         <div class="owl-carousel owl-theme product_slider">
                             <div class="owl-item product_slider_item" th:each="item : ${bestItem}">
                                 <div class="product-item"  th:onclick="|location.href='/item/detail/${item.itemId}'|">
+<<<<<<< HEAD
                                     <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId}">
+=======
+                                    <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
+>>>>>>> 150101a4079d8781ff4e2a4b21b3cbc62cb4f663
                                         <span class="itemSellStatus" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}" th:text="|SOLD OUT|"></span>
                                         <div class="itemSoldOut" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}"></div>
                                         <img th:src="@{${itemImg.imgUrl}}">

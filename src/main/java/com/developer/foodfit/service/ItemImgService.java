@@ -129,5 +129,19 @@ public class ItemImgService {
         }
     }
 
+    public List<ItemImgResponse> findNewImgList() {
+        return itemImgRepository.findTop10ByOrderByIdDesc().stream()
+                .map(ItemImgResponse::new)
+                .collect(Collectors.toList());
+
+    }
+//    public List<ItemImgResponse> findBestImgList() {
+//        return itemImgRepository.findTop10ByOrderByItemSellStatusDesc().stream()
+//                .map(ItemImgResponse::new)
+//                .collect(Collectors.toList());
+//
+//    }
+
+
 }
 
