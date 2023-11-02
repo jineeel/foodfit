@@ -323,9 +323,9 @@ section
 }
 .logo_container a
 {
-	font-size: 30px;
+	font-size: 32px;
 	color: #212121;
-	font-weight: 700;
+	font-weight: 800;
 
 	text-transform: uppercase;
 }
@@ -997,7 +997,7 @@ section
 }
 .product_bubble_red::after
 {
-	border-color: transparent transparent transparent #fe4c50;
+	border-color: transparent transparent transparent #66bc39;
 }
 .product_bubble_left::after
 {
@@ -1005,7 +1005,7 @@ section
 }
 .product_bubble_red
 {
-	background: #fe4c50;
+	background: #66bc39;
 }
 .product_bubble_green
 {
@@ -1040,48 +1040,48 @@ section
 	visibility: visible;
 	opacity: 1;
 }
-.favorite
-{
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	color: #b9b4c7;
-	width: 17px;
-	height: 17px;
-	visibility: hidden;
-	opacity: 0;
-}
-.favorite_left
-{
-	left: 15px;
-}
-.favorite.active
-{
-	visibility: visible;
-	opacity: 1;
-}
-.product-item:hover .favorite
-{
-	visibility: visible;
-	opacity: 1;
-}
-.favorite.active::after
-{
-	font-family: 'Noto Sans KR', sans-serif;
-	/*font-family: 'FontAwesome';*/
-	content:'\f004';
-	color: #fe4c50;
-}
-.favorite::after
-{
-	font-family: 'Noto Sans KR', sans-serif;
-	/*font-family: 'FontAwesome';*/
-	content:'\f08a';
-}
-.favorite:hover::after
-{
-	color: #fe4c50;
-}
+/*.favorite*/
+/*{*/
+/*	position: absolute;*/
+/*	top: 15px;*/
+/*	right: 15px;*/
+/*	color: #b9b4c7;*/
+/*	width: 17px;*/
+/*	height: 17px;*/
+/*	visibility: hidden;*/
+/*	opacity: 0;*/
+/*}*/
+/*.favorite_left*/
+/*{*/
+/*	left: 15px;*/
+/*}*/
+/*.favorite.active*/
+/*{*/
+/*	visibility: visible;*/
+/*	opacity: 1;*/
+/*}*/
+/*.product-item:hover .favorite*/
+/*{*/
+/*	visibility: visible;*/
+/*	opacity: 1;*/
+/*}*/
+/*.favorite.active::after*/
+/*{*/
+/*	font-family: 'Noto Sans KR', sans-serif;*/
+/*	!*font-family: 'FontAwesome';*!*/
+/*	content:'\f004';*/
+/*	color: #fe4c50;*/
+/*}*/
+/*.favorite::after*/
+/*{*/
+/*	font-family: 'Noto Sans KR', sans-serif;*/
+/*	!*font-family: 'FontAwesome';*!*/
+/*	content:'\f08a';*/
+/*}*/
+/*.favorite:hover::after*/
+/*{*/
+/*	color: #fe4c50;*/
+/*}*/
 
 /*********************************
 6. Deal of the week
@@ -1127,7 +1127,7 @@ section
 	transform: translateX(-50%);
 	width: 60px;
 	height: 5px;
-	background: #fe4c50;
+	background: #66bc39;
 	content: '';
 }
 .timer
@@ -1180,7 +1180,7 @@ section
 {
 	width: 100%;
 	height: 340px;
-	margin-top: 73px;
+	margin-top: 40px;
 }
 .product_slider_container::after
 {

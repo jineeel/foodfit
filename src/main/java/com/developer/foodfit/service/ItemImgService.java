@@ -48,15 +48,6 @@ public class ItemImgService {
         itemImgRepository.save(itemImg);
     }
 
-
-//    public List<ItemImg> findAll() {
-//        return itemImgRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-//    }
-//
-//    public List<ItemImg> findAllByItemId(Long itemId) {
-//        return itemImgRepository.findAllByItemId(itemId);
-//    }
-
     public List<ItemImg> findItemImgView(Long itemId){
         return itemImgRepository.findItemImgByItemId(itemId);
     }
@@ -131,6 +122,20 @@ public class ItemImgService {
             savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
         }
     }
+
+    public List<ItemImgResponse> findNewImgList() {
+        return itemImgRepository.findTop10ByOrderByIdDesc().stream()
+                .map(ItemImgResponse::new)
+                .collect(Collectors.toList());
+
+    }
+//    public List<ItemImgResponse> findBestImgList() {
+//        return itemImgRepository.findTop10ByOrderByItemSellStatusDesc().stream()
+//                .map(ItemImgResponse::new)
+//                .collect(Collectors.toList());
+//
+//    }
+
 
 }
 

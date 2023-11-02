@@ -103,7 +103,7 @@ public class ItemController {
             model.addAttribute("startPage", startPage);
             model.addAttribute("endPage", endPage);
         }else{
-            List<ItemListResponse> itemListResponses = itemService.findTop20Items(itemCode);
+            List<ItemListResponse> itemListResponses = itemService.findTopItems(itemCode);
             model.addAttribute("itemPages", itemListResponses); //Paging
         }
         List<ItemImgResponse> itemImgResponseList = itemImgService.findAllItemImg();

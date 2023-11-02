@@ -44,3 +44,6 @@ src/main/resources/application-sms.yml
 
 ### Mail ###
 src/main/resources/application-mail.yml
+
+### Data.sql ###
+src/main/resources/data.sql

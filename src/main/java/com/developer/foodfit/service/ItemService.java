@@ -181,7 +181,7 @@ public class ItemService {
         }
     }
 
-    public List<ItemListResponse> findTop20Items(String itemCode){
+    public List<ItemListResponse> findTopItems(String itemCode){
         List<Item> itemList = new ArrayList<>();
         if(itemCode.equals("new")){
             itemList = itemRepository.findTop20ByOrderByIdDesc();
@@ -195,4 +195,12 @@ public class ItemService {
                 .collect(Collectors.toList());
         return itemListResponses;
     }
+
+    public List<ItemListResponse> findNewItems(){
+        return itemRepository.findTop10ByOrderByIdDesc().stream().map(ItemListResponse::new).collect(Collectors.toList());
+    }
+    public List<ItemListResponse> findBestItems(){
+        return itemRepository.findTop10ByOrderByItemSellCountDesc().stream().map(ItemListResponse::new).collect(Collectors.toList());
+    }
+
 }

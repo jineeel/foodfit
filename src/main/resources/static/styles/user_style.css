@@ -564,3 +564,130 @@ input[type='number'] {
   font-weight: 400;
   color: #606060;
 }
+/*****************************
+ 메인 페이지 상품
+***************************/
+.product-grid
+{
+  width: 100%;
+  margin-top: 40px;
+}
+.product-item
+{
+  /*width: 16%;*/
+  height: 350px;
+  cursor: pointer;
+  position :relative;
+}
+.product
+{
+  width: 100%;
+  height: 340px;
+  border-right: none
+}
+.product_image
+{
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+.product_image img
+{
+  border-radius: 10px;
+  width: 100%;
+}
+.product_info
+{
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 10px;
+
+}
+.product_info p{
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #549432;
+}
+
+.soldOut_div {
+  width: 90px;
+  height: 30px;
+  background: #383838;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+}
+
+.product_image span{
+  font-size: 13px;
+  width: 90px;
+  height: 30px;
+  background: #000000;
+  position: absolute;
+  opacity: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+.itemSoldOut{
+  background: #ffffff;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 40%;
+}
+
+.product_name
+{
+  margin-top: 10px;
+  height: 30px;
+}
+.product_name a
+{
+  color: #262626;
+  /*line-height: 20px;*/
+  /*margin-bottom: 10px;*/
+}
+.discount .product_info .product_price
+{
+  font-size: 14px;
+}
+.product_price
+{
+  margin-top: 10px;
+  font-size: 17px;
+  color: #000000;
+  font-weight: 600;
+}
+.product_price span
+{
+  font-size: 12px;
+  margin-left: 10px;
+  color: #b5aec4;
+  text-decoration: line-through;
+}
+
+.product-item:hover .add_to_cart_button
+{
+  visibility: visible;
+  opacity: 1;
+}
+
+.cart-img img{
+  width: 40px;
+  height: auto;
+  position:absolute;
+  bottom: 15px;
+  right: 15px;
+  /*visibility: hidden;*/
+  opacity: 80%;
+}
