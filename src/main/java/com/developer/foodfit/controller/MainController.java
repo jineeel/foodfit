@@ -23,11 +23,7 @@ public class MainController {
     public String index(Model model){
         List<ItemListResponse> newItemResponses = itemService.findNewItems();
         List<ItemListResponse> bestItemResponses = itemService.findBestItems();
-<<<<<<< HEAD
         List<ItemImgResponse> itemImgResponseList = itemImgService.findAllItemReqImg();
-=======
-        List<ItemImgResponse> itemImgResponseList = itemImgService.findAllItemImg();
->>>>>>> 150101a4079d8781ff4e2a4b21b3cbc62cb4f663
 
         model.addAttribute("newItem", newItemResponses);
         model.addAttribute("bestItem", bestItemResponses);

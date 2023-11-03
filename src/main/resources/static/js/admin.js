@@ -33,13 +33,11 @@ function getForm(url){
 }
 
 function formRequest(method, url, body, success, fail){
-
     fetch(url,{
         method: method,
         body : body,
     }).then(function(response) {
         response.text().then(function (text) {
-            // $(contentsForm).html(text)
             success(text);
         })
         .catch(error => {

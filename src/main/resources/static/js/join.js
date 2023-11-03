@@ -1,4 +1,4 @@
-let account = { id: null, pw: null, pw2: null, name: null, phone: null, phoneNum: null,email: null };
+let account = { id: null, pw: null, pw2: null, name: null, phone: null, phoneNum: null, email: null };
 let status;
 
 const errMsg = {
@@ -29,53 +29,52 @@ const errMsg = {
     }
 }
 
-/*** 아이디 정규식 체크 ***/
-const idInputEl = document.querySelector('#info_id input');
+/*
+    아이디 정규식 체크
+*/
+const idInputEl = document.getElementById('userId');
 const idErrorMsgEl = document.querySelector('#info_id .error-msg');
 
 idInputEl.addEventListener('change', () => {
     const idRegExp = /^[a-zA-Z0-9]{6,16}$/;
     if (idRegExp.test(idInputEl.value)) {
         checkDataId(idInputEl.value);
-    } else { // 유효성 검사 실패
+    } else { // 유효성 검사 실패시
         idErrorMsgEl.textContent = errMsg.id.invalid;
         idErrorMsgEl.style.color='red';
         account.id = null;
     }
 });
-/*** 아이디 중복 검사 함수 ***/
+
+/*
+    아이디 중복 검사 함수
+*/
 function checkDataId(userId) {
-    $.ajax({
-            url: '/user/checkId',
-            type: 'POST', //POST 방식으로 전달
-            data: {
-                "userId": userId
-            },
-            async: false,
-            success: function (result) {
-                console.log(result)
-                if (!result) {
-                    idErrorMsgEl.textContent = errMsg.id.success;
-                    idErrorMsgEl.style.color='green';
-                    account.id = idInputEl.value;
-                } else {
-                    idErrorMsgEl.textContent = errMsg.id.fail;
-                    idErrorMsgEl.style.color='red';
-                    account.id = null;
-                }
-            },
-            error: function (request, status, error) {
-                const errorMsg = JSON.parse(request.responseText);
-                alert("ERROR CODE: " + request.status + "\n" +
-                    "ERROR MESSAGE: " + errorMsg.message + "\n" +
-                    "상태가 지속될 경우 관리자에게 문의해주세요");
-            }
+    function success(result){
+        if (result) {
+            idErrorMsgEl.textContent = errMsg.id.success;
+            idErrorMsgEl.style.color='green';
+            account.id = idInputEl.value;
+        } else {
+            idErrorMsgEl.textContent = errMsg.id.fail;
+            idErrorMsgEl.style.color='red';
+            account.id = null;
         }
-    );
+    }
+    function fail(request){
+        const errorMsg = JSON.parse(request.responseText);
+        alert("ERROR CODE: " + request.status + "\n" +
+            "ERROR MESSAGE: " + errorMsg.message + "\n" +
+            "상태가 지속될 경우 관리자에게 문의해주세요");
+    }
+    joinRequest('POST', '/api/user/checkId', userId, success, fail);
+
 }
 
-/*** 비밀번호 정규식 체크 ***/
-const pwInputEl = document.querySelector('#info_pw input');
+/*
+    비밀번호 정규식 체크
+*/
+const pwInputEl = document.getElementById('password');
 const pwErrorMsgEl = document.querySelector('#info_pw .error-msg');
 
 pwInputEl.addEventListener('keyup',() => {
@@ -89,8 +88,10 @@ pwInputEl.addEventListener('keyup',() => {
     }
 });
 
-/*** 비밀번호 확인 체크 ***/
-const pw2InputEl = document.querySelector('#info_pw2 input');
+/*
+    비밀번호 확인 체크
+*/
+const pw2InputEl = document.getElementById('password2');
 const pw2ErrorMsgEl = document.querySelector('#info_pw2 .error-msg');
 
 pw2InputEl.addEventListener('keyup', () => {
@@ -105,8 +106,10 @@ pw2InputEl.addEventListener('keyup', () => {
     }
 });
 
-/*** 이름 정규식 체크 ***/
-const nameInputEl = document.querySelector('#info_name input');
+/*
+    이름 정규식 체크
+*/
+const nameInputEl = document.getElementById('username');
 const nameErrorMsgEl = document.querySelector('#info_name .error-msg');
 
 nameInputEl.addEventListener('keyup', ()=> {
@@ -120,88 +123,85 @@ nameInputEl.addEventListener('keyup', ()=> {
     }
 });
 
-
-/*** 전화번호 정규식 + 중복 체크 ***/
-const phoneInputEl = document.querySelector('#info_phone input');
+const phoneInputEl = document.getElementById('phone');
 const phoneErrorMsgEl = document.querySelector('#info_phone .error-msg');
+const phoneNumInputEl = document.querySelector('#info_phone_number input');
+const confirmBtn = document.getElementById('confirmBtn');
+const confirm = document.getElementById('confirm');
+const phoneSendBtn = document.getElementById('sendBtn');
+/*
+    전화번호 정규식, 중복 체크 후 인증번호 보내기
+*/
+phoneSendBtn.addEventListener('click', () => {
+    setValidTel(phoneInputEl.value) //유효성검사
+});
 
-/*** 전화번호 중복 / 정규식 체크 ***/
+/*
+    전화번호 정규식 체크
+ */
 function setValidTel(phone) {
     const phoneRegExp = /^\d{3}\d{3,4}\d{4}$/;
     if (phoneRegExp.test(phoneInputEl.value)) {
-        checkDataPhone(phone);
+        //정규식 성공하면 전화번호 중복 체크
+        checkDataPhone(phone)
     } else {
         phoneErrorMsgEl.textContent = errMsg.phone.invalid;
         phoneErrorMsgEl.style.color = 'red';
         account.phone = null;
-        status = false;
     }
-
-    function checkDataPhone(phone) { //전화번호 중복 체크
-        $.ajax({
-                url: '/user/checkPhone',
-                type: 'POST', //POST 방식으로 전달
-                data: {
-                    "phone": phone
-                },
-                async:false,
-                success: function (result) {
-                    if (!result) {
-                        phoneErrorMsgEl.textContent = errMsg.phone.success;
-                        phoneErrorMsgEl.style.color='green';
-                        account.phone = phoneInputEl.value;
-                        status = true;
-                    } else {
-                        phoneErrorMsgEl.textContent = errMsg.phone.fail;
-                        phoneErrorMsgEl.style.color='red';
-                        account.phone = null;
-                        status = false;
-                    }
-                },
-                error: function (request, status, error) {
-                    const errorMsg = JSON.parse(request.responseText);
-                    alert("ERROR CODE: " + request.status + "\n" +
-                        "ERROR MESSAGE: " + errorMsg.message + "\n" +
-                        "상태가 지속될 경우 관리자에게 문의해주세요");
-                }
-            }
-        );}
-    return status;
+}
+/*
+    전화번호 중복 체크
+ */
+function checkDataPhone(phone) {
+    function success(result) {
+        if (result) {
+            phoneErrorMsgEl.textContent = errMsg.phone.success;
+            phoneErrorMsgEl.style.color = 'green';
+            account.phone = phoneInputEl.value;
+            //전화번호 중복 아닐 시 인증번호 전송
+            sendTelNumber(phoneInputEl.value);
+        } else {
+            phoneErrorMsgEl.textContent = errMsg.phone.fail;
+            phoneErrorMsgEl.style.color = 'red';
+            account.phone = null;
+        }
+    }
+    function fail(request) {
+        const errorMsg = JSON.parse(request.responseText);
+        alert("ERROR CODE: " + request.status + "\n" +
+            "ERROR MESSAGE: " + errorMsg.message + "\n" +
+            "상태가 지속될 경우 관리자에게 문의해주세요");
+    }
+    joinRequest('POST', '/api/user/checkPhone', phone, success, fail);
 }
 
-const phoneSendBtn = document.getElementById('sendBtn');
-const phoneNumInputEl = document.querySelector('#info_phone_number input');
-const confirmBtn = document.getElementById('confirmBtn');
-const confirm = document.getElementById('confirm');
-
-/*** 전화번호 인증번호 보내기 ***/
-phoneSendBtn.addEventListener('click', () => {
-    if (setValidTel(phoneInputEl.value)) {
-        sendTelNumber(phoneInputEl.value);
-    }
-});
+/*
+    인증번호 전송
+*/
 function sendTelNumber(phone) {
-    $.ajax({
-        url: "/user/sms",
-        type: "post",
-        dataType: "json",
-        data: JSON.stringify({
-            "to": phone
-        }),
-        contentType: "application/json",
-        success: function (data) {
-            sendAuthNum();
-            // $("#confirm").attr("value", data);
-            confirm.value=data;
-            document.getElementById('info_phone_num').style.display="";
-            phoneNumInputEl.disabled=false;
-            confirmBtn.disabled=false;
-            phoneSendBtn.style.background="#a8d98e";
-            confirmBtn.style.background="#a8d98e";
-        },
-    });
+    function success(result) {
+        sendAuthNum();
+        confirm.value=result;
+        document.getElementById('info_phone_num').style.display="";
+        phoneNumInputEl.disabled=false;
+        confirmBtn.disabled=false;
+        phoneSendBtn.style.background="#a8d98e";
+        confirmBtn.style.background="#a8d98e";
+    }
+
+    function fail(request) {
+        const errorMsg = JSON.parse(request.responseText);
+        alert("ERROR CODE: " + request.status + "\n" +
+            "ERROR MESSAGE: " + errorMsg.message + "\n" +
+            "상태가 지속될 경우 관리자에게 문의해주세요");
+    }
+    joinRequest('POST', '/api/user/sms', JSON.stringify({"to": phone}), success, fail);
 }
-/*** 인증번호 발송 및 타이머 함수 실행 ***/
+
+/*
+    인증번호 발송 및 타이머 함수 실행
+*/
 let timer;
 let isRunning = false;
 function sendAuthNum(){
@@ -238,10 +238,11 @@ function startTimer(count, display) {
     isRunning = true;
 }
 
-/*** 휴대폰번호 인증번호 체크 ***/
+/*
+    전화번호 인증번호 체크
+*/
 const numErrorMsgEl = document.querySelector('#info_phone_number .error-msg');
 confirmBtn.addEventListener('click', () => {
-
     if(confirm.value==phoneNumInputEl.value){
         numErrorMsgEl.textContent= errMsg.phoneNum.success;
         numErrorMsgEl.style.color='green';
@@ -256,14 +257,18 @@ confirmBtn.addEventListener('click', () => {
     }
 });
 
-/*** 인증번호 다시 보내기 ***/
+/*
+    인증번호 다시 보내기
+*/
 const resendBtn = document.getElementById('resendBtn');
 resendBtn.addEventListener('click', () => {
     sendTelNumber(phoneInputEl.value);
     phoneNumInputEl.value="";
 })
 
-/*** 이메일 정규식 체크 ***/
+/*
+    이메일 정규식 체크
+*/
 const emailInputEl = document.querySelector('#info_email input');
 const emailErrorMsgEl = document.querySelector('#info_email .error-msg');
 
@@ -276,37 +281,34 @@ emailInputEl.addEventListener('keyup', () => {
         emailErrorMsgEl.style.color='red';
         account.email = null;
     }
-
-    function checkDataEmail(email) { //전화번호 중복 체크
-        $.ajax({
-                url: '/user/checkEmail',
-                type: 'POST', //POST 방식으로 전달
-                data: {
-                    "email": email
-                },
-                async:false,
-                success: function (result) {
-                    if (!result) {
-                        emailErrorMsgEl.textContent = errMsg.email.success;
-                        emailErrorMsgEl.style.color='green';
-                        account.email = emailInputEl.value;
-                    } else {
-                        emailErrorMsgEl.textContent = errMsg.email.fail;
-                        emailErrorMsgEl.style.color='red';
-                        account.email = null;
-                    }
-                },
-                error: function (request, status, error) {
-                    const errorMsg = JSON.parse(request.responseText);
-                    alert("ERROR CODE: " + request.status + "\n" +
-                        "ERROR MESSAGE: " + errorMsg.message + "\n" +
-                        "상태가 지속될 경우 관리자에게 문의해주세요");
-                }
-            }
-        );}
 });
+/*
+    이메일 중복 체크
+ */
+function checkDataEmail(email) {
+    function success(result) {
+        if (result) {
+            emailErrorMsgEl.textContent = errMsg.email.success;
+            emailErrorMsgEl.style.color = 'green';
+            account.email = emailInputEl.value;
+        } else {
+            emailErrorMsgEl.textContent = errMsg.email.fail;
+            emailErrorMsgEl.style.color = 'red';
+            account.email = null;
+        }
+    }
+    function fail(request) {
+        const errorMsg = JSON.parse(request.responseText);
+        alert("ERROR CODE: " + request.status + "\n" +
+            "ERROR MESSAGE: " + errorMsg.message + "\n" +
+            "상태가 지속될 경우 관리자에게 문의해주세요");
+    }
+    joinRequest('POST', '/api/user/checkEmail', email, success, fail);
+}
 
-/*** SUBMIT ***/
+/*
+    SUBMIT
+ */
 const submitBtn = document.getElementById('submitBtn');
 const resultFailEl = document.getElementById('resultFail');
 
@@ -334,3 +336,18 @@ submitBtn.addEventListener('click', (e) => {
         resultFailEl.textContent = "";
     }
 });
+
+function joinRequest(method, url, body, success, fail){
+    fetch(url,{
+        method: method,
+        body: body,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response=>response.json())
+      .then(result=>success(result))
+      .catch(error => {
+        console.error("요청 실패 " + error);
+        return fail();
+    });
+}

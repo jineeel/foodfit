@@ -61,7 +61,7 @@ if(deleteBtn){
         let categoryCode = document.getElementById('categoryCode').value;
 
         function success(){
-            location.replace(`/item/list/${categoryCode}`);
+            location.replace(`/item/category/${categoryCode}`);
         }
         function fail(response) {
             itemErrorConfirm("상품 삭제가 실패했습니다", response.url)

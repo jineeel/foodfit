@@ -1,20 +1,37 @@
-// function formRequest(method, url, body, success, fail){
+/*
+    request
+ */
+// function request(method, url, body, success, fail){
 //     fetch(url,{
 //         method: method,
-//         body : body,
-//     }).then((response)=> response.text())
-//     .then((result)=>success(result))
-//         .catch(error => {
+//         body: JSON.stringify(body),
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     }).then(response=>{
+//         if (response.status === 200 || response.status === 201) {
+//             if(response.redirected){
+//                 return fail(response);
+//             }else {
+//                 return success();
+//             }
+//         }
+//         if(!response.ok){
+//             throw new Error('네트워크 응답이 실패했습니다');
+//         }
+//         return response.json();
+//     }).catch(error => {
 //         console.error("요청 실패 " + error);
-//         return fail(error);
+//         return fail();
 //     });
 // }
+
 /*
    error Alert
  */
-function cartErrorConfirm(response){
+function errorAlert(text,url){
     Swal.fire({
-        text: '상품을 장바구니에 추가할 수 없습니다',
+        text: text,
         icon: 'error',
         showCancelButton: false,
         confirmButtonColor: '#8a8a8a',
@@ -23,14 +40,14 @@ function cartErrorConfirm(response){
 
     }).then((result) => {
         if (result.value) {
-            location.replace(response)
+            location.replace(url)
         }
     })
 }
 /*
-    cart success Alert
+    success Confirm
  */
-function successConfirm(text,confirm,cancel){
+function successConfirm(text,confirm,cancel, url){
     Swal.fire({
         text: text,
         icon: 'success',
@@ -43,7 +60,26 @@ function successConfirm(text,confirm,cancel){
 
     }).then((result) => {
         if (result.value) {
-            location.replace(`/cart`)
+            location.replace(url)
+        }
+    })
+}
+
+/*
+    success Alert
+ */
+function successAlert(text,confirm,url){
+    Swal.fire({
+        text: text,
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#66bc39',
+        confirmButtonText: confirm,
+        width: 400,
+
+    }).then((result) => {
+        if (result.value) {
+            location.replace(url)
         }
     })
 }

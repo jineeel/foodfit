@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
 
 import java.io.UnsupportedEncodingException;
@@ -16,14 +17,12 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class SmsController {
 
     private final SmsService smsService;
 
-    // TODO : 주석 제거
-//    @ResponseBody
-//    @PostMapping("/user/sms")
+//    @PostMapping("/api/user/sms")
 //    public int sendSms(@RequestBody MessageRequest message) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
 //        int response = smsService.sendSms(message);
 //        return response;
@@ -31,8 +30,7 @@ public class SmsController {
 
     // 테스트용 SMS
     // 테스트 후 삭제
-    @ResponseBody
-    @PostMapping("/user/sms")
+    @PostMapping("/api/user/sms")
     public int sendSms(@RequestBody MessageRequest message) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
         int response = 123456;
         return response;

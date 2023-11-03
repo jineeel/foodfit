@@ -1,45 +1,77 @@
-// $(document).ready(function(){
-//     let signup = $(".links").find("li").find("#signup") ;
-//     let signin = $(".links").find("li").find("#signin") ;
-//     let reset  = $(".links").find("li").find("#reset")  ;
-//     let first_input = $("form").find(".first-input");
-//     let hidden_input = $("form").find(".input__block").find("#repeat__password");
-//     let signin_btn  = $("form").find(".signin__btn");
-//
-//     //----------- sign up ---------------------
-//     signup.on("click",function(e){
-//         e.preventDefault();
-//         $(this).parent().parent().siblings("h1").text("SIGN UP");
-//         $(this).parent().css("opacity","1");
-//         $(this).parent().siblings().css("opacity",".6");
-//         first_input.removeClass("first-input__block").addClass("signup-input__block");
-//         hidden_input.css({
-//             "opacity" : "1",
-//             "display" : "block"
-//         });
-//         signin_btn.text("Sign up");
-//     });
-//
-//
-//     //----------- sign in ---------------------
-//     signin.on("click",function(e){
-//         e.preventDefault();
-//         $(this).parent().parent().siblings("h1").text("SIGN IN");
-//         $(this).parent().css("opacity","1");
-//         $(this).parent().siblings().css("opacity",".6");
-//         first_input.addClass("first-input__block")
-//             .removeClass("signup-input__block");
-//         hidden_input.css({
-//             "opacity" : "0",
-//             "display" : "none"
-//         });
-//         signin_btn.text("Sign in");
-//     });
-//
-//     //----------- reset ---------------------
-//     reset.on("click",function(e){
-//         e.preventDefault();
-//         $(this).parent().parent().siblings("form")
-//             .find(".input__block").find(".input").val("");
-//     })
-// });
+let inputStatus;
+const idInputEl = document.getElementById("floatingInput");
+const pwInputEl = document.getElementById("floatingPassword");
+
+const validId = document.getElementById('validId');
+const validPw = document.getElementById('validPassword');
+
+const loginBtn = document.getElementById('loginBtn');
+loginBtn.addEventListener('click', (e) => {
+    if(!inputNullCheck()){
+        e.preventDefault();
+    }
+});
+
+function inputNullCheck(){
+    inputStatus = false;
+    if(!idInputEl.value){
+        validId.textContent = "아이디를 입력해주세요";
+    }else if(!pwInputEl.value){
+        validPw.textContent = "비밀번호를 입력해주세요";
+    } else{
+        validId.textContent = "";
+        validPw.textContent = "";
+        inputStatus = true;
+    }
+    return inputStatus;
+}
+
+const idSaveCheck = document.getElementById('idSaveCheck');
+document.addEventListener("DOMContentLoaded", function() {
+    let key = getCookie("idChk"); //user1
+    if(key!=""){
+        idInputEl.value=key;
+    }
+    if(idInputEl.value != ""){
+        idSaveCheck.checked = true;
+    }
+    idSaveCheck.addEventListener('change', ()=>{
+        if(idSaveCheck.checked){
+            setCookie("idChk", idInputEl.value, 7);
+        }else{
+            deleteCookie("idChk");
+        }
+    })
+    idInputEl.addEventListener('keyup', ()=>{
+        if(idSaveCheck.checked){
+            setCookie("idChk", idInputEl.value, 7);
+        }
+    })
+});
+
+function setCookie(cookieName, value, exdays){
+    let exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    let cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+    document.cookie = cookieName + "=" + cookieValue;
+}
+
+function deleteCookie(cookieName){
+    let expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() - 1);
+    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+
+function getCookie(cookieName) {
+    cookieName = cookieName + '=';
+    let cookieData = document.cookie;
+    let start = cookieData.indexOf(cookieName);
+    let cookieValue = '';
+    if(start != -1){
+        start += cookieName.length;
+        let end = cookieData.indexOf(';', start);
+        if(end == -1)end = cookieData.length;
+        cookieValue = cookieData.substring(start, end);
+    }
+    return unescape(cookieValue);
+}

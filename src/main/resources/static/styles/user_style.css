@@ -24,23 +24,29 @@ body {
 .main_center h4{
   margin-bottom: 30px;
 }
-.form-signin {
+
+
+/*************************
+  로그인
+**************************/
+
+.form-sign {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
 }
 
-.form-signin .checkbox {
+.form-sign .checkbox {
   font-weight: 400;
 }
 
-.form-signin .checkbox a {
+.form-sign .checkbox a {
   text-decoration: none;
   color: #4374D9;
 }
 
-.form-signin a:hover{
+.form-sign a:hover{
   text-decoration: underline;
 }
 
@@ -121,35 +127,28 @@ body {
   margin-top: 10px;
 }
 
-.form-signin .form-floating:focus-within {
+.form-sign .form-floating:focus-within {
   z-index: 2;
 }
 
-
-.form-signin input[type="email"] {
-  /*margin-bottom: -1px;*/
+.form-sign input[type="email"],
+.form-sign input[type="password"] {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.form-signin input[type="password"] {
-  /*margin-bottom: 10px;*/
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.form-signin input{
+.form-sign input{
   margin-top: 10px;
   margin-bottom: 5px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-.sns_login {
+.sns-login {
   margin-bottom: 20px;
   margin-top: 20px;padding-bottom: 10px;
   border-bottom: solid 1px #dcdcdc;
 }
-.sns_login a{
+.sns-login a{
   font-size: 12px;
   color: #d9d9d9;
 }
@@ -158,35 +157,33 @@ body {
   width:60px; height:60px;
 }
 
-.signV {
+.sign-div {
   margin-bottom: 20px;
   margin-top: 20px;
   display: flex;
   justify-content: center;
 }
 
-.signV a{
+.sign-div a{
   font-size: 14px;
   color: #656565;
   margin: 5px;
-  /*text-decoration: none;*/
 }
-.signV a:hover{
+.sign-div a:hover{
   text-decoration: none;
   color: #525252;
 }
 
-
-.sign_check{
+.sign-check{
   text-align: left;
   font-size: 15px;
   color: #424242;
 }
-.signVaild {
+.sign-valid {
   font-size: 14px;
   color: #e10707;
 }
-.resultVaild {
+.sign-valid {
   margin-top: 10px;
   font-size: 15px;
   color: #e10707;
@@ -254,7 +251,7 @@ body {
     border-radius: 3px;
 }
 
-.form-signin h6{
+.form-sign h6{
   font-size: 14px;
   color: #606060;
   font-weight: normal;

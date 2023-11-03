@@ -4,25 +4,32 @@ import com.developer.foodfit.domain.User;
 import com.developer.foodfit.dto.user.AddUserRequest;
 import com.developer.foodfit.dto.user.UpdateUserRequest;
 import com.developer.foodfit.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserApiController {
 
     private final UserService userService;
 
-    // 회원 가입
-    @PostMapping("/api/signup")
-    public String join(AddUserRequest request){
+    /** 회원 가입 **/
+    @PostMapping("/api/join")
+    public ResponseEntity<?> join(AddUserRequest request){
         userService.save(request);
-        return "redirect:/login";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/login"));
+        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
     // 회원 수정
     @PutMapping("/api/user/{id}")
@@ -30,25 +37,22 @@ public class UserApiController {
         User updateUser = userService.update(id,request);
         return ResponseEntity.ok().body(updateUser);
     }
-    //아이디 중복 체크
-    @PostMapping("/user/checkId")
-    @ResponseBody
-    public Optional<User> checkUserId(@RequestParam("userId") String userId){
-        return userService.checkUserId(userId);
+    /* 아이디 중복 체크 */
+    @PostMapping("/api/user/checkId")
+    public ResponseEntity<Boolean> checkUserId(@RequestBody String userId){
+        return ResponseEntity.ok().body(userService.checkUserId(userId));
     }
 
-    //전화 번호 중복 체크
-    @PostMapping("/user/checkPhone")
-    @ResponseBody
-    public Optional<User> checkPhone(@RequestParam("phone") String phone){
-        return userService.checkPhone(phone);
+    /* 전화 번호 중복 체크 */
+    @PostMapping("/api/user/checkPhone")
+    public ResponseEntity<Boolean> checkPhone(@RequestBody String phone){
+        return ResponseEntity.ok().body(userService.checkPhone(phone));
     }
 
-    //이메일 중복 체크
-    @PostMapping("/user/checkEmail")
-    @ResponseBody
-    public Optional<User> checkEmail(@RequestParam("email") String email){
-        return userService.checkEmail(email);
+    /* 이메일 중복 체크 */
+    @PostMapping("/api/user/checkEmail")
+    public ResponseEntity<Boolean> checkEmail(@RequestBody String email){
+        return  ResponseEntity.ok().body(userService.checkEmail(email));
     }
 
     // 로그인 에러

@@ -32,16 +32,19 @@ public class UserService {
                 .build()).getId();
     }
 
-    public Optional<User> checkUserId(String userId) {
-        return userRepository.findByUserId(userId);
+    //아이디 중복 체크
+    public boolean checkUserId(String userId) {
+        return userRepository.findByUserId(userId).isEmpty();
     }
 
-    public Optional<User> checkPhone(String phone) {
-        return userRepository.findByPhone(phone);
+    //전화번호 중복 체크
+    public boolean checkPhone(String phone) {
+        return userRepository.findByPhone(phone).isEmpty();
     }
 
-    public Optional<User> checkEmail(String email) {
-        return userRepository.findByEmail(email);
+    //이메일 중복 체크
+    public boolean checkEmail(String email) {
+        return userRepository.findByEmail(email).isEmpty();
     }
 
     @Transactional

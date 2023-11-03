@@ -1,7 +1,6 @@
 package com.developer.foodfit.controller;
 
 import com.developer.foodfit.constant.OrderStatus;
-import com.developer.foodfit.domain.Order;
 import com.developer.foodfit.domain.User;
 import com.developer.foodfit.dto.user.ViewUserResponse;
 import com.developer.foodfit.service.OrderService;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -27,9 +25,9 @@ public class UserController {
         return "user/login";
     }
 
-    @GetMapping("/user/signup")
+    @GetMapping("/user/join")
     public String join(){
-        return "user/signup";
+        return "user/join";
     }
 
     @GetMapping("/mypage")

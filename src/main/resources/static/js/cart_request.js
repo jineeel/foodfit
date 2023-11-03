@@ -18,7 +18,7 @@ if(cartBtns){
             function fail(response) {
                 cartErrorConfirm(response.url);
             }
-            cartRequest('POST', '/api/cart', formData, success, fail);
+            request('POST', '/api/cart', formData, success, fail);
         });
     });
 }
@@ -39,7 +39,7 @@ if(cartBtn){
             cartErrorConfirm(response.url);
         }
 
-        cartRequest('POST', '/api/cart', formData, success, fail);
+        request('POST', '/api/cart', formData, success, fail);
     })
 }
 
