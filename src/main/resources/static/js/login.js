@@ -27,7 +27,7 @@ function inputNullCheck(){
 }
 
 const idSaveCheck = document.getElementById('idSaveCheck');
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", ()=>{
     let key = getCookie("idChk"); //user1
     if(key!=""){
         idInputEl.value=key;

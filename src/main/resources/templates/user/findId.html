@@ -12,14 +12,14 @@
 </head>
 <div layout:fragment="content" class="main_center">
     <div class="text-center">
-        <main class="form-signin">
+        <main class="form-sign">
             <h4 class="h-text"> 아이디 찾기 </h4>
             <h6>아이디 찾는 방법을 선택해주세요 <br>회원정보에 등록된 이메일 or 휴대폰번호를 입력하시면<br>사용 중인 계정의 아이디를 알려드립니다</h6>
             <form>
                 <div class="form-floating">
                     <div class="checks" id="checks">
-                        <input type="radio" id="rd" name="auth" value="이메일" checked><label for="rd">이메일 인증</label>
-                        <input type="radio" id="rd2" name="auth" value="휴대폰"><label for="rd2">휴대폰 인증</label>
+                        <input type="radio" id="rd" name="auth" value="email" checked><label for="rd">이메일 인증</label>
+                        <input type="radio" id="rd2" name="auth" value="phone"><label for="rd2">휴대폰 인증</label>
                     </div>
                 </div>
                 <div id="selectEmail">
@@ -42,7 +42,7 @@
                         <label for="phone">휴대폰번호</label>
                     </div>
                 </div>
-                <div class="error-msg resultVaild" id="resultFail"></div>
+                <div class="error-msg result-valid" id="resultFail"></div>
 
                 <div class="form-floating" id="resultSuccess" style="display: none">
                     <h4 class="text">고객님의 아이디 찾기가 완료되었습니다</h4>
@@ -56,86 +56,6 @@
             </form>
         </main>
     </div>
-    <script>
-        const email = document.getElementById('email');
-        const username = document.getElementById('username');
-        const phone = document.getElementById('phone');
-        const username2 = document.getElementById('username2');
-        const resultFail = document.getElementById("resultFail");
-        const submitBtn = document.querySelector('#submitBtn');
-
-        $(document).ready(function(){
-            $('#selectPhone').hide();	// 초깃값 설정
-
-            $("input[name='auth']").change(function(){
-                if($("input[name='auth']:checked").val() == '이메일'){
-                    $('#selectPhone').hide();
-                    $('#selectEmail').show();
-                    resultFail.textContent="";
-                    phone.value="";
-                    username2.value="";
-                    document.getElementById('resultSuccess').style.display="none"
-                }
-                else if($("input[name='auth']:checked").val() == '휴대폰'){
-                    $('#selectEmail').hide();
-                    $('#selectPhone').show();
-                    resultFail.textContent="";
-                    email.value="";
-                    username.value="";
-                    document.getElementById('resultSuccess').style.display="none"
-                }
-            });
-        });
-
-        submitBtn.addEventListener('click', (e) => {
-            if ($("input[name='auth']:checked").val() == '이메일') {
-                if (!email.value || !username.value) {
-                    resultFail.textContent = "인증할 정보를 입력해주세요";
-                } else {
-                    resultFail.textContent = "";
-                    findId(username.value,email.value,phone.value);
-                }
-            } else if ($("input[name='auth']:checked").val() == '휴대폰') {
-                if (!$('#username2').val() && !$('#phone').val()) {
-                    resultFail.textContent = "인증할 정보를 입력해주세요";
-                } else {
-                    resultFail.textContent="";
-                    findId(username.value,email.value,phone.value);
-
-                }
-            }
-        });
-        function findId(name,email,phone){
-            $.ajax({
-                url:  "/user/findId",
-                type: "POST",
-                async:false,
-                data: {
-                    "username" : name,
-                    "email": email,
-                    "phone": phone
-                },
-                success: function (result) {
-                    if(result){
-                        document.getElementById('resultSuccess').style.display="";
-                        document.getElementById('resultId').textContent="ID : "+result.userId;
-                    }
-                    else{
-                        resultFail.textContent = "해당 정보로 가입된 회원이 없습니다";
-                        document.getElementById('resultSuccess').style.display="none"
-                    }
-
-                },
-                error: function (request, status, error) {
-                    const errorMsg = JSON.parse(request.responseText);
-                    alert("ERROR CODE: " + request.status + "\n" +
-                        "ERROR MESSAGE: " + errorMsg.message + "\n" +
-                        "상태가 지속될 경우 관리자에게 문의해주세요");
-                },
-            });
-        }
-
-    </script>
+    <script src="/js/find_account.js"></script>
 </div>
-
 </html>

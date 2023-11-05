@@ -66,7 +66,7 @@ public class UserController {
         return "user/findPassword";
     }
 
-    @PostMapping("/user/updatePwForm")
+    @PostMapping("/user/updatePassword")
     public String updatePassword(ViewUserResponse response, Model model){
         model.addAttribute("userId", response.getUserId());
         return "user/updatePassword";

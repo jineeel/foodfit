@@ -3,9 +3,11 @@ package com.developer.foodfit.service;
 import com.developer.foodfit.constant.Role;
 import com.developer.foodfit.domain.User;
 import com.developer.foodfit.dto.user.AddUserRequest;
+import com.developer.foodfit.dto.user.FindUserRequest;
 import com.developer.foodfit.dto.user.UpdateUserRequest;
 import com.developer.foodfit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,9 +49,10 @@ public class UserService {
         return userRepository.findByEmail(email).isEmpty();
     }
 
+    //회원 수정
     @Transactional
     public User update(String id, UpdateUserRequest request) {
-        User target = userRepository.findByUserId(id).orElseThrow(()->new IllegalArgumentException("not found : "+id));
+        User target = userRepository.findByUserId(id).orElseThrow(()->new IllegalArgumentException("not found"));
         String rawPassword = request.getPassword();
         String encPassword = "";
         if(target.getProviderId()==null){
@@ -63,14 +66,30 @@ public class UserService {
         return userRepository.findByUserId(userId).orElseThrow(()-> new IllegalArgumentException("not found"));
     }
 
-    public Optional<User> findId(String username, String email, String phone) {
-        return userRepository.findByUsernameAndEmailOrPhone(username, email, phone);
+    //아이디 찾기
+    public User findUserid(FindUserRequest request) {
+        User user=null;
+        System.out.println(request.getUsername());
+        if(request.getPhone().equals("")){
+            user = userRepository.findByUsernameAndEmail(request.getUsername(), request.getEmail());
+        }else if(request.getEmail().equals("")){
+            user =  userRepository.findByUsernameAndPhone(request.getUsername(), request.getPhone());
+        }
+        return user;
     }
 
-    public Optional<User> findPassword(String userId, String email, String phone) {
-        return userRepository.findByUserIdAndEmailOrPhone(userId,email,phone);
+    //비밀번호 변경할 user 찾기
+    public User findPassword(FindUserRequest request) {
+        User user=null;
+        if(request.getPhone().equals("")){
+            user = userRepository.findByUserIdAndEmail(request.getUserId(), request.getEmail());
+        }else if(request.getEmail().equals("")){
+            user =  userRepository.findByUserIdAndPhone(request.getUserId(), request.getPhone());
+        }
+        return user;
     }
 
+    //비밀번호 수정
     @Transactional
     public User updatePassword(UpdateUserRequest request) {
         User target = userRepository.findByUserId(request.getUserId()).orElseThrow(()->new IllegalArgumentException("not found"));

@@ -3,17 +3,15 @@ package com.developer.foodfit.controller;
 import com.developer.foodfit.domain.User;
 import com.developer.foodfit.dto.user.AddUserRequest;
 import com.developer.foodfit.dto.user.UpdateUserRequest;
+import com.developer.foodfit.dto.user.FindUserRequest;
 import com.developer.foodfit.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
@@ -23,15 +21,13 @@ public class UserApiController {
 
     private final UserService userService;
 
-    /** 회원 가입 **/
+    /* 회원 가입 */
     @PostMapping("/api/join")
-    public ResponseEntity<?> join(AddUserRequest request){
+    public ResponseEntity<User> join(AddUserRequest request){
         userService.save(request);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/login"));
-        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+        return redirectLogin();
     }
-    // 회원 수정
+    /* 회원 수정 */
     @PutMapping("/api/user/{id}")
     public ResponseEntity<User> userUpdate(@PathVariable String id, @RequestBody UpdateUserRequest request){
         User updateUser = userService.update(id,request);
@@ -55,34 +51,39 @@ public class UserApiController {
         return  ResponseEntity.ok().body(userService.checkEmail(email));
     }
 
-    // 로그인 에러
-    @GetMapping("/user/error")
-    public String loginForm(@RequestParam(value = "error", required = false) String error,
-                            @RequestParam(value = "exception", required = false) String exception, RedirectAttributes re) {
-        re.addFlashAttribute("error", error);
-        re.addFlashAttribute("exception", exception);
+    /* 로그인 에러 */
+    @GetMapping("/api/user/error")
+    public ResponseEntity<User> loginForm(@RequestParam(value = "error", required = false) String error,
+                            @RequestParam(value = "exception", required = false) String exception, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("error", error);
+        redirectAttributes.addFlashAttribute("exception", exception);
 
-        return "redirect:/login";
+        return redirectLogin();
     }
 
-    // 아이디 찾기
-    @PostMapping("/user/findId")
-    @ResponseBody
-    public Optional<User> findId(@RequestParam String username, @RequestParam String email, @RequestParam String phone) {
-        return userService.findId(username, email, phone);
+    /* 아이디 찾기 */
+    @PostMapping("/api/user/findId")
+    public ResponseEntity<User> findId(@RequestBody FindUserRequest request) {
+        return ResponseEntity.ok().body(userService.findUserid(request));
     }
 
-    // 비밀번호 찾기 (재설정)
-    @PostMapping("/user/findPassword")
-    @ResponseBody
-    public Optional<User> findPassword(@RequestParam String userId, @RequestParam String email, @RequestParam String phone) {
-        return userService.findPassword(userId, email, phone);
+    /* 비밀번호 찾기 (재설정) */
+    @PostMapping("/api/user/findPassword")
+    public ResponseEntity<User> findPassword(@RequestBody FindUserRequest request) {
+        return  ResponseEntity.ok().body(userService.findPassword(request));
     }
 
-    // 비밀번호 수정
-    @PostMapping("/user/updatePassword")
+    /* 비밀번호 수정 */
+    @PostMapping("/api/user/updatePassword")
     public ResponseEntity<User> updatePassword(@RequestBody UpdateUserRequest request){
         User updatePassword = userService.updatePassword(request);
         return ResponseEntity.ok().body(updatePassword);
+    }
+
+    /* login redirect */
+    public ResponseEntity<User> redirectLogin(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/login"));
+        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 }
