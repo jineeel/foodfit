@@ -12,7 +12,7 @@ const createBtn = document.getElementById('createBtn');
 const FileLabel = document.querySelectorAll('.custom-file-label');
 if(createBtn){
     createBtn.addEventListener('click', (event)=>{
-        event.preventDefault(); // 폼 제출 동작 막기
+        event.preventDefault();
 
         const formData = new FormData(itemForm);
 
@@ -36,7 +36,8 @@ const updateBtn = document.getElementById('updateBtn');
 if(updateBtn){
     updateBtn.addEventListener('click', (event)=>{
         let id = document.getElementById('id').value;
-        event.preventDefault(); // 폼 제출 동작 막기
+
+        event.preventDefault();
         const formData = new FormData(itemForm);
         function success() {
             location.replace(`/item/detail/${id}`);

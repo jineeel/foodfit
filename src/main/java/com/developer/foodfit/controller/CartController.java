@@ -26,6 +26,7 @@ public class CartController {
     private final ItemImgService itemImgService;
     private final ItemService itemService;
 
+    /* 장바구니 페이지 */
     @GetMapping("/cart")
     public String findCart(Principal principal, Model model){
         Cart cart = cartService.findCart(principal);
@@ -34,7 +35,7 @@ public class CartController {
 
             List<ItemListResponse> itemList = cartItemList.stream()
                     .map(cartItem -> itemService.findItem(cartItem.getItemId()))
-                    .flatMap(List::stream) // Flattens the list of items
+                    .flatMap(List::stream)
                     .map(ItemListResponse::new)
                     .collect(Collectors.toList());
 

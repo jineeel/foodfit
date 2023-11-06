@@ -49,10 +49,9 @@
                                         <div class="product-item" th:each="item : ${itemPages}" th:onclick="|location.href='/item/detail/${item.itemId}'|">
                                             <div class="product_image" th:each="itemImg : ${itemImg}" th:if="${item.itemId == itemImg.itemId and itemImg.repImgYn=='Y'}">
                                                 <span class="itemSellStatus" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}" th:text="|SOLD OUT|"></span>
-                                                <div class="itemSoldOut" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}">
-                                                </div>
+                                                <div class="itemSoldOut" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}"></div>
                                                 <img th:src="@{${itemImg.imgUrl}}">
-                                                <div class="cart-img"><img src="/images/cart.png" class="cartBtn"></div>
+                                                <div class="cart-img" th:if="${#strings.equals(item.itemSellStatus, 'SELL')}"><img src="/images/cart.png" class="cartBtn"></div>
                                             </div>
                                             <div class="product_info">
                                                 <h6 class="product_name" th:text="${item.itemName}"></h6>
@@ -110,6 +109,5 @@
     <script src="/js/categories_custom.js"></script>
     <script src="/js/cart.js"></script>
     <script src="/js/cart_request.js"></script>
-    <script src="/js/common_utils.js"></script>
 </div>
 </html>

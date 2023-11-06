@@ -19,6 +19,7 @@ public class MainController {
     private final ItemService itemService;
     private final ItemImgService itemImgService;
 
+    /* 메인화면 */
     @GetMapping("/")
     public String index(Model model){
         List<ItemListResponse> newItemResponses = itemService.findNewItems();

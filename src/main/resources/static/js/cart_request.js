@@ -1,6 +1,7 @@
 /*
     상품 리스트에서 장바구니 추가
  */
+const itemSellStatus = document.getElementById('itemSellStatus');
 const itemIds = document.querySelectorAll('.itemId');
 const counts = document.querySelectorAll('.count');
 const cartBtns = document.querySelectorAll('.cartBtn');
@@ -12,13 +13,14 @@ if(cartBtns){
                 itemId: itemIds[index].value,
                 count: counts[index].value
             };
-            function success() {
+            function success(result) {
                 successConfirm();
             }
             function fail(response) {
                 cartErrorConfirm(response.url);
             }
-            request('POST', '/api/cart', formData, success, fail);
+
+            cartRequest('POST', '/api/cart', JSON.stringify(formData), success, fail);
         });
     });
 }
@@ -32,42 +34,31 @@ if(cartBtn){
             itemId: document.getElementById('id').value,
             count: document.querySelector('.quantity_value').textContent
         }
-        function success() {
+        function success(result) {
             successConfirm();
         }
         function fail(response) {
             cartErrorConfirm(response.url);
         }
 
-        request('POST', '/api/cart', formData, success, fail);
+        cartRequest('POST', '/api/cart', JSON.stringify(formData), success, fail);
     })
 }
 
 function cartRequest(method, url, body, success, fail){
     fetch(url,{
         method: method,
-        body: JSON.stringify(body),
+        body: body,
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(response=>{
-        if (response.status === 200 || response.status === 201) {
-            if(response.redirected){
-                return fail(response);
-            }else {
-                return success();
-            }
-        }
-        if(!response.ok){
-            throw new Error('네트워크 응답이 실패했습니다');
-        }
-        return response.json();
-    }).catch(error => {
-        console.error("요청 실패 " + error);
-        return fail();
-    });
+    }).then(response=>response.json())
+        .then(result=>success(result))
+        .catch(error => {
+            console.error("요청 실패 " + error);
+            return fail(error);
+        });
 }
-
 
 /*
     cart error Alert

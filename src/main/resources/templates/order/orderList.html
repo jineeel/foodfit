@@ -18,7 +18,7 @@
     </div>
     <div class="order_list_div" th:each="order,orderIndex: ${order}" th:if="${#strings.equals(order.orderViewStatus, 'Y')}">
       <div th:switch="${#strings.toString(order.orderStatus)}">
-        <input type="hidden" id="orderId" th:value="${order.orderId}">
+        <input type="hidden" id="orderId" class="orderId" th:value="${order.orderId}">
         <span th:case="ORDER">주문완료</span>
         <span th:case="SHIPPING">배송중</span>
         <span th:case="DELIVERED">배송완료</span>
@@ -37,7 +37,7 @@
           </div>
           <div class="order_item_btn">
             <input type="button" id="orderDetailBtn" th:onclick="|location.href='/order/orderDetail/${order.orderId}'|" th:value="|주문 상세보기|">
-            <input type="button" id="orderDeleteBtn" th:value="|주문 삭제|">
+            <input type="button" class="orderDeleteBtn" th:value="|주문 삭제|">
           </div>
         </div>
       </div>

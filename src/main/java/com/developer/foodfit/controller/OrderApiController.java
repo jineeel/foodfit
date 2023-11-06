@@ -22,28 +22,28 @@ public class OrderApiController {
 
     private final OrderService orderService;
 
-    /** 주문 등록 **/
+    /* 주문 등록 */
     @PostMapping("/api/order")
     public ResponseEntity<Order> createOrder(@RequestBody AddOrderRequest addOrderRequest, Principal principal) {
         Order saveOrder = orderService.save(addOrderRequest.getOrderItemRequests(), addOrderRequest.getOrderUserRequest(), principal);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveOrder);
     }
 
-    /** 주문 삭제 **/
+    /* 주문 삭제 */
     @PostMapping("/api/order/{id}")
     public ResponseEntity<Order> deleteOrder(@PathVariable(value = "id") Long orderId){
         orderService.delete(orderId);
         return ResponseEntity.ok().build();
     }
 
-    /** 주문 취소 **/
+    /* 주문 취소 */
     @PutMapping("/api/order/{id}")
     public ResponseEntity<Order> cancelOrder(@PathVariable(value = "id") Long orderId){
         orderService.cancel(orderId);
         return ResponseEntity.ok().build();
     }
 
-    /** 주문 상태 변경 **/
+    /* 주문 상태 변경 */
     @PutMapping("/order/updateStatus/{orderId}")
     public ResponseEntity<Order> updateOrder(@PathVariable(value = "orderId") String orderId, @RequestBody String status){
         orderService.updateOrderStatus(orderId,status);

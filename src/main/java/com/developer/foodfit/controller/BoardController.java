@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BoardController {
 
-//    @GetMapping("/board/notice")
-//    public String notice(){
-//        return "board/notice";
-//    }
+    /* 홈트레이닝 페이지 */
     @GetMapping("/board/exercise")
     public String exercise(){
         return "board/exercise";

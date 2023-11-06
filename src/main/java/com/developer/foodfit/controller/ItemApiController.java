@@ -19,21 +19,21 @@ public class ItemApiController {
 
     private final ItemService itemService;
 
-    /** 상품 등록 **/
+    /* 상품 등록 */
     @PostMapping("/api/item")
     public ResponseEntity<Item> createItem(AddItemRequest request, Principal principal,@RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) throws Exception {
         Item saveItem = itemService.save(request, principal.getName(),itemImgFileList);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveItem);
     }
 
-    /** 상품 수정 **/
+    /* 상품 수정 */
     @PutMapping("/api/item/{id}")
     public ResponseEntity<Item> updateItem(@PathVariable Long id, Principal principal, @RequestParam("itemImgFile")List<MultipartFile> itemImgFileList, UpdateItemRequest request) throws Exception {
         Item updateItem = itemService.update(id,principal.getName(),itemImgFileList,request);
         return ResponseEntity.ok().body(updateItem);
     }
 
-    /** 상품 삭제 **/
+    /* 상품 삭제 */
     @DeleteMapping("/api/item/{id}")
     public ResponseEntity<Item> deleteItem(@PathVariable Long id){
         itemService.delete(id);

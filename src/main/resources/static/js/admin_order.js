@@ -1,6 +1,6 @@
-/***********************
- *
- ***********************/
+/*
+    주문 관리 페이징
+ */
 const paging = document.querySelectorAll('.paging');
 if(paging){
     paging.forEach((page,index)=>{
@@ -22,31 +22,22 @@ function loadAdminPage(url) {
     formRequest('GET', url, null, success, fail);
 }
 
-function updateShipping(){
-    const url = '/order/updateOrderStatus';
-    function success(result) {
-        $(contentsForm).html(result);
-    }
-    function fail(error) {
-        console.error("에러", error);
-    }
-    formRequest('POST', url, null, success, fail);
-}
-
-
+/*
+    체크박스 전체 선택
+ */
 const adminOrderStatus = document.querySelectorAll('.adminOrderStatus')
 function selectAll(selectAll){
     const checkBoxes = document.querySelectorAll('.checkOrder');
     checkBoxes.forEach((checkbox,index)=>{
         checkbox.checked = selectAll.checked;
-        if(adminOrderStatus[index].value=='CANCEL'){
+        if(adminOrderStatus[index].value==='CANCEL'){
             checkbox.checked = false
         }
     })
 }
 
 /*
-주문 처리 버튼
+    주문 처리 버튼
  */
 const orderStatusBtn = document.querySelectorAll('.orderStatusBtn');
 const orderIds = document.querySelectorAll('.orderId')
@@ -64,8 +55,7 @@ if(orderStatusBtn){
             function fail(error) {
                 console.error("에러", error);
             }
-
-            formRequest('PUT', '/order/updateStatus/'+orderId, status, success, fail);
+            formRequest('PUT', `/order/updateStatus/${orderId}`, status, success, fail);
         })
     })
 }

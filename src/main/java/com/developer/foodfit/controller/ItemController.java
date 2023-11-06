@@ -30,7 +30,7 @@ public class ItemController {
     private final ItemService itemService;
     private final ItemImgService itemImgService;
 
-    /** 상품 등록 & 수정 **/
+    /* 상품 등록 & 수정 */
     @GetMapping("/item")
     public String newItem(@RequestParam(value = "id", required = false)Long id, Model model){
         List<Category> categoryList = categoryService.findByDepth(1L);
@@ -58,7 +58,7 @@ public class ItemController {
 
     }
 
-    /** 카테고리 상품 조회 **/
+    /* 카테고리별 상품 조회 */
     @GetMapping("/item/category/{categoryCode}")
     public String findItems(@PathVariable("categoryCode")String categoryCode, @PageableDefault(page=1) Pageable pageable, Model model) throws Exception {
         List<Category> categoryItemList = categoryService.findCategoryItemList(categoryCode);
@@ -88,7 +88,7 @@ public class ItemController {
 
         return "item/itemList";
     }
-    /** 전체 상품 조회 **/
+    /* 전체 상품 조회 */
     @GetMapping("/item/list/{itemCode}")
     public String findAllItems(@PathVariable(required = false) String itemCode, @PageableDefault(page=1) Pageable pageable, Model model){
         if(itemCode.equals("all")){
@@ -97,12 +97,12 @@ public class ItemController {
             int startPage = (((int) Math.ceil(((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
             int endPage = Math.min((startPage + blockLimit - 1), itemResponseList.getTotalPages());
 
-            model.addAttribute("itemPages", itemResponseList); //Paging
+            model.addAttribute("itemPages", itemResponseList);
             model.addAttribute("startPage", startPage);
             model.addAttribute("endPage", endPage);
         }else{
             List<ItemListResponse> itemListResponses = itemService.findTopItems(itemCode);
-            model.addAttribute("itemPages", itemListResponses); //Paging
+            model.addAttribute("itemPages", itemListResponses);
         }
         List<ItemImgResponse> itemImgResponseList = itemImgService.findAllItemImg();
 
@@ -112,7 +112,7 @@ public class ItemController {
         return "item/itemList";
     }
 
-    /** 상품 상세보기 **/
+    /* 상품 상세보기 */
     @GetMapping("/item/detail/{itemId}")
     public String detailItem(@PathVariable("itemId") Long itemId, Model model){
         Item item = itemService.findById(itemId);

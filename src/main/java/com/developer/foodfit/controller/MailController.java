@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MailController {
     private final MailService mailService;
 
+    /* 메일 인증 */
     @ResponseBody
     @PostMapping("/api/user/mail")
     public String sendMail(@RequestBody String email){
-
         int number = mailService.sendMail(email);
         String num = ""+number;
-        System.out.println("!?"+num);
         return num;
     }
 }

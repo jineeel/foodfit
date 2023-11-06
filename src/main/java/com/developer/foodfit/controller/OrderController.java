@@ -30,7 +30,7 @@ public class OrderController {
     private final OrderService orderService;
     private final OrderItemService orderItemService;
 
-    /** 주문 **/
+    /* 주문 페이지 */
     @GetMapping("/order")
     public String order(@RequestParam(value = "id")String cartItemId, @RequestParam(value="quantity") String quantity,
                         @RequestParam(value="orderType") String orderType, Model model, Principal principal){
@@ -60,6 +60,7 @@ public class OrderController {
         return "/order/orderForm";
     }
 
+    /* 주문 확인 페이지 */
     @GetMapping("/order/{orderId}")
     public String orderComplete(@PathVariable(value="orderId") Long orderId, Model model){
         Order order = orderService.findById(orderId);
@@ -73,6 +74,7 @@ public class OrderController {
         return "/order/orderComplete";
     }
 
+    /* 주문 리스트 조회 페이지 */
     @GetMapping("/mypage/order")
     public String findOrderList(@PageableDefault(page=1) Pageable pageable, Principal principal, Model model){
         User user = userService.findByUserId(principal.getName());
@@ -110,6 +112,7 @@ public class OrderController {
         return "/order/orderList";
     }
 
+    /* 주문 상세보기 페이지 */
     @GetMapping("/order/orderDetail/{orderId}")
     public String findOrderDetail(@PathVariable Long orderId, Model model){
         Order order = orderService.findById(orderId);
@@ -129,7 +132,7 @@ public class OrderController {
         model.addAttribute("orderItemImg", itemImgList);
         return "/order/orderDetail";
     }
-
+    /* 관리자 주문 조회 페이지 */
     @GetMapping("/order/list")
     public String findAllOrder(@PageableDefault(page=1) Pageable pageable, Model model){
         Page<OrderViewResponse> orderList = orderService.findAllPaging(pageable);

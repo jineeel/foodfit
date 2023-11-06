@@ -377,6 +377,7 @@ if(submitBtn) {
         }
     });
 }
+const updateForm = document.getElementById('updateForm')
 const providerId = document.getElementById('providerId');
 const updateBtn = document.getElementById('updateBtn');
 if(updateBtn){
@@ -396,8 +397,14 @@ if(updateBtn){
         if(!phoneNumInputEl){
             account.phoneNum = phoneInputEl.value;
         }
-        let data = new FormData(document.getElementById('updateForm'));
-        const formData = Object.fromEntries(data);
+        const formData = new FormData(updateForm);
+        const jsonObject = {};
+
+        formData.forEach(function (value, key) {
+            jsonObject[key] = value;
+        });
+
+        const jsonData = JSON.stringify(jsonObject);
 
         let isAllFilled = true;
         const id = idInputEl.value;
@@ -423,31 +430,18 @@ if(updateBtn){
             isAllFilled=true;
         }
         function success(result){
+            alert("success")
             location.replace("/mypage");
         }
         function fail(error){
+            alert("fail="+error)
             e.preventDefault();
             console.error("요청 실패 " + error);
         }
 
         if(isAllFilled === true){
             resultFailEl.textContent = "";
-            // userRequest(`PUT`,`/api/user/${id}`, JSON.stringify(formData), success, fail);
-                $.ajax({
-                  type: "PUT",
-                  url: "/api/user/"+id,
-                  data: JSON.stringify(formData),
-                  contentType: "application/json; charset=utf-8",
-                  dataType: "json",
-                  async : false,
-                  success: function (response){
-                    e.preventDefault()
-                    location.replace("/mypage");
-                  },
-                  error: function (error){
-                    console.error("에러",error);
-                  }
-                });
+            userRequest(`PUT`,`/api/user/${id}`, jsonData, success, fail);
         }
     })
 }

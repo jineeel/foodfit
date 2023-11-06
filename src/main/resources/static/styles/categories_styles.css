@@ -109,6 +109,7 @@ body{
 	justify-content: center;
 	align-items: center;
 	z-index: 11;
+	pointer-events: none;
 }
 
 .product_image span{

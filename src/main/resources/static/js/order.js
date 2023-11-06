@@ -4,30 +4,40 @@ const addrText = document.getElementById('addrText');
 const zipcode = document.getElementById('zipcode');
 const streetAdr = document.getElementById('streetAdr');
 const detailAdr = document.getElementById('detailAdr');
-
-$(document).ready(function(){
-    $("input[name='addr']").change(function(){
-        if($("input[name='addr']:checked").val() == 'addrEx'){
-            orderName.value=document.getElementById('userName').value;
-            phone.value=document.getElementById('userPhone').value;
-            zipcode.value=document.getElementById('zipcodeEx').value
-            streetAdr.value = document.getElementById('streetAdrEx').value;
-            detailAdr.value=document.getElementById('detailAdrEx').value;
-        }
-        else if($("input[name='addr']:checked").val() == 'addrNew'){
-            orderName.value="";
-            phone.value="";
-            zipcode.value="";
-            streetAdr.value = "";
-            detailAdr.value="";
-        }
-    });
+/*
+    배송지 선택 [주문자정보와 동일 or 새로운배송지]
+ */
+const addrInputs = document.querySelectorAll("input[name='addr']");
+document.addEventListener("DOMContentLoaded", ()=>{
+    if(addrInputs){
+        addrInputs.forEach((input)=>{
+            input.addEventListener('change',()=>{
+                if (input.value === 'addrEx') {
+                    orderName.value=document.getElementById('userName').value;
+                    phone.value=document.getElementById('userPhone').value;
+                    zipcode.value=document.getElementById('zipcodeEx').value
+                    streetAdr.value = document.getElementById('streetAdrEx').value;
+                    detailAdr.value=document.getElementById('detailAdrEx').value;
+                }else if(input.value === 'addrNew'){
+                    orderName.value="";
+                    phone.value="";
+                    zipcode.value="";
+                    streetAdr.value = "";
+                    detailAdr.value="";
+                }
+            })
+        })
+    }
+    totalPay();
 });
+/*
+    배송 요청 사항
+ */
 const selectBox = document.getElementById('selectBox');
 if(selectBox){
     selectBox.addEventListener('change',()=>{
         const option = selectBox.options[selectBox.selectedIndex].text;
-        if(option=="직접 입력") {
+        if(option==="직접 입력") {
             addrText.value="";
         }else{
             addrText.value=option;
@@ -39,7 +49,9 @@ const itemId= document.querySelectorAll('.itemId');
 const orderPrice = document.querySelectorAll('.itemPrice');
 const count = document.querySelectorAll('.count');
 const orderType = document.querySelectorAll('.orderType');
-
+/*
+    주문
+ */
 function paymentSave(){
         let orderItemList = [];
         let orderItemData;
@@ -55,11 +67,11 @@ function paymentSave(){
         });
 
         let orderUserData = {
-            "orderName" : document.getElementById('orderName').value,
-            "orderPhone" : document.getElementById('phone').value,
-            "orderZipcode" : document.getElementById('zipcode').value,
-            "orderStreetAdr" : document.getElementById('streetAdr').value,
-            "orderDetailAdr" : document.getElementById('detailAdr').value,
+            "orderName" : orderName.value,
+            "orderPhone" : phone.value,
+            "orderZipcode" : zipcode.value,
+            "orderStreetAdr" :streetAdr.value,
+            "orderDetailAdr" : detailAdr.value,
             "orderMessage" : document.getElementById('addrText').value
          }
 
@@ -67,19 +79,14 @@ function paymentSave(){
             "orderItemRequests" : orderItemList,
             "orderUserRequest" : orderUserData
         }
-
-        $.ajax({
-            url:"/api/order",
-            type:"POST",
-            data: JSON.stringify(addOrderRequest),
-            contentType: "application/json",
-            success: function (result){
-                let orderId = result.id;
-                location.replace('/order/'+orderId);
-            },error:function (error){
-                console.error("에러",error);
-            }
-        })
+        function success(result){
+            let orderId = result.id;
+            location.replace('/order/'+orderId);
+        }
+        function fail(error){
+            console.error("에러",error);
+        }
+        orderRequest('POST', '/api/order', JSON.stringify(addOrderRequest), success, fail)
 }
 
 const checkBox1 = document.getElementById('checkBox1');
@@ -96,7 +103,6 @@ function inputNullCheck(){
     }else{
         resultFail.textContent="";
         return true;
-
     }
     return false;
 }
@@ -105,10 +111,9 @@ const totalAmount = document.getElementById('totalAmount')
 const totalShippingFee = document.getElementById('totalShippingFee');
 const totalPayment = document.getElementById('totalPayment');
 const itemPrice = document.querySelectorAll('.itemPrice');
-$(document).ready(function () {
-    totalPay();
-});
-
+/*
+    주문 총 금액
+ */
 function totalPay(){
     let resultPrice= 0;
     orderItemDiv.forEach((orderItem, index)=>{
@@ -118,69 +123,85 @@ function totalPay(){
         let amount = totalAmount.textContent = resultPrice +"원"
         let shippingFee = totalShippingFee.textContent = parseInt(totalAmount.textContent) >= 40000 ? "무료" : "3500원";
         totalPayment.textContent = shippingFee =="무료" ? amount : parseInt(amount)+parseInt(shippingFee)+"원";
-
     }
 }
 
+/*
+    주문 내역 삭제
+*/
+const orderDeleteBtns = document.querySelectorAll('.orderDeleteBtn');
+const orderIds = document.querySelectorAll('.orderId');
+if(orderDeleteBtns){
+    orderDeleteBtns.forEach((orderDeleteBtn,index)=>{
+        orderDeleteBtn.addEventListener('click', ()=>{
+            console.log(orderIds[index].value);
+            const id = orderIds[index].value;
 
-/*************************
- * 주문 내역
- *************************/
-const orderDeleteBtn = document.getElementById('orderDeleteBtn');
-
-if(orderDeleteBtn){
-    orderDeleteBtn.addEventListener('click', ()=>{
-        const id = document.getElementById('orderId').value;
-
-        function success(){
-          location.reload()
-        }
-        function fail(){
-            errorConfirm('주문을 삭제할 수 없습니다', '/mypage/order');
-
-        }
-        warningConfirm("주문을 삭제하시겠습니까?", 'POST', `/api/order/${id}`, null, success, fail);
+            function success(){
+                location.reload();
+            }
+            function fail(){
+                orderErrorConfirm('주문을 삭제할 수 없습니다', '/mypage/order');
+            }
+            warningConfirm("주문을 삭제하시겠습니까?", 'POST', `/api/order/${id}`, null, success, fail);
+        })
     })
 }
-
+/*
+    주문 취소
+ */
 const orderCancelBtn = document.getElementById('orderCancelBtn');
 if(orderCancelBtn){
     orderCancelBtn.addEventListener('click', ()=>{
+
         const id = document.getElementById('orderId').value;
         function success(){
             location.reload()
         }
         function fail(){
-            errorConfirm('주문을 취소할 수 없습니다', location.reload());
-
+            orderErrorConfirm('주문을 취소할 수 없습니다', location.reload());
         }
         warningConfirm("주문을 취소하시겠습니까?",'PUT',`/api/order/${id}`,null, success,fail)
     })
 }
-
-function orderRequest(method, url, body, success, fail){
-    fetch(url,{
+/*
+    fetch
+ */
+function orderRequest(method, url, body, success, fail) {
+    fetch(url, {
         method: method,
-        body : body,
-    }).then(response=>{
-        if (response.status === 200 || response.status === 201) {
-            if(response.redirected){
-                return fail(response);
-            }else {
-                return success();
-            }
+        body: body,
+        headers: {
+            'Content-Type': 'application/json'
         }
-        if(!response.ok){
-            throw new Error('네트워크 응답이 실패했습니다');
-        }
-        return response.json();
-    }).catch(error => {
-        console.error("요청 실패 " + error);
-        return fail();
-    });
+    }).then(response => response.json())
+        .then(result => success(result))
+        .catch(error => {
+            console.error("요청 실패 " + error);
+            return fail();
+        });
 }
-
-function errorConfirm(text,url){
+/*
+    삭제 fetch
+ */
+function orderDeleteRequest(method, url, body, success, fail) {
+    fetch(url, {
+        method: method,
+        body: body,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => success())
+        .then(result => success())
+        .catch(error => {
+            console.error("요청 실패 " + error);
+            return fail();
+        });
+}
+/*
+    order error confirm
+ */
+function orderErrorConfirm(text,url){
     Swal.fire({
         text: text,
         icon: 'error',
@@ -195,7 +216,9 @@ function errorConfirm(text,url){
         }
     })
 }
-
+/*
+    주문삭제, 주문취소 확인 alert
+ */
 function warningConfirm(text,method,url,body,success,fail){
     Swal.fire({
         text: text,
@@ -208,7 +231,7 @@ function warningConfirm(text,method,url,body,success,fail){
         width: 400,
     }).then(function(result){
         if (result.value) {
-            orderRequest(method, url, body, success, fail)
+            orderDeleteRequest(method, url, body, success, fail)
         }
     })
 }

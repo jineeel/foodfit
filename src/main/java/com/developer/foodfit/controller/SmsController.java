@@ -22,18 +22,18 @@ public class SmsController {
 
     private final SmsService smsService;
 
-//    @PostMapping("/api/user/sms")
-//    public int sendSms(@RequestBody MessageRequest message) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-//        int response = smsService.sendSms(message);
-//        return response;
-//    }
-
-    // 테스트용 SMS
-    // 테스트 후 삭제
     @PostMapping("/api/user/sms")
     public int sendSms(@RequestBody MessageRequest message) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-        int response = 123456;
+        int response = smsService.sendSms(message);
         return response;
     }
+
+    // 테스트용 SMS
+    // TODO: 테스트 후 삭제
+//    @PostMapping("/api/user/sms")
+//    public int sendSms(@RequestBody MessageRequest message) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+//        int response = 123456;
+//        return response;
+//    }
 
 }

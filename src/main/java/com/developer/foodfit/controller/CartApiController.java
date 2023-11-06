@@ -26,22 +26,21 @@ public class CartApiController {
     private final CartItemService cartItemService;
     private final UserService userService;
 
-    /** 장바구니 추가 **/
+    /* 장바구니 추가 */
     @PostMapping("/api/cart")
     public ResponseEntity<Cart> addCart(@RequestBody AddCartRequest request, Principal principal){
         Cart addCart = cartService.save(request,principal);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(addCart);
     }
 
-    /** 장바구니 상품 수정 **/
+    /* 장바구니 상품 수정 */
     @PutMapping("/api/cart/{cartItemId}")
-    public ResponseEntity<CartItem> updateCount(@PathVariable("cartItemId") Long cartItemId, @RequestParam("count") int count){
-        CartItem cartItem = cartItemService.updateCount(cartItemId, count);
-        return ResponseEntity.ok().body(cartItem);
+    public ResponseEntity<CartItem> updateCount(@PathVariable("cartItemId") Long cartItemId, @RequestBody int count){
+        CartItem updateCartItem = cartItemService.updateCount(cartItemId, count);
+        return ResponseEntity.ok().body(updateCartItem);
     }
 
-    /** 장바구니 상품 삭제 **/
+    /* 장바구니 상품 삭제 */
     @DeleteMapping("/api/cart/{cartItemId}")
     public ResponseEntity<CartItem> deleteCart(@PathVariable("cartItemId") String cartItemId, Principal principal){
         String[] itemIds = cartItemId.split(",");
@@ -54,9 +53,12 @@ public class CartApiController {
         return ResponseEntity.ok().build();
     }
 
-    /** 장바구니 아이템 수량 **/
-    @PostMapping("/cart/itemCount")
+    /* 장바구니 아이템 수량 */
+    @PostMapping("/api/cart/itemCount")
     public ResponseEntity<CartViewResponse> findCartCount(Principal principal){
+        if(principal==null){
+            return ResponseEntity.ok().body(null);
+        }
         User user = userService.findByUserId(principal.getName());
         CartViewResponse cartViewResponse = new CartViewResponse();
         if(user!=null){
