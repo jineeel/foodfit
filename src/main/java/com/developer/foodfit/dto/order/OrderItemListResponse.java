@@ -1,5 +1,6 @@
 package com.developer.foodfit.dto.order;
 
+import com.developer.foodfit.constant.ItemSellStatus;
 import com.developer.foodfit.domain.OrderItem;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class OrderItemListResponse {
     private int orderPrice;
     private int orderCount;
     private LocalDateTime regTime;
+    private ItemSellStatus itemSellStatus;
 
     public OrderItemListResponse(String orderItemName, int orderPrice, int orderCount) {
         this.orderItemName = orderItemName;
@@ -29,5 +31,6 @@ public class OrderItemListResponse {
         this.orderItemName = orderItem.getItem().getItemName();
         this.orderPrice = orderItem.getOrderPrice();
         this.orderCount = orderItem.getCount();
+        this.itemSellStatus = orderItem.getItem().getItemSellStatus();
     }
 }

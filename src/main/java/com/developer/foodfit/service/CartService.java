@@ -22,6 +22,9 @@ public class CartService {
 
     /** 장바구니 저장 **/
     public Cart save(AddCartRequest request, Principal principal) {
+        if(principal==null){
+            return null;
+        }
         User user = userRepository.findByUserId(principal.getName()).orElseThrow();
 
         Cart cart = Cart.builder()

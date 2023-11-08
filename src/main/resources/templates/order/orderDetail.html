@@ -29,12 +29,15 @@
                 <div th:each="orderItemImg : ${orderItemImg}" th:if="${orderItemImg.itemId == orderItem.itemId}">
                     <img th:src="@{${orderItemImg.imgUrl}}">
                 </div>
+                <div class="order_item_status" th:if="!${#strings.equals(orderItem.itemSellStatus, 'SELL')}">
+                </div>
                 <div class="order_detail_req" th:onclick="|location.href='/item/detail/${orderItem.itemId}'|">
                     <span th:text="${orderItem.orderItemName}"></span>
                     <span th:text="${#numbers.formatInteger(orderItem.orderPrice, 3, 'COMMA') + '원'}"></span>
                     <span th:text="|${orderItem.orderCount}개|"></span>
                     <input type="hidden" class="itemId" th:value="${orderItem.itemId}">
                     <input type="hidden" class="count" th:value="${orderItem.orderCount}">
+                    <input type="hidden" class="itemStatus" th:value="${orderItem.itemSellStatus}">
                 </div>
                 <div class="order_detail_cart">
                     <input type="button" class="cartBtn" th:value="|장바구니 담기|">

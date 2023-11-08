@@ -84,6 +84,7 @@
                             <p th:text="|40,000원 이상 구매시 배송비 무료|"></p>
                         </div>
                         <!-- 수량 -->
+                        <input type="hidden" class="itemStatus" id="itemStatus" th:value="${item.itemSellStatus}">
                         <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                             <span>수량:</span>
                             <div class="quantity_selector">
@@ -112,6 +113,10 @@
                         <div class="product_itemStatus_div" th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}">
                             <img src="/images/soldOut.png">
                             <span th:text="|이 상품은 현재 구매할 수 없는 상품입니다|"></span>
+                        </div>
+                        <div class="product_itemStatus_div" th:if="${#strings.equals(item.itemSellStatus, 'DELETE')}">
+                            <img src="/images/soldOut.png">
+                            <span th:text="|이 상품은 판매 종료된 상품입니다|"></span>
                         </div>
                         <!-- 관리자 상품 수정/삭제 -->
                         <div class="product_admin_div" sec:authorize="hasAnyAuthority('ADMIN')">

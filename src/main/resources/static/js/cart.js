@@ -1,6 +1,7 @@
 /*
     장바구니 수량 버튼
  */
+const cartItemStatus = document.querySelectorAll('.itemStatus');
 const plus = document.querySelectorAll('.plus');
 const minus = document.querySelectorAll('.minus');
 const quantity_value = document.querySelectorAll('.quantity_value');
@@ -14,19 +15,20 @@ if(quantity_selectors){
 
         let quantity = parseInt(valueElement.textContent); // 현재 수량 가져오기
         let stockNumber = parseInt(stockNum[index].value); // 상품 재고 수량
-
-        plusButton.addEventListener('click', function () {
-            if(valueElement.textContent < stockNumber){
-                quantity += 1;
-                valueElement.textContent = quantity;
-            }
-        });
-        minusButton.addEventListener('click', function () {
-            if (quantity > 1) {
-                quantity -= 1;
-                valueElement.textContent = quantity;
-            }
-        });
+        if(cartItemStatus[index].value==='SELL') {
+            plusButton.addEventListener('click', function () {
+                if (valueElement.textContent < stockNumber) {
+                    quantity += 1;
+                    valueElement.textContent = quantity;
+                }
+            });
+            minusButton.addEventListener('click', function () {
+                if (quantity > 1) {
+                    quantity -= 1;
+                    valueElement.textContent = quantity;
+                }
+            });
+        }
     });
 }
 /*
@@ -73,7 +75,7 @@ $(document).ready(function () {
 function totalPay(){
     let resultPrice= 0;
     cartItems.forEach((cartItem, index)=>{
-        if(cartItemStatus[index].value!='SOLD_OUT') {
+        if(cartItemStatus[index].value==='SELL') {
             resultPrice += parseInt(prices[index].textContent);
         }
     })
@@ -86,12 +88,12 @@ function totalPay(){
 /*
     체크박스 전체 선택
  */
-const cartItemStatus = document.querySelectorAll('.cartItemStatus')
+
 function selectAll(selectAll){
     const checkBoxes = document.querySelectorAll('.checkItem');
     checkBoxes.forEach((checkbox,index)=>{
         checkbox.checked = selectAll.checked;
-        if(cartItemStatus[index].value==='SOLD_OUT'){
+        if(cartItemStatus[index].value!='SELL'){
             checkbox.checked = false
         }
     })
@@ -162,13 +164,24 @@ if(payBtn){
 
         if(cartItemCheckboxes.length>0){
             const url = '/order?id='+cartItemId+'&quantity='+quantity+'&orderType='+"cart";
-            window.location.href = url;
+            location.replace(url);
         }else{
             errorConfirm();
         }
     })
 }
 
+const cartItemInfo= document.querySelectorAll('.cart_item_info');
+if(cartItemInfo){
+    cartItemInfo.forEach((cartInfo,index)=>{
+        cartItemInfo[index].addEventListener('click',()=>{
+            if(cartItemStatus[index].value==='SELL'){
+                const id = originItemId[index].value;
+                location.replace('/item/detail/'+id)
+            }
+        })
+    })
+}
 /*
     error Alert
  */

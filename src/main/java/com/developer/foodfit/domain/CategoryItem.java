@@ -10,7 +10,4 @@ public class CategoryItem {
     @Column(name="category_item_id")
     private Long id;
 
-    //@OneToMany
-
-  //  private Category category;
 }

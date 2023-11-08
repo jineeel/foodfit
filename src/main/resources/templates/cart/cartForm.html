@@ -31,21 +31,24 @@
 
               <tr class="cartItems" th:each="cartItem,index : ${cartItemList}">
                 <div th:each="item: ${itemList}" th:if="${cartItem.itemId==item.itemId}">
-                  <input type="hidden" class="cartItemStatus" th:value="${item.itemSellStatus}">
+                  <input type="hidden" class="itemStatus" th:value="${item.itemSellStatus}">
                   <th><input type="checkbox" class="checkItem" id="checkItem" name="checkItem" th:value="${item.itemId}"
-                       th:disabled="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}"></th>
+                       th:disabled="!${#strings.equals(item.itemSellStatus, 'SELL')}"></th>
                   <th>
-                    <div class="cart_item_info" th:onclick="|location.href='@{/item/detail/{id}(id=${item.itemId})}'|">
+                    <div class="cart_item_info"> <!-- th:onclick="|location.href='@{/item/detail/{id}(id=${item.itemId})}'|">-->
                       <input type="hidden" class="stockNum" th:value="${item.stockNumber}">
-
+                      <input type="hidden" class="itemId" th:value="${item.itemId}">
                       <div th:if="${#strings.equals(item.itemSellStatus, 'SOLD_OUT')}">
                         <div class="cartItemSoldOut"></div>
-                        <span th:text="|SOLD OUT|"></span>
+                        <span th:text="|상품 품절|"></span>
+                      </div>
+                      <div th:if="${#strings.equals(item.itemSellStatus, 'DELETE')}">
+                        <div class="cartItemSoldOut"></div>
+                        <span th:text="|판매 종료|"></span>
                       </div>
 
                       <img th:each="repImg: ${repImgList}" th:if="${repImg.itemId==item.itemId}" th:src="@{${repImg.imgUrl}}">
                       <span th:text="${item.itemName}"></span>
-
                     </div>
                   </th>
                   <th>

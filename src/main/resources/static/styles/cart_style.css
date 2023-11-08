@@ -99,6 +99,7 @@ input[type="button"]{
     text-shadow: 1px 1px 1px gray;
     font-weight: 500;
     color: #ffffff;
+    margin: 25px !important;
     position: absolute;
     z-index: 2;
 }

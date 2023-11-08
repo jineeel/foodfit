@@ -147,21 +147,17 @@ public class ItemService {
         Item item = itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException(""));
         item.updateStockNumber(stockNumber);
         if(item.getStockNumber()<=0){
-            item.updateItemStatusSoldOut();
+            item.updateItemStatus(ItemSellStatus.SOLD_OUT);
         }
         return item;
     }
 
     /** 상품 삭제 **/
+    @Transactional
     public void delete(Long id) {
         Item item = itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException(""));
-        List<ItemImg> itemImgList = itemImgRepository.findItemImgByItemId(item.getId());
         authorizeItemRole();
-
-        for(int i=0; i<itemImgList.size(); i++){
-            itemImgRepository.delete(itemImgList.get(i));
-        }
-        itemRepository.delete(item);
+        item.updateItemStatus(ItemSellStatus.DELETE);
     }
 
     //권한 확인
@@ -175,9 +171,9 @@ public class ItemService {
     //상품 상태
     public void setItemSellStatus(Item item, int stockNumber){
         if(stockNumber>0){
-            item.updateItemStatusSell();
+            item.updateItemStatus(ItemSellStatus.SELL);
         }else{
-            item.updateItemStatusSoldOut();
+            item.updateItemStatus(ItemSellStatus.SOLD_OUT);
         }
     }
 

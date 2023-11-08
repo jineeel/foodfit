@@ -5,24 +5,29 @@ const itemSellStatus = document.getElementById('itemSellStatus');
 const itemIds = document.querySelectorAll('.itemId');
 const counts = document.querySelectorAll('.count');
 const cartBtns = document.querySelectorAll('.cartBtn');
+const itemStatus = document.querySelectorAll('.itemStatus');
 if(cartBtns){
     cartBtns.forEach((cartBtn, index) => {
-        cartBtn.addEventListener('click', (event) => {
-            event.stopPropagation();
-            const formData = {
-                itemId: itemIds[index].value,
-                count: counts[index].value
-            };
-            function success(result) {
-                successConfirm();
-            }
-            function fail(response) {
-                cartErrorConfirm(response.url);
-            }
+            cartBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const formData = {
+                    itemId: itemIds[index].value,
+                    count: counts[index].value
+                };
 
-            cartRequest('POST', '/api/cart', JSON.stringify(formData), success, fail);
-        });
+                function success(result) {
+                    successConfirm();
+                }
+
+                function fail(response) {
+                    cartErrorConfirm(response.url);
+                }
+                if(itemStatus[index].value==='SELL') {
+                    cartRequest('POST', '/api/cart', JSON.stringify(formData), success, fail);
+                }
+            });
     });
+
 }
 /*
     상품 디테일에서 장바구니 추가
@@ -40,7 +45,6 @@ if(cartBtn){
         function fail(response) {
             cartErrorConfirm(response.url);
         }
-
         cartRequest('POST', '/api/cart', JSON.stringify(formData), success, fail);
     })
 }

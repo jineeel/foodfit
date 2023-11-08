@@ -509,6 +509,15 @@ body{
     border-radius: 5px;
     margin-left: 5px;
 }
+.order_item_status{
+    width: 98%;
+    height: 100%;
+    position: absolute;
+    background: #FFFFFF;
+    opacity: 40%;
+    z-index: 1;
+}
+
 
 .order_detail_req{
     display: grid;

@@ -1,5 +1,6 @@
 package com.developer.foodfit.domain;
 
+import com.developer.foodfit.constant.ItemSellStatus;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

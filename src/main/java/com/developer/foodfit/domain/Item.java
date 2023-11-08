@@ -32,7 +32,6 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
 
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -76,11 +75,8 @@ public class Item {
     public void updateStockNumber(int stockNumber){
         this.stockNumber = this.stockNumber-stockNumber;
     }
-    public void updateItemStatusSoldOut(){
-        this.itemSellStatus = ItemSellStatus.SOLD_OUT;
-    }
-    public void updateItemStatusSell(){
-        this.itemSellStatus = ItemSellStatus.SELL;
+    public void updateItemStatus(ItemSellStatus itemSellStatus){
+        this.itemSellStatus = itemSellStatus;
     }
     public void updateItemSellCount(int itemSellCount){
         this.itemSellCount += itemSellCount;
