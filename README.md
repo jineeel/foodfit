@@ -56,5 +56,5 @@
 - 유튜브 API 연동
 
 ## 📐 ERD
-<img src="https://github.com/jineeel/foodfit/assets/143826467/3e0d57a4-c6bb-4a64-a51e-4f6334d3fffd.png" width="900" height="620"/>
+<img src="https://github.com/jineeel/foodfit/assets/143826467/e2c56635-609b-47a5-a349-6f3434583345.png" width="900" height="620"/>
 
