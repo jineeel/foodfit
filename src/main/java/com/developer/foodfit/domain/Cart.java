@@ -1,6 +1,7 @@
 package com.developer.foodfit.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class Cart {
 
     @OneToOne
     @JoinColumn(name="user_id")
+    @NotNull
     private User user;
 
     @Builder

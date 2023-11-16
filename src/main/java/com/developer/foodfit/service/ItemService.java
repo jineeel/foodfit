@@ -79,11 +79,11 @@ public class ItemService {
     /** 카테고리별 상품 조회 **/
     public Page<ItemListResponse> findItemPaging(Pageable pageable, List<Category> categories){
         int page = pageable.getPageNumber()-1;
-        int pageLimit = 16;
+        int pageLimit = 8;
         List<Item> allItems = new ArrayList<>();
 
         for(Category category : categories){
-            List<Item> itemList = itemRepository.findByCategoryId(category.getId());
+            List<Item> itemList = itemRepository.findByCategoryIdAndItemSellStatusNot(category.getId(),ItemSellStatus.DELETE);
             allItems.addAll(itemList);
         }
         allItems.sort(Comparator.comparingLong(Item::getId).reversed());
@@ -100,9 +100,9 @@ public class ItemService {
     /** 전체 상품 조회 **/
     public Page<ItemListResponse> findAll(Pageable pageable){
         int page = pageable.getPageNumber() - 1;
-        int pageLimit = 16;
+        int pageLimit = 8;
 
-        Page<Item> itemPages =itemRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+        Page<Item> itemPages =itemRepository.findAllByItemSellStatusNot(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")),ItemSellStatus.DELETE);
         Page<ItemListResponse> itemListResponses = itemPages.map(itemPage-> new ItemListResponse(itemPage));
         return  itemListResponses;
     }
@@ -180,11 +180,11 @@ public class ItemService {
     public List<ItemListResponse> findTopItems(String itemCode){
         List<Item> itemList = new ArrayList<>();
         if(itemCode.equals("new")){
-            itemList = itemRepository.findTop20ByOrderByIdDesc();
+            itemList = itemRepository.findTop20ByItemSellStatusNotOrderByIdDesc(ItemSellStatus.DELETE);
         }else if(itemCode.equals("best")) {
-            itemList = itemRepository.findTop20ByOrderByItemSellCountDesc();
+            itemList = itemRepository.findTop20ByItemSellStatusNotOrderByItemSellCountDesc(ItemSellStatus.DELETE);
         }else if(itemCode.equals("calorie")){
-            itemList = itemRepository.findTop20ByOrderByCalorieAsc();
+            itemList = itemRepository.findTop20ByItemSellStatusNotOrderByCalorieAsc(ItemSellStatus.DELETE);
         }
         List<ItemListResponse> itemListResponses = itemList.stream()
                 .map(ItemListResponse::new)
@@ -193,10 +193,10 @@ public class ItemService {
     }
 
     public List<ItemListResponse> findNewItems(){
-        return itemRepository.findTop10ByOrderByIdDesc().stream().map(ItemListResponse::new).collect(Collectors.toList());
+        return itemRepository.findTop10ByItemSellStatusNotOrderByIdDesc(ItemSellStatus.DELETE).stream().map(ItemListResponse::new).collect(Collectors.toList());
     }
     public List<ItemListResponse> findBestItems(){
-        return itemRepository.findTop10ByOrderByItemSellCountDesc().stream().map(ItemListResponse::new).collect(Collectors.toList());
+        return itemRepository.findTop10ByItemSellStatusNotOrderByItemSellCountDesc(ItemSellStatus.DELETE).stream().map(ItemListResponse::new).collect(Collectors.toList());
     }
 
 }

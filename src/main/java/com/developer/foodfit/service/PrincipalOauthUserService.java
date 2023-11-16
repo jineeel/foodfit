@@ -52,7 +52,6 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
         String email = oAuth2UserInfo.getEmail();
         Role role = Role.GUEST;
 
-        // TODO : 코드 리팩토링
         Optional<User> emailEntity = userRepository.findByEmail(email);
         User userEntity = userRepository.findByProviderId(providerId);
         if(userEntity==null){

@@ -1,6 +1,7 @@
 package com.developer.foodfit.repository;
 
 
+import com.developer.foodfit.constant.ItemSellStatus;
 import com.developer.foodfit.domain.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,10 +12,11 @@ import java.util.List;
 
 
 public interface ItemRepository extends JpaRepository<Item,Long> {
-    List<Item> findByCategoryId(Long categoryId);
-    List<Item> findTop20ByOrderByIdDesc();
-    List<Item> findTop20ByOrderByItemSellCountDesc();
-    List<Item> findTop20ByOrderByCalorieAsc();
-    List<Item> findTop10ByOrderByIdDesc();
-    List<Item> findTop10ByOrderByItemSellCountDesc();
+    Page<Item> findAllByItemSellStatusNot(Pageable pageable,ItemSellStatus itemSellStatus);
+    List<Item> findByCategoryIdAndItemSellStatusNot(Long categoryId, ItemSellStatus itemSellStatus);
+    List<Item> findTop20ByItemSellStatusNotOrderByIdDesc(ItemSellStatus itemSellStatus);
+    List<Item> findTop20ByItemSellStatusNotOrderByItemSellCountDesc(ItemSellStatus itemSellStatus);
+    List<Item> findTop20ByItemSellStatusNotOrderByCalorieAsc(ItemSellStatus itemSellStatus);
+    List<Item> findTop10ByItemSellStatusNotOrderByIdDesc(ItemSellStatus itemSellStatus);
+    List<Item> findTop10ByItemSellStatusNotOrderByItemSellCountDesc(ItemSellStatus itemSellStatus);
 }

@@ -2,6 +2,7 @@ package com.developer.foodfit.domain;
 
 import com.developer.foodfit.constant.OrderStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,27 +24,46 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name="user_id")
+    @NotNull
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @NotNull
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @NotNull
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private OrderStatus orderStatus;
 
+    @NotNull
     private LocalDateTime regTime;
+
+    @NotNull
     private LocalDateTime updateTime;
 
+    @NotNull
     private String orderName;
+
+    @NotNull
     private String orderPhone;
+
+    @NotNull
     private String orderZipcode;
+
+    @NotNull
     private String orderStreetAdr;
+
+    @NotNull
     private String orderDetailAdr;
+
     private String orderMessage;
 
+    @NotNull
     private String orderViewStatus;
+
     @Builder
     public Order(Long id, User user, List<OrderItem> orderItems, LocalDateTime orderDate, OrderStatus orderStatus, LocalDateTime regTime, LocalDateTime updateTime,
                  String orderName, String orderPhone, String orderZipcode, String orderStreetAdr, String orderDetailAdr, String orderMessage, String orderViewStatus) {

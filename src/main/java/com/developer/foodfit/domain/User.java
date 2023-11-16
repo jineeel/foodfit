@@ -3,6 +3,7 @@ package com.developer.foodfit.domain;
 import com.developer.foodfit.constant.Role;
 import com.developer.foodfit.dto.user.UpdateUserRequest;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,12 +22,17 @@ public class User {
     @Column(name = "id", updatable = false)
     private Long id;
 
+    @NotNull
     @Column(name = "user_id")
     private String userId;
 
+    @NotNull
     private String email;
+
     private String phone;
     private String password;
+
+    @NotNull
     private String username;
 
     @Enumerated(EnumType.STRING)
@@ -36,6 +42,7 @@ public class User {
     private String provider; //어떤 OAuth 인지
     private String providerId; //해당 OAuth의 key(id)
 
+    @NotNull
     private LocalDateTime createDate;
 
     private String zipcode;

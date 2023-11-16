@@ -1,6 +1,7 @@
 package com.developer.foodfit.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,17 +20,24 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name="item_id")
+    @NotNull
     private Item item;
 
     @ManyToOne
     @JoinColumn(name="order_id")
+    @NotNull
     private Order order;
 
+    @NotNull
     private int orderPrice;
 
+    @NotNull
     private int count;
 
+    @NotNull
     private LocalDateTime regTime;
+
+    @NotNull
     private LocalDateTime updateTime;
 
     @Builder

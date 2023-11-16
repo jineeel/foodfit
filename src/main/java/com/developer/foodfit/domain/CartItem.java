@@ -1,6 +1,7 @@
 package com.developer.foodfit.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,14 +20,18 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name="cart_id")
+    @NotNull
     private Cart cart;
 
     @ManyToOne
     @JoinColumn(name="item_id")
+    @NotNull
     private Item item;
 
+    @NotNull
     private int count;
 
+    @NotNull
     private LocalDateTime regTime;
 
     @Builder

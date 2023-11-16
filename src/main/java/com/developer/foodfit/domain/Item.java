@@ -3,6 +3,7 @@ package com.developer.foodfit.domain;
 import com.developer.foodfit.constant.ItemSellStatus;
 import com.developer.foodfit.dto.item.UpdateItemRequest;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,29 +21,41 @@ public class Item {
     @Column(name="item_id", updatable = false)
     private Long id;
 
+    @NotNull
     private String itemName;
 
+    @NotNull
     private int price;
 
+    @NotNull
     private int stockNumber;
 
     @Lob
+    @NotNull
     private String itemDetail;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private ItemSellStatus itemSellStatus;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @NotNull
     private Category category;
 
+    @NotNull
     private LocalDateTime createDate;
+
+    @NotNull
     private LocalDateTime updateDate;
 
+    @NotNull
     private String author;
 
     private int itemSellCount;
+
+    @NotNull
     private int calorie;
 
     @Builder
