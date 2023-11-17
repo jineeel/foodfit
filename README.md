@@ -1,7 +1,7 @@
 # Food Fit
 스프링 부트 쇼핑몰 프로젝트
 
-<img src="https://github.com/jineeel/foodfit/assets/143826467/2a898c20-691b-4620-b60c-df0c705706d0.png" width="700" height="420"/>
+<img src="https://github.com/jineeel/foodfit/assets/143826467/2a898c20-691b-4620-b60c-df0c705706d0.png" width="700" height="383"/>
 
 ## 🔖 프로젝트 소개
 먹을수록 살이 빠지는 다이어트 음식 쇼핑몰, 푸드핏
@@ -13,9 +13,8 @@
 1인 개인 프로젝트
 
 ### 개발 환경
-- SpringBoot, JPA
-- Java 17
-- HTML/CSS, JavaScript
+- Java, SpringBoot, JPA
+- HTML, CSS, JavaScript
 - MySQL
 - Thymeleaf
 
@@ -32,7 +31,7 @@
 
 ### 마이페이지
 - 주문 현황
-- 회원정보 수정 (주소 : 다음 주소 API)
+- 회원정보 수정 (다음 주소 API 연동)
 - 주문 내역 조회, 주문 상세 보기
 
 ### 상품
@@ -46,7 +45,7 @@
 
 ### 주문
 - 주문, 주문 완료 페이지, 주문 내역 조회, 주문 내역 삭제, 주문 취소
-- 결제 : 카카오페이 API
+- 결제 : 카카오페이 API 연동
 
 ### 관리자 페이지
 - 주문 관리 : 주문 내역 상태 변경
