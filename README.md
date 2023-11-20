@@ -10,10 +10,10 @@
 2023.09.08 ~ 2023.11.08
 
 ### 개발 인원
-1인 개인 프로젝트
+1명 (개인 프로젝트)
 
 ### 개발 환경
-- Java, SpringBoot, JPA
+- Java, Spring Boot, Spring Security, Oauth 2.0, JPA
 - HTML, CSS, JavaScript
 - MySQL
 - Thymeleaf
@@ -31,7 +31,7 @@
 
 ### 마이페이지
 - 주문 현황
-- 회원정보 수정 (다음 주소 API 연동)
+- 회원 정보 수정 (다음 주소 API 연동)
 - 주문 내역 조회, 주문 상세 보기
 
 ### 상품
@@ -50,9 +50,6 @@
 ### 관리자 페이지
 - 주문 관리 : 주문 내역 상태 변경
 - 상품 등록
-
-### 홈트레이닝
-- 유튜브 API 연동
 
 ## 📐 ERD
 <img src="https://github.com/jineeel/foodfit/assets/143826467/db58c8de-1c94-423f-860d-ba919f7e81d4.png" width="900" height="616"/>
